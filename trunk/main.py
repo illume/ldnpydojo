@@ -18,15 +18,14 @@ def main():
 
     world = World()
 
-    p1 = Platform(window.width / 2, 100)
-    p2 = Platform(window.width / 2, 500)
+    p1 = Platform(600, 100, 400, 50)
     world.add(p1)
+    p2 = Platform(300, 500, 800, 100)
     world.add(p2)
-
-    spring = DampedSpring(p1.body, p2.body, (0, +100), (0, 100), 800, 100, 10)
-    print spring.rest_length
+    spring = DampedSpring(p1.body, p2.body, (0, 0), (0, 0), 200, 10, 1)
     world.space.add(spring)
-    p1.body.apply_impulse((0, 0), (500000, 50000))
+
+    p1.body.apply_impulse((0, +5000), (-100, 0))
 
     render = Render(window, world)
 
@@ -36,7 +35,6 @@ def main():
             break
 
         world.update()
-
         render.draw_world()
         display.flip()
 
