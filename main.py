@@ -23,7 +23,8 @@ def main():
     world.add(p1)
     world.add(p2)
 
-    spring = DampedSpring(p1.body, p2.body, (0, 100), (100, 100), 40, 100, 10)
+    spring = DampedSpring(p1.body, p2.body, (0, +100), (0, 100), 800, 100, 10)
+    print spring.rest_length
     world.space.add(spring)
     p1.body.apply_impulse((0, 0), (500000, 50000))
 
