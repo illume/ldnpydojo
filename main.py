@@ -1,4 +1,3 @@
-
 from __future__ import division
 
 from pygame import display, event
@@ -25,7 +24,12 @@ def main():
     spring = DampedSpring(p1.body, p2.body, (0, 0), (0, 0), 200, 10, 1)
     world.space.add(spring)
 
-    p1.body.apply_impulse((0, +5000), (-100, 0))
+    sensible = 0
+    if sensible:
+        p1.body.apply_impulse((15000, 0), (-100, 0))
+    else:
+        p1.body.apply_impulse((+280000, 10000), (-100, 0))
+        p2.body.apply_impulse((-280000, -000), (-100, 0))
 
     render = Render(window, world)
 
@@ -47,5 +51,8 @@ def handle_events():
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    finally:
+        display.quit()
 

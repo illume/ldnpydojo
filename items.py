@@ -1,3 +1,4 @@
+from __future__ import division
 
 from pymunk import Body, Poly, moment_for_poly, Vec2d
 
@@ -9,10 +10,10 @@ class Platform(object):
         self.height = height
 
         verts = [
-            (- self.width / 2, - self.height / 2),
-            (- self.width / 2, + self.height / 2),
-            (+ self.width / 2, + self.height / 2),
-            (+ self.width / 2, - self.height / 2),
+            (- self.width / 2, - self.height / 2),# left top
+            (- self.width / 2, + self.height / 2),# left bottom
+            (+ self.width / 2, + self.height / 2),# right bottom
+            (+ self.width / 2, - self.height / 2),# right top
         ]
         verts = map(Vec2d, verts)
         self.mass = self.width * self.height
@@ -26,3 +27,10 @@ class Platform(object):
     def verts(self):
         return self.shape.get_points()
 
+    @property
+    def centre(self):
+        verts = self.verts
+        average = lambda ns:sum(ns)/len(ns)
+        return average((verts[0].x, verts[2].x)), average((verts[0].y, verts[2].y))
+
+    
