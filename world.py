@@ -6,16 +6,20 @@ class World(object):
 
     def __init__(self):
         self.items = []
+        self.springs = []
         init_pymunk()
         self.space = Space()
         self.space.resize_static_hash()
         self.space.resize_active_hash()
 
-
     def add(self, item):
         self.items.append(item)
         self.space.add(item.shape)
         self.space.add(item.body)
+
+    def add_spring(self, spring):
+        self.space.add(spring)
+        self.springs.append(spring)
 
     def update(self):
         self.space.step(1.0)
