@@ -10,7 +10,6 @@ from items import Platform, Spring
 from render import Render
 
 
-
         
 def main():
     window = Window()
@@ -18,46 +17,35 @@ def main():
 
     world = World()
 
-    p1 = Platform(600, 100, 400, 50)
-    world.add(p1)
-    p2 = Platform(300, 500, 800, 100)
-    world.add(p2)
-
-# vert order:
-#    0 3
-#    1 2
+    p1 = Platform(600, 300, 400, 50)
+    world.add_item(p1)
+    p2 = Platform(500, 600, 800, 100)
+    world.add_item(p2)
+    
+    """   vert order:
+             0 3
+             1 2
+    """
     spring = Spring(p1, p2,
-                    offset1=Vec2d(p1.verts[2])-Vec2d(p1.centre),
-                    offset2=Vec2d(p2.verts[3])-Vec2d(p2.centre),
-                    verts_to_anchor1=lambda vs:vs[2],
-                    verts_to_anchor2=lambda vs:vs[3],
-                    rest_length=500, stiffness=100, damping=100)
+                    lambda vs:vs[1],
+                    lambda vs:vs[0],
+                    200, 10, 1)
     world.add_spring(spring)
 
     spring = Spring(p1, p2,
-                    offset1=Vec2d(p1.verts[2])-Vec2d(p1.centre),
-                    offset2=Vec2d(p2.verts[3])-Vec2d(p2.centre),
-                    verts_to_anchor1=lambda vs:vs[2],
-                    verts_to_anchor2=lambda vs:vs[3],
-                    rest_length=500, stiffness=100, damping=100)
+                    lambda vs:vs[2],
+                    lambda vs:vs[3],
+                    200, 10, 1)
     world.add_spring(spring)
 
     spring = Spring(p1, p2,
-                    offset1=(0, 0),
-                    offset2=(0, 0),
-                    verts_to_anchor1=lambda vs: (vs[1] + vs[3])/2,
-                    verts_to_anchor2=lambda vs: (vs[1] + vs[3])/2,
-                    rest_length=500, stiffness=1000, damping=100)
-    world.add_spring(spring)   
-    
+                    lambda vs: (vs[1] + vs[3])/2,
+                    lambda vs: (vs[1] + vs[3])/2,
+                    200, 100, 1)
+    world.add_spring(spring)
 
     
-##    sensible = 1
-##    if sensible:
-##        p1.body.apply_impulse((0, +5000), (-100, 0))
-##    else:
-##        p1.body.apply_impulse((+280000, 10000), (-100, 0))
-##        p2.body.apply_impulse((-280000, -000), (-100, 0))
+##    p1.body.apply_impulse((0, +5000), (-100, 0))
 
     render = Render(window, world)
 
