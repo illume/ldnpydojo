@@ -10,7 +10,8 @@ class Window(object):
         display.init()
         modes = display.list_modes()
         self.display_surface = display.set_mode(modes[0],
-            HWSURFACE | DOUBLEBUF | FULLSCREEN)
+            HWSURFACE | DOUBLEBUF )
+            #HWSURFACE | DOUBLEBUF | FULLSCREEN)
 
     @property
     def width(self):
