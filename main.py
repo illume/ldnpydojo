@@ -1,7 +1,7 @@
 from __future__ import division
 
 from pygame import display, event
-from pygame.locals import QUIT, K_ESCAPE
+from pygame.locals import QUIT, KEYDOWN, K_ESCAPE, K_RETURN, KMOD_ALT
 
 from window import Window
 from world import World
@@ -52,8 +52,7 @@ def main():
     render = Render(window, world)
 
     while True:
-        quit = handle_events()
-        if quit:
+        if handle_events(window):
             break
 
         world.update()
@@ -62,10 +61,19 @@ def main():
 
 
 
-def handle_events():
+def handle_events(window):
+    quit = False
     for e in event.get():
         if e.type == QUIT or getattr(e, 'key', None) == K_ESCAPE:
-            return True
+            quit = True
+            break
+        elif e.type == KEYDOWN:
+            if e.key == K_ESCAPE:
+                quit = True
+                break
+            elif e.key == K_RETURN and e.mod & KMOD_ALT:
+                window.toggle_fullscreen()
+    return quit
 
 
 if __name__ == '__main__':
