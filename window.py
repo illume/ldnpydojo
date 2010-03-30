@@ -1,4 +1,5 @@
 
+from os import environ
 from pygame import display
 from pygame.locals import HWSURFACE, DOUBLEBUF, FULLSCREEN
 
@@ -9,6 +10,7 @@ FLAGS = HWSURFACE | DOUBLEBUF
 class Window(object):
 
     def init(self):
+        environ['SDL_VIDEO_WINDOW_POS'] = '0,0'
         self.fullscreen = False
         display.init()
         self.set_mode()
@@ -32,3 +34,6 @@ class Window(object):
     def width(self):
         return self.display_surface.get_width()
 
+    @property
+    def height(self):
+        return self.display_surface.get_height()
