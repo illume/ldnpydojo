@@ -1,50 +1,41 @@
 from __future__ import division
 
-from pygame import display, event, Rect
+from math import pi
+
+from pygame import display, event
 from pygame.locals import QUIT, KEYDOWN, K_ESCAPE, K_RETURN, KMOD_ALT
-from pymunk import Vec2d
 
 from window import Window
 from world import World
-from items import Platform, Spring, Woger
+from items import Branch, Ground, Woger
 from render import Render
 
 
 
 def populate(window, world):
-    base_size = Vec2d(2000, 100)
-    base_centre = (base_size[0]/2, window.height-60)
-    
-    base_topleft = Vec2d(base_centre - base_size/2)
-    base = Platform(*Rect(base_centre, base_size), static=True)
-    world.add_item(base)
+    ground = Ground()
+    world.add_item(ground)
 
-    platform = Platform(600, window.height-300, 400, 50)
-    world.add_item(platform)    
-    
-    """   vert order:
-             0 3
-             1 2
-    """
-    spring = Spring(base, platform,
-                    lambda _:base_topleft,
-                    lambda vs:vs[1],
-                    200, 10, 1)
-    world.add_spring(spring)
+    def add_branch(parent, angle, thickness, length):
+        branch = Branch(parent, angle, thickness, length)
+        world.add_item(branch)
+        if thickness > 30:
+            newthickness = thickness * 0.75
+            newlength = length * 0.75
+            for i in xrange(5):
+                newangle = angle - pi/2 + i * pi/4
+                add_branch(
+                    branch,
+                    newangle,
+                    newthickness,
+                    newlength)
+        return branch
 
-    spring = Spring(base, platform,
-                    lambda _:base_topleft+(1600, 0),
-                    lambda vs:vs[2],
-                    200, 10, 1)
-    world.add_spring(spring)
+    trunk = add_branch(ground, 0, 50, 400)
+    trunk.body.apply_impulse((100000, 0), (0, 500))
 
-    spring = Spring(base, platform,
-                    lambda v_:base_topleft+(800, 0),
-                    lambda vs: (vs[1] + vs[3])/2,
-                    400, 100, 1)
-    world.add_spring(spring)
-
-    world.add_item(Woger(300, 000))
+    woger = Woger(600, 100)
+    world.add_item(woger)
 
         
 def main():
