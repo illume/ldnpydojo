@@ -16,10 +16,8 @@ class World(object):
     def add_item(self, item):
         self.items.append(item)
         if item.static:
-            print 'static'
             self.space.add_static(item.shape)
         else:
-            print 'normal'
             self.space.add(item.body)
             self.space.add(item.shape)
 
