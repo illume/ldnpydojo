@@ -2,24 +2,19 @@ from __future__ import division
 
 from pygame import display, event
 from pygame.locals import QUIT, K_ESCAPE
-from pymunk import Vec2d
 
 from window import Window
 from world import World
-from items import Platform, Spring
+from items import Platform, Spring, Woger
 from render import Render
 
 
-        
-def main():
-    window = Window()
-    window.init()
 
-    world = World()
+def populate(world):
 
     p1 = Platform(600, 300, 400, 50)
     world.add_item(p1)
-    p2 = Platform(500, 600, 800, 100)
+    p2 = Platform(500, 600, 800, 100, static=True)
     world.add_item(p2)
     
     """   vert order:
@@ -44,8 +39,15 @@ def main():
                     200, 100, 1)
     world.add_spring(spring)
 
-    
-##    p1.body.apply_impulse((0, +5000), (-100, 0))
+    world.add_item(Woger(300, 000))
+
+        
+def main():
+    window = Window()
+    window.init()
+
+    world = World()
+    populate(world)
 
     render = Render(window, world)
 

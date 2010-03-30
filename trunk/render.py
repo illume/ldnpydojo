@@ -1,8 +1,6 @@
 
 from pygame import draw
 
-from items import Platform
-
 
 class Render(object):
 
@@ -12,7 +10,7 @@ class Render(object):
 
 
     def draw_world(self):
-        self.window.display_surface.fill((0, 0, 0))
+        self.window.display_surface.fill((0, 100, 255))
         for item in self.world.items:
             self.draw_platform(item)
         for spring in self.world.springs:
@@ -30,6 +28,6 @@ class Render(object):
     def draw_platform(self, item):
         draw.polygon(
             self.window.display_surface,
-            (255, 0, 0),
+            item.color,
             item.verts, 0)
 

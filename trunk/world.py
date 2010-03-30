@@ -9,13 +9,19 @@ class World(object):
         self.springs = []
         init_pymunk()
         self.space = Space()
+        self.space.gravity = (0, 0.1)
         self.space.resize_static_hash()
         self.space.resize_active_hash()
 
     def add_item(self, item):
         self.items.append(item)
-        self.space.add(item.shape)
-        self.space.add(item.body)
+        if item.static:
+            print 'static'
+            self.space.add_static(item.shape)
+        else:
+            print 'normal'
+            self.space.add(item.body)
+            self.space.add(item.shape)
 
     def add_spring(self, spring):
         self.springs.append(spring)
