@@ -4,32 +4,39 @@ from __future__ import division
 import sys
 import subprocess
 
+import pygame
 from pygame import display, event
-from pygame.locals import QUIT, KEYDOWN, KEYUP, K_ESCAPE, K_RETURN, KMOD_ALT, K_LEFT, K_RIGHT, K_SPACE
+from pygame.locals import QUIT, KEYDOWN, KEYUP, K_ESCAPE, K_RETURN, KMOD_ALT, K_LEFT, K_RIGHT, K_SPACE, USEREVENT
 
 from window import Window
 from world import World, populate
 from render import Render
-from sounds import Sounds
+import sounds
 
 
 
 
 def start_game():
+
+    pygame.mixer.pre_init(22050, -16, 2, 1024)
     window = Window()
     window.init()
 
-    sounds = Sounds()
-    sounds.init()
-    sounds.load()
-    sounds.play("jump1")
-    sounds.play("hit1")
-    sounds.play("goal1")
+    # store it away to use in other modules.
+    sounds.sounds = sounds.Sounds()
+
+    sounds.sounds.init()
+    sounds.sounds.load()
+    sounds.sounds.play("jump1")
+    sounds.sounds.play("hit1")
+    sounds.sounds.play("goal1")
 
 
 
     world = World()
     populate(world)
+
+
     render = Render(window, world)
     runloop(window, world, render)
 
