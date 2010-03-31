@@ -22,12 +22,13 @@ def populate(window, world):
         branch = Branch(parent, angle, thickness, length)
         world.add_item(branch)
         if thickness > 25:
-            branches = randint(2, 5)
+            branches = randint(3, 4)
             spread = uniform(pi / 8, pi / branches)
             for i in xrange(branches):
-                newangle = angle + spread * (branches - 1) / 2 - spread * i
+                delta_angle = spread * (branches - 1) / 2 - spread * i
+                newangle = angle + delta_angle
+                newlength = length * (1 - abs(delta_angle) / 2.5)
                 newthickness = thickness * 0.75
-                newlength = length * 0.75
                 add_branch(
                     branch,
                     newangle,
@@ -36,7 +37,6 @@ def populate(window, world):
         return branch
 
     trunk = add_branch(ground, 0, 50, 400)
-    # trunk.body.apply_impulse((100000, 0), (0, 500))
 
     woger = Woger(200, 1000)
     world.add_item(woger)
