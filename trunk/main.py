@@ -5,7 +5,7 @@ import sys
 import subprocess
 
 from pygame import display, event
-from pygame.locals import QUIT, KEYDOWN, KEYUP, K_ESCAPE, K_RETURN, KMOD_ALT, K_LEFT, K_RIGHT
+from pygame.locals import QUIT, KEYDOWN, KEYUP, K_ESCAPE, K_RETURN, KMOD_ALT, K_LEFT, K_RIGHT, K_SPACE
 
 from window import Window
 from world import World, populate
@@ -52,13 +52,19 @@ def handle_events(window, world):
                 woger.do_walk(-1)
             elif e.key == K_RIGHT:
                 woger.do_walk(1)
+
+            elif e.key == K_SPACE
+                
         elif e.type == KEYUP:
             if e.key == K_LEFT:
                 woger.end_walk()
             elif e.key == K_RIGHT:
                 woger.end_walk()
+
+            
+                
     if woger.walk_force:
-        woger.do_walk()
+        woger.cont_walk()
     return quit
 
 
