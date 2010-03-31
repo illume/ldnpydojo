@@ -10,6 +10,7 @@ from pygame.locals import QUIT, KEYDOWN, KEYUP, K_ESCAPE, K_RETURN, KMOD_ALT, K_
 from window import Window
 from world import World, populate
 from render import Render
+from sounds import Sounds
 
 
 
@@ -17,6 +18,16 @@ from render import Render
 def start_game():
     window = Window()
     window.init()
+
+    sounds = Sounds()
+    sounds.init()
+    sounds.load()
+    sounds.play("jump1")
+    sounds.play("hit1")
+    sounds.play("goal1")
+
+
+
     world = World()
     populate(world)
     render = Render(window, world)

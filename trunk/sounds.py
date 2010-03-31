@@ -72,12 +72,14 @@ class Sounds:
     def _debug(self, x, debug_level = 0):
         """
 	"""
+        print (x)
 	if self._debug_level > debug_level:
-	    print x
+	    print (x)
 
+    def init(self):
+        pygame.mixer.init()
 
-
-    def load(self, sound_list = [], sound_path = "."):
+    def load(self, sound_list = [], sound_path = SOUND_PATH):
 	"""loads sounds."""
         sounds = self.sounds
 
@@ -87,12 +89,12 @@ class Sounds:
 	    return
 	for name in sound_list:
 	    if not sounds.has_key(name):
-		fullname = os.path.join(sound_path, name+'.ogg')
+		fullname = os.path.join(sound_path, name+'.wav')
 		try: 
-		    sound = pygame.mixer.Sound(open(fullname, "rb"))
+		    sound = pygame.mixer.Sound(fullname)
 		except: 
 		    sound = None
-		    self._debug("Error loading sound", fullname)
+		    self._debug("Error loading sound %s" % fullname)
 		sounds[name] = sound
 
 
