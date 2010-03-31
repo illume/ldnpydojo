@@ -32,7 +32,8 @@ class Render(object):
             if not isinstance(item, Branch):
                 self.draw_item(item)
 
-
+    # note: 80% of gameloop execution time is in this method,
+    # particularly retrieving the item.verts - Jonathan
     def draw_item(self, item):
         draw.polygon(
             self.window.display_surface,
