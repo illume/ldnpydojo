@@ -35,6 +35,11 @@ def populate(world):
     world.add_item(woger)
     world.player_character = woger
 
+    def func(space, arbiter):
+        #print arbiter.contacts, arbiter.shapes
+        return None
+    world.add_collision_handler(begin=func, separate=func)
+    
 
 
 class World(object):
@@ -47,6 +52,7 @@ class World(object):
         self.space.resize_static_hash()
         self.space.resize_active_hash()
 
+
     def add_item(self, item):
         self.items.append(item)
         item.create_body()
@@ -55,3 +61,9 @@ class World(object):
     def update(self):
         self.space.step(1)
 
+    def add_collision_handler(self,
+                              begin=None, pre_solve=None,
+                              post_solve=None, separate=None):
+        self.space.add_collision_handler(0, 0,
+                                         begin, pre_solve,
+                                         post_solve, separate)
