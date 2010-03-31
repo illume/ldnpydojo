@@ -23,5 +23,5 @@ class World(object):
         self.space.add(spring)
 
     def update(self):
-        self.space.step(1.0)
+        self.space.step(1)
 
