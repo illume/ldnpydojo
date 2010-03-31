@@ -128,7 +128,6 @@ class Branch(GameRect):
 
         # branches should collide only with ground
         self.shape.layers = 2
-        self.collision_type = 3
 
 
     def add_to_space(self, space):
@@ -139,7 +138,7 @@ class Branch(GameRect):
         space.add(pivot)
 
         spring = DampedRotarySpring(
-            self.body, self.parent.body, 0.0, self.mass * 2000, self.mass)
+            self.body, self.parent.body, 0.0, self.mass * 10000, self.mass/10)
         space.add(spring)
 
 
@@ -197,6 +196,7 @@ class Woger(GameRect):
         self.walk_force = 0
         self.Image = image.load("woger_small.png").convert_alpha()
         self.in_air = True
+        self.allowed_glide = 2
 
         # woger collides with ground and boughs
         self.layers = 1
@@ -208,11 +208,16 @@ class Woger(GameRect):
 
 
     def do_walk(self, direction=None):
-        if direction is None:
+        key_down = direction is not None
+        if key_down:
+            self.allowed_glide = max(0, self.allowed_glide-1)
+        else:
             direction = copysign(1, self.walk_force)
         force = direction*self.mass
         self.body.apply_impulse((force, 0), (0, 0))
         self.walk_force += force
+        if self.in_air and key_down and not self.allowed_glide:
+            self.end_walk()
 
     def end_walk(self):
         self.body.apply_impulse((-self.walk_force, 0), (0, 0))
@@ -220,5 +225,5 @@ class Woger(GameRect):
 
 
     def jump(self):
-        self.body.apply_impulse((0, self.mass*4), (0, 0))
+        self.body.apply_impulse((0, self.mass*20), (0, 0))
         sounds.sounds.play("jump1")
