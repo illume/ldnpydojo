@@ -53,7 +53,8 @@ def handle_events(window, world):
             elif e.key == K_RIGHT:
                 woger.do_walk(1)
 
-            elif e.key == K_SPACE
+            elif e.key == K_SPACE:
+                woger.jump()
                 
         elif e.type == KEYUP:
             if e.key == K_LEFT:
@@ -64,7 +65,7 @@ def handle_events(window, world):
             
                 
     if woger.walk_force:
-        woger.cont_walk()
+        woger.do_walk()
     return quit
 
 
