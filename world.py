@@ -35,10 +35,15 @@ def populate(world):
     world.add_item(woger)
     world.player_character = woger
 
-    def func(space, arbiter):
-        print arbiter.contacts, arbiter.shapes
+    def in_air(space, arbiter, woger):
+        woger.in_air = True
         return 1
-    world.add_collision_handler(ground, woger, begin=func, separate=func)
+
+    def landed(space, arbiter, woger):
+        woger.in_air = False
+        return 1    
+    
+    world.add_collision_handler(ground, woger, begin=landed, separate=in_air, woger=woger)
     
 
 
@@ -63,8 +68,10 @@ class World(object):
 
     def add_collision_handler(self, obj1, obj2,
                               begin=None, pre_solve=None,
-                              post_solve=None, separate=None):
+                              post_solve=None, separate=None,
+                              **kwargs):
         self.space.add_collision_handler(obj1.shape.collision_type,
                                          obj2.shape.collision_type,
                                          begin, pre_solve,
-                                         post_solve, separate)
+                                         post_solve, separate,
+                                         **kwargs)

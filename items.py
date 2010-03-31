@@ -190,6 +190,7 @@ class Woger(GameRect):
         self.color = (255, 127, 0)
         self.walk_force = 0
         self.Image = image.load("woger_small.png").convert_alpha()
+        self.in_air = True
 
         # woger collides with ground and boughs
         self.layers = 1
