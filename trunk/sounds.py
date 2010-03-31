@@ -14,9 +14,6 @@ NOTE: not using pygames channel queueing as it only allows one sound to be
 import pygame
 import os
 import glob
-import time
-
-from pygame.locals import *
 
 
 
@@ -29,9 +26,9 @@ def get_sound_list(path = SOUND_PATH):
     """
     # load a list of sounds without path at the beginning and .ogg at the end.
     sound_list = map(lambda x:x[len(path)+1:-4], 
-		     #glob.glob(os.path.join(path,"*.ogg")) 
-		     glob.glob(os.path.join(path,"*.wav")) 
-		    )
+                     #glob.glob(os.path.join(path,"*.ogg")) 
+                     glob.glob(os.path.join(path,"*.wav")) 
+                    )
 
     return sound_list
        
@@ -54,13 +51,13 @@ class Sounds:
 
     def __init__(self, sound_list = SOUND_LIST, sound_path = SOUND_PATH):
         """
-	"""
-	self.mixer = None
-	self.music = None
-	self.sounds = {}
-	self.chans = {}
+        """
+        self.mixer = None
+        self.music = None
+        self.sounds = {}
+        self.chans = {}
 
-	self._debug_level = 0
+        self._debug_level = 0
 
         self.sound_list = sound_list
         self.sound_path = sound_path
@@ -71,40 +68,39 @@ class Sounds:
 
     def _debug(self, x, debug_level = 0):
         """
-	"""
-        print (x)
-	if self._debug_level > debug_level:
-	    print (x)
+        """
+        if self._debug_level > debug_level:
+            print (x)
 
     def init(self):
         pygame.mixer.init()
 
     def load(self, sound_list = [], sound_path = SOUND_PATH):
-	"""loads sounds."""
+        """loads sounds."""
         sounds = self.sounds
 
-	if not pygame.mixer:
-	    for name in sound_list:
-		sounds[name] = None
-	    return
-	for name in sound_list:
-	    if not sounds.has_key(name):
-		fullname = os.path.join(sound_path, name+'.wav')
-		try: 
-		    sound = pygame.mixer.Sound(fullname)
-		except: 
-		    sound = None
-		    self._debug("Error loading sound %s" % fullname)
-		sounds[name] = sound
+        if not pygame.mixer:
+            for name in sound_list:
+                sounds[name] = None
+            return
+        for name in sound_list:
+            if not sounds.has_key(name):
+                fullname = os.path.join(sound_path, name+'.wav')
+                try: 
+                    sound = pygame.mixer.Sound(fullname)
+                except: 
+                    sound = None
+                    self._debug("Error loading sound %s" % fullname)
+                sounds[name] = sound
 
 
     def get_sound(self, name):
         """ Returns a Sound object for the given name.
-	"""
-	if not self.sounds.has_key(name):
-	    self.load([name])
+        """
+        if not self.sounds.has_key(name):
+            self.load([name])
 
-	return self.sounds[name]
+        return self.sounds[name]
 
 
 
@@ -128,20 +124,20 @@ class Sounds:
                    wait = 0,
                    loop = 0):
         """ plays the sound with the given name.
-	    name - of the sound.
-	    volume - left and right.  Ranges 0.0 - 1.0
-	    wait - used to control what happens if sound is allready playing:
+            name - of the sound.
+            volume - left and right.  Ranges 0.0 - 1.0
+            wait - used to control what happens if sound is allready playing:
                 0 - will not wait if sound playing.  play anyway.
                 1 - if there is a sound of this type playing wait for it.
                 2 - if there is a sound of this type playing do not play again.
             loop - number of times to loop.  -1 means forever.
-	"""
+        """
 
         vol_l, vol_r = volume
 
-	sound = self.get_sound(name)
+        sound = self.get_sound(name)
 
-	if sound:
+        if sound:
             if wait in [1,2]:
 
                 if self.chans.has_key(name) and self.chans[name].get_busy():
@@ -154,7 +150,7 @@ class Sounds:
                         return
                         
 
-	    self.chans[name] = sound.play(loop)
+            self.chans[name] = sound.play(loop)
 
 
             if not self.chans[name]:
@@ -200,22 +196,22 @@ class Sounds:
 
     def play_music(self, musicname):
         """ plays a music track.  Only one can be played at a time.
-	    So if there is one playing, it will be stopped and the new 
+            So if there is one playing, it will be stopped and the new 
              one started.
-	"""
+        """
 
 
-	music = self.music
+        music = self.music
 
-	if not music: return
-	if music.get_busy():
-	    #we really should fade out nicely and
-	    #wait for the end music event, for now, CUT 
-	    music.stop()
-	fullname = os.path.join('sounds', musicname)
-	music.load(fullname)
-	music.play(-1)
-	music.set_volume(1.0)
+        if not music: return
+        if music.get_busy():
+            #we really should fade out nicely and
+            #wait for the end music event, for now, CUT 
+            music.stop()
+        fullname = os.path.join('sounds', musicname)
+        music.load(fullname)
+        music.play(-1)
+        music.set_volume(1.0)
 
 
 
