@@ -178,7 +178,7 @@ class Woger(GameRect):
 
     def __init__(self, x, y):
         self.Role = "Character"
-        GameRect.__init__(self, x, y, 32, 32)
+        GameRect.__init__(self, x, y, 63, 74)
         self.color = (255, 127, 0)
         self.walk_force = 0
         self.Image = image.load("woger_small.png").convert_alpha()
