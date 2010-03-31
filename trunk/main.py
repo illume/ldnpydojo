@@ -66,19 +66,21 @@ def handle_events(window, world):
                 window.toggle_fullscreen()
 
             # Woger
-            elif e.key == K_LEFT:
-                woger.do_walk(-1)
-            elif e.key == K_RIGHT:
-                woger.do_walk(1)
+            elif not woger.in_air:
+                if e.key == K_LEFT:
+                    woger.do_walk(-1)
+                elif e.key == K_RIGHT:
+                    woger.do_walk(1)
 
-            elif e.key == K_SPACE:
-                woger.jump()
+                elif e.key == K_SPACE:
+                    woger.jump()
                 
-        elif e.type == KEYUP:
-            if e.key == K_LEFT:
-                woger.end_walk()
-            elif e.key == K_RIGHT:
-                woger.end_walk()
+        elif not woger.in_air:
+            if e.type == KEYUP:
+                if e.key == K_LEFT:
+                    woger.end_walk()
+                elif e.key == K_RIGHT:
+                    woger.end_walk()
 
             
                 
