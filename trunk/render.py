@@ -1,8 +1,9 @@
 
-from pygame import draw
+from pygame import draw, display
 
 from items import Branch
 
+screen = display.set_mode()
 
 class Camera(object):
 
@@ -35,8 +36,13 @@ class Render(object):
     # note: 80% of gameloop execution time is in this method,
     # particularly retrieving the item.verts - Jonathan
     def draw_item(self, item):
-        draw.polygon(
-            self.window.display_surface,
-            item.color,
-            self.camera.to_screen(item.verts), 0)
+
+        if item.Role == "Character":
+            print item.body.position
+            screen.blit(item.Image, item.body.position)
+        else:                
+            draw.polygon(
+                self.window.display_surface,
+                item.color,
+                self.camera.to_screen(item.verts), 0)
 
