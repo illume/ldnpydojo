@@ -48,6 +48,8 @@ class GameRect(object):
         return self.shape.get_points()        
 
 
+class CollisionType:
+    GROUND, BOUGH, PLAYER = range(3)
 
 class Ground(GameRect):
 
@@ -56,13 +58,13 @@ class Ground(GameRect):
         GameRect.__init__(self, 0, -1000, 2000, 2000)
         self.mass = 1e100
         self.color = (0, 255, 0)
-
         # ground should collide with everything (layers 1 & 2)
         self.layers = 3
 
     def add_to_space(self, space):
         # give ground a group, so it will not collide with trunk, which will
         # overlap it slightly at the base
+        self.shape.collision_type = CollisionType.GROUND
         space.add_static(self.shape)
 
 
@@ -126,6 +128,7 @@ class Branch(GameRect):
 
         # branches should collide only with ground
         self.shape.layers = 2
+        self.collision_type = 3
 
 
     def add_to_space(self, space):
@@ -168,6 +171,7 @@ class Bough(GameRect):
 
         # platforms should only collide with other platforms and woger
         self.shape.layers =  self.layers
+        self.shape.collision_type = CollisionType.BOUGH
 
 
     def add_to_space(self, space):
@@ -193,6 +197,7 @@ class Woger(GameRect):
     def create_body(self):
         GameRect.create_body(self)
         self.shape.layer = 1
+        self.shape.collision_type = CollisionType.PLAYER
 
 
     def do_walk(self, direction=None):
