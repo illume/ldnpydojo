@@ -1,32 +1,10 @@
 from __future__ import division
 
+from math import copysign
 from pymunk import (
     Body, DampedRotarySpring, DampedSpring, PivotJoint, Poly, moment_for_poly,
     Vec2d,
 )
-
-
-class Spring(DampedSpring):
-
-    def __init__(self,
-        p1, p2,
-        verts_to_anchor1, verts_to_anchor2,
-        rest_length, stiffness, damping
-    ):
-        self.p1 = p1
-        self.p2 = p2
-        
-        self.verts_to_anchor1 = verts_to_anchor1
-        self.verts_to_anchor2 = verts_to_anchor2
-        
-        offset1 = verts_to_anchor1(p1.verts) - (p1.x, p1.y)
-        offset2 = verts_to_anchor2(p2.verts) - (p2.x, p2.y)
-
-        super(Spring, self).__init__(
-            p1.body, p2.body,
-            offset1, offset2,
-            rest_length, stiffness, damping)
-
 
 
 class GameRect(object):
@@ -64,6 +42,7 @@ class GameRect(object):
 
     @property
     def verts(self):
+        "This is the feedback from pymunk after each iteration"
         return self.shape.get_points()        
 
 
@@ -196,6 +175,7 @@ class Woger(GameRect):
     def __init__(self, x, y):
         GameRect.__init__(self, x, y, 32, 32)
         self.color = (255, 127, 0)
+        self.walk_force = 0
 
         # woger collides with ground and boughs
         self.layers = 1
@@ -204,3 +184,18 @@ class Woger(GameRect):
         GameRect.create_body(self)
         self.shape.layer = 1
 
+
+    def do_walk(self, direction=0):
+        if not direction:
+            direction = copysign(1, self.walk_force)
+        force = direction*self.mass*2
+        #apply_force
+        self.body.apply_impulse((force, 0), (0, 0))
+        self.walk_force += force
+        print 'walk', force, '=', self.walk_force
+        
+
+    def end_walk(self):
+        print 'stop', self.walk_force
+        self.body.apply_impulse((-self.walk_force, 0), (0, 0))
+        self.walk_force = 0
