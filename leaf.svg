@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.47pre4 r22446"
+   width="1500"
+   height="1182"
+   sodipodi:docname="leaf.svg"
+   style="display:inline">
+  <metadata
+     id="metadata8">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs6">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       id="perspective10" />
+  </defs>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1167"
+     inkscape:window-height="789"
+     id="namedview4"
+     showgrid="false"
+     inkscape:zoom="0.41116751"
+     inkscape:cx="925.11817"
+     inkscape:cy="643.74702"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <path
+     style="fill:#607a4c;stroke:#ae6b11;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+     d="m 708.95679,307.66049 -57.15432,-27.96913 -38.91358,-8.51235 -38.91358,9.7284 -54.72222,25.53703 -77.82716,43.77778 -48.64198,27.96913 -43.77778,29.18519 -47.42592,32.83334 -48.64198,43.77777 -26.75308,27.96914 -34.04939,30.40124 -15.80864,21.88888 -23.10494,23.10494 -9.72839,14.59259 -9.7284,20.67284 -10.94444,21.88889 13.37654,-60.80247 18.24074,-34.04938 6.68828,-34.6574 4.25617,-28.57717 20.45153,-51.93395 21.25031,-51.35647 26.39692,-48.71575 18.24074,-31.61728 18.84877,-27.36111 L 295.5,243.20987 c 0,0 12.48632,-22.64344 20.67284,-31.61728 7.96472,-8.73071 35.87345,-29.18518 35.87345,-29.18518 l 32.22532,-14.5926 40.12963,-13.37654 36.48148,-8.51235 c 0,0 22.16593,-1.22748 31.61728,1.21605 8.60701,2.22524 21.88889,12.1605 21.88889,12.1605 l 24.92901,18.24074 17.63272,21.88889 7.29629,12.16049 12.1605,1.21605 c 0,0 8.34329,1.69829 11.55246,4.25618 4.35199,3.46877 9.12038,13.98456 9.12038,13.98456 l 6.08024,9.7284 6.08025,9.72839 24.32099,1.21605 29.18518,8.51235 26.75309,13.37654 12.16049,13.37654 7.2963,20.67284 z"
+     id="path2818"
+     sodipodi:nodetypes="cccccccccccccccccccccccccccsccccscccccscccccccc"
+     inkscape:export-filename="/home/ciaran/python/pygame/ldnpydojo/leaf1.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <path
+     style="fill:#84b239;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+     d="m 603.76852,268.13889 -35.26543,10.33642 -43.77778,19.45679 -44.99383,26.75308 -40.73765,22.49692 -35.26544,20.06482 -37.69753,24.01697 -58.06635,41.9537 -33.13735,27.0571 -21.3287,13.20062 -25.79321,31.48919 -35.26543,34.04939 20.67283,-43.16976 26.75309,-37.39351 50.77006,-55.63426 49.85803,-44.08179 39.82562,-31.31328 48.03395,-31.00925 43.47376,-31.9213 41.34568,-28.27315 35.26543,-20.97685 17.93673,-0.91204 15.20062,3.95216 9.42438,7.90432 7.2963,14.89661 6.68827,12.16049 4.8642,9.7284 -6.08025,5.16821 z"
+     id="path2820"
+     sodipodi:nodetypes="cccccccccccccccccccccccccccc"
+     inkscape:export-filename="/home/ciaran/python/pygame/ldnpydojo/leaf1.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Leaf"
+     style="display:inline" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="Image"
+     style="opacity:0.47887328;display:none"
+     sodipodi:insensitive="true">
+    <image
+       xlink:href="file:///home/ciaran/Desktop/Lilac.leaves.arp.jpg"
+       width="1500"
+       height="1182"
+       id="image12"
+       x="0"
+       y="0" />
+  </g>
+  <path
+     style="fill:none;stroke:#9dc27b;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+     d="m 542.58224,217.21827 -18.05741,-17.62748 -24.07655,-13.75802 -30.09569,-10.74846 -29.23581,-3.00957 -30.95556,2.14969 -21.49692,4.29938 -25.7963,7.73889 0,0"
+     id="path3597"
+     inkscape:export-filename="/home/ciaran/python/pygame/ldnpydojo/leaf1.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <path
+     style="fill:none;stroke:#9dc27b;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+     d="m 503.88779,240.86488 -35.25495,-12.89815 -31.81544,-16.7676 -15.90772,-2.14969 -34.82501,-6.01914 -21.49692,2.14969 -14.18797,3.43951"
+     id="path3599"
+     inkscape:export-filename="/home/ciaran/python/pygame/ldnpydojo/leaf1.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <path
+     style="fill:none;stroke:#9dc27b;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+     d="m 462.18376,265.80131 -31.3855,-3.43951 -27.08612,-1.28982 -35.68488,-3.86944 -20.63705,0.42994 -17.19753,1.28981 -27.08612,5.15926"
+     id="path3601"
+     inkscape:export-filename="/home/ciaran/python/pygame/ldnpydojo/leaf1.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <path
+     style="fill:none;stroke:#9dc27b;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+     d="m 394.2535,315.24422 -38.69446,12.03827 -14.18796,3.86945 -1.28982,24.93643"
+     id="path3603"
+     inkscape:export-filename="/home/ciaran/python/pygame/ldnpydojo/leaf1.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <path
+     style="fill:none;stroke:#9dc27b;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+     d="m 340.08126,331.15194 -21.92686,1.71975 -21.92685,4.72933 -18.48735,6.44907 -25.36637,6.87902 -14.18797,10.31852 -7.73889,10.31852"
+     id="path3605"
+     inkscape:export-filename="/home/ciaran/python/pygame/ldnpydojo/leaf1.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <path
+     style="fill:none;stroke:#9dc27b;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+     d="m 379.20565,318.25379 -27.51605,-17.62748 -24.50649,-9.88858 -19.77717,-3.43951 -10.74846,-2.14969"
+     id="path3607"
+     inkscape:export-filename="/home/ciaran/python/pygame/ldnpydojo/leaf1.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <path
+     style="fill:none;stroke:#9dc27b;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+     d="m 297.9473,392.63313 -41.27409,5.15926 -25.36636,12.03827 -17.62747,9.45865 -11.1784,12.89815"
+     id="path3609"
+     inkscape:export-filename="/home/ciaran/python/pygame/ldnpydojo/leaf1.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <path
+     style="fill:none;stroke:#9dc27b;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+     d="M 242.05531,451.53469 203.36086,469.5921 192.6124,482.49025 181.434,501.83748"
+     id="path3611"
+     inkscape:export-filename="/home/ciaran/python/pygame/ldnpydojo/leaf1.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <path
+     style="fill:none;stroke:#b1cd8d;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="m 513.77637,254.62291 24.50649,2.57963 33.10525,1.71975 29.23581,4.72932 -28.80587,4.72933 -22.78673,6.87901 -31.38551,12.89815 -15.47778,5.15926 -26.22624,5.5892 c 0,0 -21.49692,4.29938 -23.21667,4.29938 -1.71976,0 -13.75803,6.87902 -13.75803,6.87902"
+     id="path3613"
+     inkscape:export-filename="/home/ciaran/python/pygame/ldnpydojo/leaf1.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <path
+     style="fill:none;stroke:#b1cd8d;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="m 435.52758,344.05009 -24.07655,8.59877 -25.7963,9.45864 -24.07655,6.44908 -19.34723,12.89815 -17.19753,9.45864 -24.50649,13.32809 -18.05741,12.89816"
+     id="path3615"
+     inkscape:export-filename="/home/ciaran/python/pygame/ldnpydojo/leaf1.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <path
+     style="fill:none;stroke:#b1cd8d;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="m 359.42849,393.06307 -34.39507,10.74846 -25.79631,15.90772 -18.91728,13.75802 -16.33766,8.59877 -8.59877,7.30896"
+     id="path3617"
+     inkscape:export-filename="/home/ciaran/python/pygame/ldnpydojo/leaf1.png"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90" />
+  <path
+     style="fill:#607a4c;stroke:#ae6b11;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+     d="m 1107.821,520.46914 -17.0247,-26.75309 -12.1605,-20.67284 -19.4568,-10.94445 -15.8086,-4.86419 -10.9445,-1.21605 10.9445,23.10494 20.6728,47.42592 49.858,79.04321 65.6667,74.17901 55.9383,57.15433 69.3148,63.23456 41.9537,35.26544 20.6728,23.10493 17.6327,20.06482 13.9846,15.80864 26.1451,31.00926 9.7284,7.2963 -3.0401,-15.20062 -0.6081,-53.50617 6.6883,-42.56173 3.0401,-36.48148 -8.5123,-35.87346 1.216,-36.48148 -10.9444,-40.12963 -13.3766,-51.07408 -15.8086,-52.29012 -8.5124,-8.20833 -6.0802,-7.2963 -5.4722,-3.04012 0,-12.46451 -3.7441,-19.06684 -10.3185,-16.76759 -13.3281,-23.21668 -16.7676,-19.77716 -17.6275,-15.04785 -11.6083,-6.87901 -8.1689,-2.57963 -20.2071,-18.48735 -15.9077,-11.1784 -18.4873,-7.73889 -19.7772,0 -22.3568,6.01914 -14.6179,9.0287 -15.0478,13.75803 -15.4778,23.21668 -13.7581,24.07654 -18.0574,28.37594 -10.4487,18.63166 z"
+     id="path3640" />
+  <path
+     style="fill:none;stroke:#b9d895;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:0.72941177999999984"
+     d="m 1431.4798,928.98126 -31.3855,-65.5656 -47.2394,-73.59159 -48.6419,-59.58642 -31.6173,-33.44135 -85.9658,-98.65262 -73.9494,-73.08953"
+     id="path3642" />
+  <path
+     style="fill:none;stroke:#b9d895;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:0.72941177999999984"
+     d="m 1118.6997,527.63378 30.9555,-6.87901 21.497,-13.75803 31.8154,-14.61791 29.2358,-6.01913 28.3759,-3.43951 31.8155,1.71975 22.3568,6.87902"
+     id="path3644" />
+  <path
+     style="fill:none;stroke:#b9d895;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:0.72941177999999984"
+     d="m 1141.0565,550.85045 41.2741,-6.01913 47.2932,-10.31852 30.9555,-1.71976 32.6754,2.57963 30.0956,5.15926 31.8155,15.47778"
+     id="path3646" />
+  <path
+     style="fill:none;stroke:#b9d895;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:0.72941177999999984"
+     d="m 1177.1713,581.80602 48.1531,0.85987 23.2167,-0.85987 30.0957,-1.71976 24.9364,-0.85987 29.2358,6.01913 20.637,12.89816 28.376,19.77716 23.2166,17.19754"
+     id="path3648" />
+  <path
+     style="fill:none;stroke:#b9d895;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:0.72941177999999984"
+     d="m 1210.7065,622.22023 41.2741,0.85987 30.0957,1.71976 26.6561,7.73889 30.0957,6.01913 27.5161,15.47779 24.0765,14.6179 10.3186,15.47778 18.0574,19.77717"
+     id="path3650" />
+  <path
+     style="fill:none;stroke:#b9d895;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:0.72941177999999984"
+     d="m 1104.0818,528.49366 -18.0574,-6.01914 -8.5988,6.87901 -3.4395,12.89816"
+     id="path3652" />
+  <path
+     style="fill:none;stroke:#b9d895;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:0.72941177999999984"
+     d="m 1135.0373,553.43008 -9.4586,8.59877 -6.879,5.15926 -7.7389,6.87902 -1.7198,14.6179 2.5797,8.59877"
+     id="path3654" />
+  <path
+     style="fill:none;stroke:#b9d895;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:0.72941177999999984"
+     d="m 1174.5917,589.54491 -6.8791,14.6179 -5.1592,8.59877 -5.1593,12.89815 3.4395,13.75803 6.0192,16.33766 3.4395,8.59877 4.2994,6.87901"
+     id="path3656" />
+  <path
+     style="fill:none;stroke:#b9d895;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:0.72941177999999984"
+     d="m 1206.4071,629.95912 c 0,0 -4.2994,12.89815 -5.1593,16.33765 -0.8598,3.43951 0.8599,18.05742 0.8599,18.05742 l 5.1593,12.89815 12.8981,19.77716 6.879,10.31853 6.8791,9.45864 9.4586,12.89815"
+     id="path3658" />
+  <path
+     style="fill:none;stroke:#b9d895;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:0.72941177999999984"
+     d="m 1251.1207,670.37332 41.2741,3.43951 27.516,9.45865 35.255,13.75802 30.9555,16.33766 16.3377,15.47778 13.758,16.33766"
+     id="path3660" />
+  <path
+     style="fill:none;stroke:#b9d895;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:0.72941177999999984"
+     d="m 1282.0763,708.2079 0,17.19754 2.5796,19.77716 6.879,11.1784 8.5988,14.61791"
+     id="path3662" />
+  <path
+     style="fill:none;stroke:#b9d895;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:0.72941177999999984"
+     d="m 1311.3121,735.72396 27.516,7.73889 28.376,8.59877 18.9172,9.45864 26.6562,18.05741"
+     id="path3664" />
+  <path
+     style="fill:none;stroke:#b2c678;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:0.98431373000000000"
+     d="m 1428.2553,862.98572 -7.7389,-9.45864 -18.9173,-17.19754 -17.1975,-7.73889 -11.3934,-7.30895"
+     id="path3666" />
+  <path
+     style="fill:none;stroke:#b9d895;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:0.72941177999999984"
+     d="m 1335.3886,765.81965 36.1148,13.75802 18.9173,11.1784 18.9173,14.61791"
+     id="path3668" />
+</svg>
