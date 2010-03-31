@@ -6,6 +6,7 @@ from pymunk import (
     Vec2d,
 )
 
+import sounds
 from pygame import image
 
 class GameRect(object):
@@ -205,4 +206,4 @@ class Woger(GameRect):
 
     def jump(self):
         self.body.apply_impulse((0, self.mass*10), (0, 0))
-        
+        sounds.sounds.play("jump1")
