@@ -77,7 +77,6 @@ class Ground(GameRect):
     def add_to_space(self, space):
         # give ground a group, so it will not collide with trunk, which will
         # overlap it slightly at the base
-        self.shape.group = 1
         space.add_static(self.shape)
 
 
@@ -128,9 +127,9 @@ class Branch(GameRect):
 
         self.shape = Poly(self.body, verts)
 
-        # branch should not collide with its parent, with which it will
-        # overlap slightly at the joint
-        self.shape.group = self.parent.shape.group
+        # branch should not collide with other branches, which will
+        # overlap slightly at the joints
+        self.shape.group = 1
 
 
     def add_to_space(self, space):
@@ -139,7 +138,7 @@ class Branch(GameRect):
         trunkPivot = PivotJoint(self.body, self.parent.body, self.tail())
         space.add(trunkPivot)
         trunkSpring = DampedRotarySpring(
-            self.body, self.parent.body, 0.0, self.mass * 5000, self.mass)
+            self.body, self.parent.body, 0.0, self.mass * 500, self.mass)
         space.add(trunkSpring)
 
 

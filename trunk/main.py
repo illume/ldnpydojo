@@ -1,6 +1,8 @@
+
 from __future__ import division
 
 from math import pi
+from random import uniform, randint
 
 from pygame import display, event
 from pygame.locals import QUIT, KEYDOWN, K_ESCAPE, K_RETURN, KMOD_ALT
@@ -19,11 +21,13 @@ def populate(window, world):
     def add_branch(parent, angle, thickness, length):
         branch = Branch(parent, angle, thickness, length)
         world.add_item(branch)
-        if thickness > 30:
-            newthickness = thickness * 0.75
-            newlength = length * 0.75
-            for i in xrange(5):
-                newangle = angle - pi/2 + i * pi/4
+        if thickness > 25:
+            branches = randint(2, 5)
+            spread = uniform(pi / 8, pi / branches)
+            for i in xrange(branches):
+                newangle = angle + spread * (branches - 1) / 2 - spread * i
+                newthickness = thickness * 0.75
+                newlength = length * 0.75
                 add_branch(
                     branch,
                     newangle,
@@ -32,9 +36,9 @@ def populate(window, world):
         return branch
 
     trunk = add_branch(ground, 0, 50, 400)
-    trunk.body.apply_impulse((100000, 0), (0, 500))
+    # trunk.body.apply_impulse((100000, 0), (0, 500))
 
-    woger = Woger(600, 100)
+    woger = Woger(200, 1000)
     world.add_item(woger)
 
         
@@ -54,7 +58,6 @@ def main():
         world.update()
         render.draw_world()
         display.flip()
-
 
 
 def handle_events(window):
