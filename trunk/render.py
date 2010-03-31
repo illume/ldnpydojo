@@ -1,6 +1,6 @@
 
 from pygame import draw, display
-
+from pymunk import Vec2d
 from items import Branch
 
 screen = display.set_mode()
@@ -10,9 +10,14 @@ class Camera(object):
     def __init__(self, window):
         self.window = window
 
+    def point_to_screen(self, point):
+        x, y = point
+        return (x + self.window.width / 2, self.window.height - 100 - y)
+
     def to_screen(self, verts):
-        return [(x + self.window.width / 2, self.window.height - 100 - y)
-                for (x, y) in verts]
+        return [self.point_to_screen(point) for point in verts]
+
+                    
 
 
 
@@ -38,8 +43,7 @@ class Render(object):
     def draw_item(self, item):
 
         if item.Role == "Character":
-            print item.body.position
-            screen.blit(item.Image, item.body.position)
+            screen.blit(item.Image, self.camera.point_to_screen(item.body.position))
         else:                
             draw.polygon(
                 self.window.display_surface,
