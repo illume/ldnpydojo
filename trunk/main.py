@@ -1,8 +1,10 @@
 
 from __future__ import division
 
+import sys
 from math import pi
 from random import uniform, randint
+import subprocess
 
 from pygame import display, event
 from pygame.locals import QUIT, KEYDOWN, K_ESCAPE, K_RETURN, KMOD_ALT
@@ -45,8 +47,8 @@ def populate(window, world):
     woger = Woger(200, 1000)
     world.add_item(woger)
 
-        
-def main():
+
+def runloop():
     window = Window()
     window.init()
 
@@ -79,9 +81,24 @@ def handle_events(window):
     return quit
 
 
-if __name__ == '__main__':
+def profile():
+    import cProfile
+    command = 'runloop()'
+    filename = 'pyweek10-ldnpydojo.profile'
+    cProfile.runctx( command, globals(), locals(), filename=filename )
+    subprocess.call( ['runsnake', filename] )
+
+
+def main():
     try:
-        main()
+        if '--profile' in sys.argv:
+            profile()
+        else:
+            runloop()
     finally:
         display.quit()
+
+
+if __name__ == '__main__':
+    main()
 
