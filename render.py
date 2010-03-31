@@ -28,7 +28,7 @@ class Render(object):
             self.draw_platform(item)
         for spring in self.world.springs:
             self.draw_spring(spring)
-            
+
 
     def draw_spring(self, spring):
         draw.line(
