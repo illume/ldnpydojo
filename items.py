@@ -6,6 +6,7 @@ from pymunk import (
     Vec2d,
 )
 
+from pygame import image
 
 class GameRect(object):
 
@@ -50,6 +51,7 @@ class GameRect(object):
 class Ground(GameRect):
 
     def __init__(self):
+        self.Role = "Landscape"
         GameRect.__init__(self, 0, -1000, 2000, 2000)
         self.mass = 1e100
         self.color = (0, 255, 0)
@@ -66,6 +68,7 @@ class Ground(GameRect):
 class Branch(GameRect):
 
     def __init__(self, parent, angle, width=None, height=None):
+        self.Role = "Object"
         self.parent = parent
         self.angle = angle
         if width == None:
@@ -134,6 +137,7 @@ class Branch(GameRect):
 class Bough(GameRect):
 
     def __init__(self, branch):
+        self.Role = "Object"
         self.branch = branch
         x, y = branch.tip()
         GameRect.__init__(self, x, y, 100, 25)
@@ -173,9 +177,11 @@ class Bough(GameRect):
 class Woger(GameRect):
 
     def __init__(self, x, y):
+        self.Role = "Character"
         GameRect.__init__(self, x, y, 32, 32)
         self.color = (255, 127, 0)
         self.walk_force = 0
+        self.Image = image.load("woger_small.png").convert_alpha()
 
         # woger collides with ground and boughs
         self.layers = 1
