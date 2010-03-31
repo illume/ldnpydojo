@@ -2,8 +2,6 @@
 from __future__ import division
 
 import sys
-from math import pi
-from random import uniform, randint
 import subprocess
 
 from pygame import display, event
