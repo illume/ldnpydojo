@@ -66,7 +66,10 @@ class Ground(GameRect):
         space.add_static(self.shape)
 
 
+
+
 class Branch(GameRect):
+    
 
     def __init__(self, parent, angle, width=None, height=None):
         self.Role = "Object"
@@ -195,7 +198,7 @@ class Woger(GameRect):
     def do_walk(self, direction=None):
         if direction is None:
             direction = copysign(1, self.walk_force)
-        force = direction*self.mass*2
+        force = direction*self.mass
         self.body.apply_impulse((force, 0), (0, 0))
         self.walk_force += force
 
@@ -205,5 +208,5 @@ class Woger(GameRect):
 
 
     def jump(self):
-        self.body.apply_impulse((0, self.mass*10), (0, 0))
+        self.body.apply_impulse((0, self.mass*4), (0, 0))
         sounds.sounds.play("jump1")
