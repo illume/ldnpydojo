@@ -31,7 +31,7 @@ def populate(world):
 
     trunk = add_branch(ground, 0, 50, 400)
 
-    woger = Woger(200, 1000)
+    woger = Woger(200, 800)
     world.add_item(woger)
     world.player_character = woger
 

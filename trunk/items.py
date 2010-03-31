@@ -185,14 +185,18 @@ class Woger(GameRect):
         self.shape.layer = 1
 
 
-    def do_walk(self, direction):
+    def do_walk(self, direction=None):
+        if direction is None:
+            direction = copysign(1, self.walk_force)
         force = direction*self.mass*2
         self.body.apply_impulse((force, 0), (0, 0))
         self.walk_force += force
-        
-    def cont_walk(self):
-        self.do_walk(int(self.walk_force > 1))
 
     def end_walk(self):
         self.body.apply_impulse((-self.walk_force, 0), (0, 0))
         self.walk_force = 0
+
+
+    def jump(self):
+        self.body.apply_impulse((0, self.mass*10), (0, 0))
+        
