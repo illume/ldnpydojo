@@ -6,7 +6,7 @@ import subprocess
 
 import pygame
 from pygame import display, event
-from pygame.locals import QUIT, KEYDOWN, KEYUP, K_ESCAPE, K_RETURN, KMOD_ALT, K_LEFT, K_RIGHT, K_SPACE, USEREVENT
+from pygame.locals import QUIT, KEYDOWN, KEYUP, K_ESCAPE, K_RETURN, KMOD_ALT, K_LEFT, K_RIGHT, K_SPACE
 
 from window import Window
 from world import World, populate

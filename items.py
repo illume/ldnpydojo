@@ -16,7 +16,7 @@ class GameRect(object):
         self.y = y
         self.width = width
         self.height = height
-        self.mass = self.width * self.height / 10
+        self.mass = self.width * self.height / 10000
         self.layers = -1 # collide with everything
 
 
@@ -134,10 +134,12 @@ class Branch(GameRect):
     def add_to_space(self, space):
         space.add(self.body)
         space.add(self.shape)
+
         pivot = PivotJoint(self.body, self.parent.body, self.tail())
         space.add(pivot)
+
         spring = DampedRotarySpring(
-            self.body, self.parent.body, 0.0, self.mass * 1000, self.mass)
+            self.body, self.parent.body, 0.0, self.mass * 2000, self.mass)
         space.add(spring)
 
 
@@ -147,11 +149,14 @@ class Bough(GameRect):
         self.Role = "Object"
         self.branch = branch
         x, y = branch.tip()
-        GameRect.__init__(self, x, y, 100, 25)
+        width = branch.height
+        height = width / 4
+        GameRect.__init__(self, x, y, width, height)
         self.color = (0, 255, 0)
 
         # bough collides with ground and woger
         self.layers = 1
+        self.group = 2
 
     def get_verts(self):
         return [
@@ -171,6 +176,7 @@ class Bough(GameRect):
 
         # platforms should only collide with other platforms and woger
         self.shape.layers =  self.layers
+        self.shape.group = self.group
         self.shape.collision_type = CollisionType.BOUGH
 
 

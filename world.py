@@ -15,10 +15,10 @@ def populate(world):
         branch = Branch(parent, angle, thickness, length)
         world.add_item(branch)
 
-        bough = Bough(branch)
-        world.add_item(bough)
-
-        if thickness > 25:
+        if thickness < 25:
+            bough = Bough(branch)
+            world.add_item(bough)
+        else:
             branches = randint(3, 4)
             spread = uniform(pi / 8, pi / branches)
             for i in xrange(branches):
@@ -29,7 +29,7 @@ def populate(world):
                 add_branch( branch, newangle, newthickness, newlength )
         return branch
 
-    trunk = add_branch(ground, 0, 50, 400)
+    trunk = add_branch(ground, 0, 50, 300)
 
     woger = Woger(200, 450)
     world.add_item(woger)
