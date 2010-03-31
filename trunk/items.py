@@ -36,7 +36,8 @@ class GameRect(object):
         self.y = y
         self.width = width
         self.height = height
-        self.mass = self.width * self.height
+        self.mass = self.width * self.height / 10
+        self.layers = -1 # collide with everything
 
 
     def get_verts(self):
@@ -53,6 +54,7 @@ class GameRect(object):
         self.body = Body(self.mass, moment_for_poly(self.mass, verts))
         self.body.position = (self.x, self.y)
         self.shape = Poly(self.body, verts, (0, 0))
+        self.shape.layers = self.layers
 
 
     def add_to_space(self, space):
@@ -73,6 +75,8 @@ class Ground(GameRect):
         self.mass = 1e100
         self.color = (0, 255, 0)
 
+        # ground should collide with everything (layers 1 & 2)
+        self.layers = 3
 
     def add_to_space(self, space):
         # give ground a group, so it will not collide with trunk, which will
@@ -91,6 +95,9 @@ class Branch(GameRect):
             height = parent.height / 2
         GameRect.__init__(self, 0, height / 2, width, height)
         self.color = (128, 64, 0)
+
+        # branches should only collide with ground
+        self.layers = 2
 
 
     def rotate_verts_about(self, verts, angle, pivot):
@@ -131,16 +138,57 @@ class Branch(GameRect):
         # overlap slightly at the joints
         self.shape.group = 1
 
+        # branches should collide only with ground
+        self.shape.layers = 2
+
 
     def add_to_space(self, space):
         space.add(self.body)
         space.add(self.shape)
-        trunkPivot = PivotJoint(self.body, self.parent.body, self.tail())
-        space.add(trunkPivot)
-        trunkSpring = DampedRotarySpring(
-            self.body, self.parent.body, 0.0, self.mass * 500, self.mass)
-        space.add(trunkSpring)
+        pivot = PivotJoint(self.body, self.parent.body, self.tail())
+        space.add(pivot)
+        spring = DampedRotarySpring(
+            self.body, self.parent.body, 0.0, self.mass * 1000, self.mass)
+        space.add(spring)
 
+
+class Bough(GameRect):
+
+    def __init__(self, branch):
+        self.branch = branch
+        x, y = branch.tip()
+        GameRect.__init__(self, x, y, 100, 25)
+        self.color = (0, 255, 0)
+
+        # bough collides with ground and woger
+        self.layers = 1
+
+    def get_verts(self):
+        return [
+            (- self.width / 2, - self.height / 2), # left top
+            (+ self.width / 2, - self.height / 2), # right top
+            (               0, + self.height / 2), # bottom
+        ]
+
+
+    def create_body(self):
+        verts = self.get_verts()
+
+        self.body = Body(self.mass, moment_for_poly(self.mass, verts))
+        self.body.position = self.branch.tip()
+
+        self.shape = Poly(self.body, verts)
+
+        # platforms should only collide with other platforms and woger
+        self.shape.layers =  self.layers
+
+
+    def add_to_space(self, space):
+        space.add(self.body)
+        space.add(self.shape)
+        
+        pivot = PivotJoint(self.body, self.branch.body, self.branch.tip())
+        space.add(pivot)
 
 
 class Woger(GameRect):
@@ -148,4 +196,11 @@ class Woger(GameRect):
     def __init__(self, x, y):
         GameRect.__init__(self, x, y, 32, 32)
         self.color = (255, 127, 0)
-    
+
+        # woger collides with ground and boughs
+        self.layers = 1
+
+    def create_body(self):
+        GameRect.create_body(self)
+        self.shape.layer = 1
+

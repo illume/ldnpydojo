@@ -9,7 +9,7 @@ from pygame.locals import QUIT, KEYDOWN, K_ESCAPE, K_RETURN, KMOD_ALT
 
 from window import Window
 from world import World
-from items import Branch, Ground, Woger
+from items import Branch, Bough, Ground, Woger
 from render import Render
 
 
@@ -21,6 +21,10 @@ def populate(window, world):
     def add_branch(parent, angle, thickness, length):
         branch = Branch(parent, angle, thickness, length)
         world.add_item(branch)
+
+        bough = Bough(branch)
+        world.add_item(bough)
+
         if thickness > 25:
             branches = randint(3, 4)
             spread = uniform(pi / 8, pi / branches)
