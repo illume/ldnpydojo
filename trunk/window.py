@@ -21,6 +21,7 @@ class Window(object):
         self.display_surface = display.set_mode(modes[0], self.get_flags())
         self.width = self.display_surface.get_width()
         self.height = self.display_surface.get_height()
+        display.set_caption("Woger the Wibbly Wobbly Wombat")
 
 
     def get_flags(self):
