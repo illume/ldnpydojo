@@ -5,11 +5,12 @@ import sys
 import subprocess
 
 from pygame import display, event
-from pygame.locals import QUIT, KEYDOWN, K_ESCAPE, K_RETURN, KMOD_ALT
+from pygame.locals import QUIT, KEYDOWN, KEYUP, K_ESCAPE, K_RETURN, KMOD_ALT, K_LEFT, K_RIGHT
 
 from window import Window
 from world import World, populate
 from render import Render
+
 
 
 
@@ -24,7 +25,7 @@ def start_game():
 
 def runloop(window, world, render):
     while True:
-        if handle_events(window):
+        if handle_events(window, world):
             break
 
         world.update()
@@ -32,10 +33,11 @@ def runloop(window, world, render):
         display.flip()
 
 
-def handle_events(window):
+def handle_events(window, world):
+    woger = world.player_character
     quit = False
     for e in event.get():
-        if e.type == QUIT or getattr(e, 'key', None) == K_ESCAPE:
+        if e.type == QUIT:
             quit = True
             break
         elif e.type == KEYDOWN:
@@ -44,6 +46,19 @@ def handle_events(window):
                 break
             elif e.key == K_RETURN and e.mod & KMOD_ALT:
                 window.toggle_fullscreen()
+
+            # Woger
+            elif e.key == K_LEFT:
+                woger.do_walk(-1)
+            elif e.key == K_RIGHT:
+                woger.do_walk(1)
+        elif e.type == KEYUP:
+            if e.key == K_LEFT:
+                woger.end_walk()
+            elif e.key == K_RIGHT:
+                woger.end_walk()
+    if woger.walk_force:
+        woger.do_walk()
     return quit
 
 

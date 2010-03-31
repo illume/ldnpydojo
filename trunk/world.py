@@ -33,6 +33,7 @@ def populate(world):
 
     woger = Woger(200, 1000)
     world.add_item(woger)
+    world.player_character = woger
 
 
 
