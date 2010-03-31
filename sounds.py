@@ -29,8 +29,8 @@ def get_sound_list(path = SOUND_PATH):
     """
     # load a list of sounds without path at the beginning and .ogg at the end.
     sound_list = map(lambda x:x[len(path)+1:-4], 
-		     glob.glob(os.path.join(path,"*.ogg")) 
-		     #glob.glob(os.path.join(path,"*.wav")) 
+		     #glob.glob(os.path.join(path,"*.ogg")) 
+		     glob.glob(os.path.join(path,"*.wav")) 
 		    )
 
     return sound_list
@@ -41,14 +41,14 @@ SOUND_LIST = get_sound_list()
 
 
 
-class SoundManager:
+class Sounds:
     """ Controls loading, mixing, and playing the sounds.
         Having seperate classes allows different groups of sounds to be 
          loaded, and unloaded from memory easily.
 
         Useage:
-            sm = SoundManager()
-            sm.Load()
+            sm = Sounds()
+            sm.load()
     """
 
 
@@ -77,8 +77,8 @@ class SoundManager:
 
 
 
-    def Load(self, sound_list = [], sound_path = "."):
-	"""Loads sounds."""
+    def load(self, sound_list = [], sound_path = "."):
+	"""loads sounds."""
         sounds = self.sounds
 
 	if not pygame.mixer:
@@ -96,36 +96,36 @@ class SoundManager:
 		sounds[name] = sound
 
 
-    def GetSound(self, name):
+    def get_sound(self, name):
         """ Returns a Sound object for the given name.
 	"""
 	if not self.sounds.has_key(name):
-	    self.Load([name])
+	    self.load([name])
 
 	return self.sounds[name]
 
 
 
-    def Stop(self, name):
+    def stop(self, name):
         if self.chans.has_key(name):
             if self.chans[name]:
                 if self.chans[name].get_busy():
                     self.chans[name].stop()
 
-    def StopAll(self):
+    def stop_all(self):
         """ stops all sounds.
         """
 
         for name in self.chans.keys():
-            self.Stop(name)
+            self.stop(name)
 
 
 
-    def Play(self, name, 
+    def play(self, name, 
                    volume=[1.0, 1.0], 
                    wait = 0,
                    loop = 0):
-        """ Plays the sound with the given name.
+        """ plays the sound with the given name.
 	    name - of the sound.
 	    volume - left and right.  Ranges 0.0 - 1.0
 	    wait - used to control what happens if sound is allready playing:
@@ -137,7 +137,7 @@ class SoundManager:
 
         vol_l, vol_r = volume
 
-	sound = self.GetSound(name)
+	sound = self.get_sound(name)
 
 	if sound:
             if wait in [1,2]:
@@ -178,7 +178,7 @@ class SoundManager:
             raise 'not found'
 
 
-    def Update(self, elapsed_time):
+    def update(self, elapsed_time):
         """
         """
 
@@ -192,12 +192,12 @@ class SoundManager:
         self.queued_sounds = []
 
         for snd_info in old_queued:
-            self.Play(*snd_info)
+            self.play(*snd_info)
 
 
 
-    def PlayMusic(self, musicname):
-        """ Plays a music track.  Only one can be played at a time.
+    def play_music(self, musicname):
+        """ plays a music track.  Only one can be played at a time.
 	    So if there is one playing, it will be stopped and the new 
              one started.
 	"""
