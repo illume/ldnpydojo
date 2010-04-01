@@ -4,7 +4,11 @@ from __future__ import division
 import sys
 import subprocess
 
+import pygame
+from pygame.locals import *
+
 from pygame import display, event
+
 from pygame.locals import (
     QUIT, KEYDOWN, KEYUP, K_ESCAPE, K_RETURN, KMOD_ALT,
     K_LEFT, K_RIGHT, K_SPACE,
@@ -67,7 +71,11 @@ def handle_events(window, world):
      
                 elif e.key == K_SPACE and not woger.in_air:
                     woger.jump()
-                    
+
+            if 1 and e.key == K_s and e.mod & KMOD_SHIFT:
+                pygame.image.save( pygame.display.get_surface() , "screeny.png")
+
+
         elif woger.allowed_glide or not woger.in_air:   
             if e.type == KEYUP:
                 if e.key == K_LEFT:
