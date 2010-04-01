@@ -615,7 +615,7 @@ class Woger(GameRect):
     def _jump(self):
         """not finished, please leave - Jonathan"""
         if not self.in_air:
-            self.body.apply_impulse((0, self.mass*20), (0, 0))
+            self.body.apply_impulse((0, self.mass*11), (0, 0))
             Sounds.sounds.play("jump1")
 
 
@@ -638,6 +638,6 @@ class Woger(GameRect):
 
 
     def jump(self):
-        self.body.apply_impulse((0, self.mass*20), (0, 0))
+        self.body.apply_impulse((0, self.mass*11), (0, 0))
         Sounds.sounds.play("jump1")
 
