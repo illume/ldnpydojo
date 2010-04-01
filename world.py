@@ -44,6 +44,7 @@ def populate(world):
 
     def landed(space, arbiter, woger):
         woger.in_air = False
+	#NOTE: this gets called, when woger wumps with the twee weaves too.
         Sounds.sounds.play("hit1")
 
         return 1    
