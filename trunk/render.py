@@ -52,9 +52,11 @@ class Render(object):
                 if item.body.velocity[1] < 0:
                        self.window.display_surface.blit(
                        item.image[1], self.camera.point_to_screen(item.body.position))
-                elif item.body.velocity[1] > 0:
+                elif item.body.velocity[1] >= 0:
                        self.window.display_surface.blit(
                        item.image[0], self.camera.point_to_screen(item.body.position))
+
+
         elif item.role == "Bough":
                 try:
                     an_image = item.image[angle(item.body.angle)]
