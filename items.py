@@ -9,6 +9,7 @@ from pymunk import (
 )
 
 from sounds import Sounds
+import spritesheet
 
 
 
@@ -160,7 +161,10 @@ class Bough(GameRect):
         GameRect.__init__(self, x, y, width, height)
         self.color = (0, 255, 0)
         self.role = "Bough"
-        self.image = [image.load("data/art/leaves/leaf1_small_0.png").convert_alpha()]
+        #self.image = [image.load("data/art/leaves/leaf1_small_0.png").convert_alpha()]
+        self.image = spritesheet.load_strip('leaves-rotating-88.png', 88, colorkey = None)[0]
+        #print self.image
+        #raise 'asdf'
 
         """image.load("data/art/leaves/leaf1_small_1.png").convert_alpha(),
 image.load("data/art/leaves/leaf1_small_2.png").convert_alpha(),
