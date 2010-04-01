@@ -160,8 +160,9 @@ class Bough(GameRect):
         GameRect.__init__(self, x, y, width, height)
         self.color = (0, 255, 0)
         self.role = "Bough"
-        self.image = [image.load("data/art/leaves/leaf1_small_0.png").convert_alpha(),
-image.load("data/art/leaves/leaf1_small_1.png").convert_alpha(),
+        self.image = [image.load("data/art/leaves/leaf1_small_0.png").convert_alpha()]
+
+        """image.load("data/art/leaves/leaf1_small_1.png").convert_alpha(),
 image.load("data/art/leaves/leaf1_small_2.png").convert_alpha(),
 image.load("data/art/leaves/leaf1_small_3.png").convert_alpha(),
 image.load("data/art/leaves/leaf1_small_4.png").convert_alpha(),
@@ -520,6 +521,7 @@ image.load("data/art/leaves/leaf1_small_356.png").convert_alpha(),
 image.load("data/art/leaves/leaf1_small_357.png").convert_alpha(),
 image.load("data/art/leaves/leaf1_small_358.png").convert_alpha(),
 image.load("data/art/leaves/leaf1_small_359.png").convert_alpha(),]
+"""
 
         # bough collides with ground and woger
         self.layers = 1
