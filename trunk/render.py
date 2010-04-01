@@ -32,6 +32,7 @@ class Render(object):
         self.window = window
         self.world = world
         self.camera = Camera(window)
+        self.facing_right = 0
 
 
     def draw_world(self):
@@ -49,12 +50,18 @@ class Render(object):
         #if hasattr(item, 'image'):
                 #self.window.display_surface.blit(
                # item.image, self.camera.point_to_screen(item.body.position))
-                if item.body.velocity[1] < 0:
-                       self.window.display_surface.blit(
-                       item.image[1], self.camera.point_to_screen(item.body.position))
-                elif item.body.velocity[1] >= 0:
+                if item.body.velocity[0] < -0.1:
                        self.window.display_surface.blit(
                        item.image[0], self.camera.point_to_screen(item.body.position))
+                       self.facing_right = 0
+                elif item.body.velocity[0] > 0.1:
+                       self.window.display_surface.blit(
+                       item.image[1], self.camera.point_to_screen(item.body.position))
+                       self.facing_right = 1
+                else:
+                       self.window.display_surface.blit(
+                       item.image[self.facing_right], self.camera.point_to_screen(item.body.position))
+                       
 
 
         elif item.role == "Bough":

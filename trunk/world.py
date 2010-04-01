@@ -40,11 +40,12 @@ def populate(world):
     def in_air(space, arbiter, woger):
         woger.in_air = True
         woger.allowed_glide = 2
+        woger.allowed_jump = 1
         return 1
 
     def landed(space, arbiter, woger):
         woger.in_air = False
-	#NOTE: this gets called, when woger wumps with the twee weaves too.
+    #NOTE: this gets called, when woger wumps with the twee weaves too.
 
         Sounds.sounds.play("hit1")
 

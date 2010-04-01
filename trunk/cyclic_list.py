@@ -11,8 +11,8 @@ class cyclic_list(UserList.UserList):
     
     def __init__(self, *args, **kwargs):
         
-	UserList.UserList.__init__(self, *args, **kwargs)
-	self.idx = 0
+        UserList.UserList.__init__(self, *args, **kwargs)
+        self.idx = 0
 
     def next(self):
         """ increments the cursor, and returns the new current idx.
@@ -21,19 +21,19 @@ class cyclic_list(UserList.UserList):
         self.idx += 1
 
         if self.idx >= len(self.data):
-	    self.idx = 0
+            self.idx = 0
 
-	return self.idx
+        return self.idx
 
     def prev(self):
         """ decrements the cursor, and returns the new current idx.
         """
         self.idx -= 1
 
-	if self.idx < 0:
-	    self.idx = len(self.data) -1
+        if self.idx < 0:
+            self.idx = len(self.data) -1
 
-	return self.idx
+        return self.idx
 
     def cur(self):
         """ returns the element at the current cursor.
@@ -58,6 +58,6 @@ if __name__ == "__main__":
     print c.idx
 
     for x in range(5):
-	c.prev()
-	print c.idx
+        c.prev()
+        print c.idx
 
