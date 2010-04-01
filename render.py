@@ -56,8 +56,11 @@ class Render(object):
                        self.window.display_surface.blit(
                        item.image[0], self.camera.point_to_screen(item.body.position))
         elif item.role == "Bough":
-                an_image = item.image[angle(item.body.angle)]
-                #an_image = item.image[0]
+                try:
+                    an_image = item.image[angle(item.body.angle)]
+                except IndexError:
+                    # not enough images I guess.
+                    an_image = item.image[0]
 
                 self.window.display_surface.blit(an_image,
                        self.camera.point_to_screen(item.body.position))
