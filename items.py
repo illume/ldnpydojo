@@ -571,9 +571,10 @@ class Woger(GameRect):
         GameRect.__init__(self, x, y, 63, 74)
         self.color = (255, 127, 0)
         self.walk_force = 0
-        self.image = [image.load("data/art/right_woger_small.png").convert_alpha(), image.load("data/art/left_woger_small.png").convert_alpha()]
+        self.image = [image.load("data/art/left_woger_small.png").convert_alpha(), image.load("data/art/right_woger_small.png").convert_alpha()]
         self.in_air = True
         self.allowed_glide = 2
+        self.allowed_jump = 1
         self.role = "Woger"
 
         # woger collides with ground and boughs
@@ -621,7 +622,7 @@ class Woger(GameRect):
             Sounds.sounds.play("jump1")
 
 
-    def do_walk(self, direction=None):
+    def do_walk(self, direction=None):        
         key_down = direction is not None
         if key_down:
             self.allowed_glide = max(0, self.allowed_glide-1)
@@ -642,6 +643,7 @@ class Woger(GameRect):
     def jump(self):
         self.body.apply_impulse((0, self.mass*11), (0, 0))
         Sounds.sounds.play("jump1")
+        self.allowed_jump -= 1
 
 
 
