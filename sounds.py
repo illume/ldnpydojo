@@ -10,15 +10,12 @@ NOTE: not using pygames channel queueing as it only allows one sound to be
 """
 
 
-
-import pygame
+from pygame import mixer
 import os
 import glob
 
 
-
 SOUND_PATH = os.path.join("data", "sounds")
-
 
 
 def get_sound_list(path = SOUND_PATH):
@@ -37,7 +34,6 @@ SOUND_LIST = get_sound_list()
 
 
 
-
 class Sounds:
     """ Controls loading, mixing, and playing the sounds.
         Having seperate classes allows different groups of sounds to be 
@@ -48,6 +44,7 @@ class Sounds:
             sm.load()
     """
 
+    sounds = None
 
     def __init__(self, sound_list = SOUND_LIST, sound_path = SOUND_PATH):
         """
@@ -62,24 +59,28 @@ class Sounds:
         self.sound_list = sound_list
         self.sound_path = sound_path
 
-
         # sounds which are queued to play.
         self.queued_sounds = []
 
+        Sounds.sounds = self
+
+
     def _debug(self, x, debug_level = 0):
-        """
-        """
         if self._debug_level > debug_level:
             print (x)
 
+
     def init(self):
-        pygame.mixer.init()
+        mixer.pre_init(22050, -16, 2, 1024)
+        mixer.init()
+        self.load()
+
 
     def load(self, sound_list = [], sound_path = SOUND_PATH):
         """loads sounds."""
         sounds = self.sounds
 
-        if not pygame.mixer:
+        if not mixer:
             for name in sound_list:
                 sounds[name] = None
             return
@@ -87,7 +88,7 @@ class Sounds:
             if not sounds.has_key(name):
                 fullname = os.path.join(sound_path, name+'.wav')
                 try: 
-                    sound = pygame.mixer.Sound(fullname)
+                    sound = mixer.Sound(fullname)
                 except: 
                     sound = None
                     self._debug("Error loading sound %s" % fullname)
@@ -103,12 +104,12 @@ class Sounds:
         return self.sounds[name]
 
 
-
     def stop(self, name):
         if self.chans.has_key(name):
             if self.chans[name]:
                 if self.chans[name].get_busy():
                     self.chans[name].stop()
+
 
     def stop_all(self):
         """ stops all sounds.
@@ -116,7 +117,6 @@ class Sounds:
 
         for name in self.chans.keys():
             self.stop(name)
-
 
 
     def play(self, name, 
@@ -149,15 +149,13 @@ class Sounds:
                         # not going to play sound if playing.
                         return
                         
-
             self.chans[name] = sound.play(loop)
-
 
             if not self.chans[name]:
                 if loop == 1:
                     # forces a channel to return. we fade that out,
                     #  and enqueue our one.
-                    self.chans[name] = pygame.mixer.find_channel(1)
+                    self.chans[name] = mixer.find_channel(1)
 
                     #TODO: does this fadeout block?
                     self.chans[name].fadeout(100)
@@ -179,7 +177,6 @@ class Sounds:
     def update(self, elapsed_time):
         """
         """
-
         for name in self.chans.keys():
             if not self.chans[name]:
                 # it may be a NoneType I think.
@@ -193,14 +190,11 @@ class Sounds:
             self.play(*snd_info)
 
 
-
     def play_music(self, musicname):
         """ plays a music track.  Only one can be played at a time.
             So if there is one playing, it will be stopped and the new 
              one started.
         """
-
-
         music = self.music
 
         if not music: return
@@ -212,6 +206,4 @@ class Sounds:
         music.load(fullname)
         music.play(-1)
         music.set_volume(1.0)
-
-
 

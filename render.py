@@ -1,9 +1,8 @@
 
-from pygame import draw, display
-from pymunk import Vec2d
+from pygame import draw
 from items import Branch
 
-screen = display.set_mode()
+
 
 class Camera(object):
 
@@ -16,8 +15,6 @@ class Camera(object):
 
     def to_screen(self, verts):
         return [self.point_to_screen(point) for point in verts]
-
-                    
 
 
 
@@ -38,13 +35,14 @@ class Render(object):
             if not isinstance(item, Branch):
                 self.draw_item(item)
 
-    # note: 80% of gameloop execution time is in this method,
-    # particularly retrieving the item.verts - Jonathan
-    def draw_item(self, item):
 
-        if item.Role == "Character":
-            screen.blit(item.Image, self.camera.point_to_screen(item.body.position))
-        else:                
+    def draw_item(self, item):
+        if hasattr(item, 'image'):
+            self.window.display_surface.blit(
+                item.image, self.camera.point_to_screen(item.body.position))
+        else:
+            # note: 80% of program execution time is in this clause
+            # particularly retrieving the item.verts
             draw.polygon(
                 self.window.display_surface,
                 item.color,
