@@ -200,7 +200,7 @@ class Woger(GameRect):
         GameRect.__init__(self, x, y, 63, 74)
         self.color = (255, 127, 0)
         self.walk_force = 0
-        self.image = image.load("woger_small.png").convert_alpha()
+        self.image = [image.load("data/art/right_woger_small.png").convert_alpha(), image.load("data/art/left_woger_small.png").convert_alpha()]
         self.in_air = True
         self.allowed_glide = 2
 
