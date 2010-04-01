@@ -67,14 +67,20 @@ class World(object):
         item.create_body()
         item.add_to_space(self.space)
 
-    def update(self):
-        self.space.step(1)
 
-    def add_collision_handler(self, col_typ1, col_typ2,
-                              begin=None, pre_solve=None,
-                              post_solve=None, separate=None,
-                              **kwargs):
-        self.space.add_collision_handler(col_typ1, col_typ2,
-                                         begin, pre_solve,
-                                         post_solve, separate,
-                                         **kwargs)
+    def update(self):
+        self.space.step(0.5)
+        for item in self.items:
+            item.update()
+
+
+    def add_collision_handler(
+        self, col_typ1, col_typ2, begin=None, pre_solve=None,
+        post_solve=None, separate=None, **kwargs
+    ):
+        self.space.add_collision_handler(
+            col_typ1, col_typ2,
+            begin, pre_solve,
+            post_solve, separate,
+            **kwargs)
+

@@ -1,13 +1,16 @@
+
 from __future__ import division
 
 from math import copysign
+
+from pygame import event, image, key
 from pymunk import (
-    Body, DampedRotarySpring, DampedSpring, PivotJoint, Poly, moment_for_poly,
-    Vec2d,
+    Body, DampedRotarySpring, PivotJoint, Poly, moment_for_poly, Vec2d,
 )
 
-import sounds
-from pygame import image
+from sounds import Sounds
+
+
 
 class GameRect(object):
 
@@ -37,6 +40,10 @@ class GameRect(object):
         self.shape.layers = self.layers
 
 
+    def update(self):
+        pass
+
+
     def add_to_space(self, space):
         space.add(self.body)
         space.add(self.shape)
@@ -44,37 +51,34 @@ class GameRect(object):
 
     @property
     def verts(self):
-        "This is the feedback from pymunk after each iteration"
+        "This is the position of the item's verts as calculated by pymunk"
         return self.shape.get_points()        
 
 
+
 class CollisionType:
-    GROUND, BOUGH, PLAYER = range(3)
+    GROUND, BOUGH, PLAYER, BRANCH = range(4)
+
+
 
 class Ground(GameRect):
 
     def __init__(self):
-        self.Role = "Landscape"
         GameRect.__init__(self, 0, -1000, 2000, 2000)
         self.mass = 1e100
         self.color = (0, 255, 0)
-        # ground should collide with everything (layers 1 & 2)
+        # ground should collide with everything (3 = 1 || 2)
         self.layers = 3
 
     def add_to_space(self, space):
-        # give ground a group, so it will not collide with trunk, which will
-        # overlap it slightly at the base
         self.shape.collision_type = CollisionType.GROUND
         space.add_static(self.shape)
 
 
 
-
 class Branch(GameRect):
     
-
     def __init__(self, parent, angle, width=None, height=None):
-        self.Role = "Object"
         self.parent = parent
         self.angle = angle
         if width == None:
@@ -128,6 +132,7 @@ class Branch(GameRect):
 
         # branches should collide only with ground
         self.shape.layers = 2
+        self.collision_type = CollisionType.BRANCH
 
 
     def add_to_space(self, space):
@@ -142,10 +147,10 @@ class Branch(GameRect):
         space.add(spring)
 
 
+
 class Bough(GameRect):
 
     def __init__(self, branch):
-        self.Role = "Object"
         self.branch = branch
         x, y = branch.tip()
         width = branch.height
@@ -156,6 +161,7 @@ class Bough(GameRect):
         # bough collides with ground and woger
         self.layers = 1
         self.group = 2
+
 
     def get_verts(self):
         return [
@@ -187,24 +193,60 @@ class Bough(GameRect):
         space.add(pivot)
 
 
+
 class Woger(GameRect):
 
     def __init__(self, x, y):
-        self.Role = "Character"
         GameRect.__init__(self, x, y, 63, 74)
         self.color = (255, 127, 0)
         self.walk_force = 0
-        self.Image = image.load("woger_small.png").convert_alpha()
+        self.image = image.load("woger_small.png").convert_alpha()
         self.in_air = True
         self.allowed_glide = 2
 
         # woger collides with ground and boughs
         self.layers = 1
 
+
     def create_body(self):
         GameRect.create_body(self)
         self.shape.layer = 1
         self.shape.collision_type = CollisionType.PLAYER
+
+
+    def _update(self):
+        """not finished, please leave - Jonathan"""
+        event.pump()
+        keys = key.get_pressed()
+        if keys[K_LEFT]:
+            self.left()
+        elif keys[K_RIGHT]:
+            self.right()
+
+        if keys[K_SPACE]:
+            self.jump()
+
+        if self.walk_force:
+            self.do_walk()
+
+
+    def _left(self):
+        """not finished, please leave - Jonathan"""
+        if self.allowed_glide or not self.in_air:
+            self.do_walk(-1)
+
+
+    def _right(self):
+        """not finished, please leave - Jonathan"""
+        if self.allowed_glide or not self.in_air:
+            self.do_walk(+1)
+
+
+    def _jump(self):
+        """not finished, please leave - Jonathan"""
+        if not self.in_air:
+            self.body.apply_impulse((0, self.mass*20), (0, 0))
+            Sounds.sounds.play("jump1")
 
 
     def do_walk(self, direction=None):
@@ -213,11 +255,12 @@ class Woger(GameRect):
             self.allowed_glide = max(0, self.allowed_glide-1)
         else:
             direction = copysign(1, self.walk_force)
-        force = direction*self.mass
+        force = direction * self.mass
         self.body.apply_impulse((force, 0), (0, 0))
         self.walk_force += force
         if self.in_air and key_down and not self.allowed_glide:
             self.end_walk()
+
 
     def end_walk(self):
         self.body.apply_impulse((-self.walk_force, 0), (0, 0))
@@ -226,4 +269,5 @@ class Woger(GameRect):
 
     def jump(self):
         self.body.apply_impulse((0, self.mass*20), (0, 0))
-        sounds.sounds.play("jump1")
+        Sounds.sounds.play("jump1")
+
