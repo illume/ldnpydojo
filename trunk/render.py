@@ -16,6 +16,14 @@ class Camera(object):
     def to_screen(self, verts):
         return [self.point_to_screen(point) for point in verts]
 
+def angle(Angle):
+        if Angle > 0:
+            return int(Angle)
+        else:
+            Angle = -int(Angle) 
+            return Angle
+            
+
 
 
 class Render(object):
@@ -37,18 +45,19 @@ class Render(object):
 
 
     def draw_item(self, item):
-        if hasattr(item, 'image'):
+        if item.role == "Woger":
+        #if hasattr(item, 'image'):
                 #self.window.display_surface.blit(
                # item.image, self.camera.point_to_screen(item.body.position))
                 if item.body.velocity[1] < 0:
-                       print "Going Left"
                        self.window.display_surface.blit(
                        item.image[1], self.camera.point_to_screen(item.body.position))
                 elif item.body.velocity[1] > 0:
                        self.window.display_surface.blit(
                        item.image[0], self.camera.point_to_screen(item.body.position))
-
-                print "p", item.body.moment
+        elif item.role == "Bough":
+                self.window.display_surface.blit(
+                       item.image[angle(item.body.angle)], self.camera.point_to_screen(item.body.position))
         else:
             # note: 80% of program execution time is in this clause
             # particularly retrieving the item.verts
