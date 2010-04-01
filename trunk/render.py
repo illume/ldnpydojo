@@ -56,8 +56,11 @@ class Render(object):
                        self.window.display_surface.blit(
                        item.image[0], self.camera.point_to_screen(item.body.position))
         elif item.role == "Bough":
-                self.window.display_surface.blit(
-                       item.image[angle(item.body.angle)], self.camera.point_to_screen(item.body.position))
+                an_image = item.image[angle(item.body.angle)]
+                #an_image = item.image[0]
+
+                self.window.display_surface.blit(an_image,
+                       self.camera.point_to_screen(item.body.position))
         else:
             # note: 80% of program execution time is in this clause
             # particularly retrieving the item.verts

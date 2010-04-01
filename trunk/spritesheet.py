@@ -230,50 +230,81 @@ class Strips(game.Game):
 
 
 
+def combine_images_into_sprite_sheet(adir, out_fname):
+    import glob
+    fnames = glob.glob(os.path.join(adir, "*.png"))
+
+    # load them with 8 threads.
+    import pygame.threads
+    pygame.threads.init(8)
+    surfs = pygame.threads.tmap(pygame.image.load, fnames)
+
+    total_width = sum([s.get_width() for s in surfs])
+    print ("total_width was:%s:" % total_width)
+
+    if total_width > 16000:
+        surfs = surfs[:int(len(surfs)//2)]
+        total_width = sum([s.get_width() for s in surfs])
+        print ("too many images!!!!!  Only using half of them")
+
+    print ("total_width is:%s:" % total_width)
+    big_surf = pygame.Surface((total_width, surfs[0].get_height()), SRCALPHA, 32)
+
+    x = 0
+    for s in surfs:
+        big_surf.blit(s, (x, 0))
+        x += surfs[0].get_width()
+    pygame.image.save(big_surf, out_fname)
+
 
 
 
 if __name__ == "__main__":
 
-    pygame.init()
-    screen = pygame.display.set_mode((640,480))
+    if 1:
+        combine_images_into_sprite_sheet(os.path.join('data', 'art', 'leaves'), 
+            os.path.join('data', 'art', 'leaves-rotating-88.png'))
+    else:
 
-    
-    # here we just load the strip into a whole bunch of sub surfaces.
-    #  sub surfaces reference the big image, but act just like normal surfaces.
-    sub_surfaces = load_strip('leaf-movement-88.png', 88, colorkey = None)
+        pygame.init()
+        screen = pygame.display.set_mode((640,480))
 
-    print len(sub_surfaces)
-    assert(len(sub_surfaces) == 2)
+        
+        # here we just load the strip into a whole bunch of sub surfaces.
+        #  sub surfaces reference the big image, but act just like normal surfaces.
+        sub_surfaces = load_strip('leaf-movement-88.png', 88, colorkey = None)
 
-
-
-
-
-
-    top = Strips(['leaf-movement-88.png'], (0,0))
+        print len(sub_surfaces)
+        assert(len(sub_surfaces) == 2)
 
 
-    top.going = True
-    clock = pygame.time.Clock()
-
-    x,y = 0,0
-
-    pygame.key.set_repeat (500, 30)
-    i = 0
-    while top.going:
-        events = pygame.event.get()
-        if [e for e in events if e.type in [QUIT, KEYDOWN]]:
-            top.going = False
-
-        top.handle_events(events)
-        top.update(1./25)
-        top.draw(screen)
-
-        pygame.display.flip()
-        clock.tick(25)
-        #print clock.get_fps()
 
 
-    
+
+
+        top = Strips(['leaf-movement-88.png'], (0,0))
+
+
+        top.going = True
+        clock = pygame.time.Clock()
+
+        x,y = 0,0
+
+        pygame.key.set_repeat (500, 30)
+        i = 0
+        while top.going:
+            events = pygame.event.get()
+            if [e for e in events if e.type in [QUIT, KEYDOWN]]:
+                top.going = False
+
+            top.handle_events(events)
+            top.update(1./25)
+            top.draw(screen)
+
+            pygame.display.flip()
+            clock.tick(25)
+            #print clock.get_fps()
+
+
+        
 
