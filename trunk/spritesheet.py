@@ -237,7 +237,19 @@ if __name__ == "__main__":
 
     pygame.init()
     screen = pygame.display.set_mode((640,480))
+
     
+    # here we just load the strip into a whole bunch of sub surfaces.
+    #  sub surfaces reference the big image, but act just like normal surfaces.
+    sub_surfaces = load_strip('leaf-movement-88.png', 88, colorkey = None)
+
+    print len(sub_surfaces)
+    assert(len(sub_surfaces) == 2)
+
+
+
+
+
 
     top = Strips(['leaf-movement-88.png'], (0,0))
 
@@ -251,6 +263,8 @@ if __name__ == "__main__":
     i = 0
     while top.going:
         events = pygame.event.get()
+        if [e for e in events if e.type in [QUIT, KEYDOWN]]:
+            top.going = False
 
         top.handle_events(events)
         top.update(1./25)
