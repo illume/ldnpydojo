@@ -6,6 +6,8 @@ from pymunk import init_pymunk, Space
 
 from items import CollisionType, Ground, Branch, Bough, Woger
 
+from sounds import Sounds
+
 
 def populate(world):
     ground = Ground()
@@ -42,6 +44,8 @@ def populate(world):
 
     def landed(space, arbiter, woger):
         woger.in_air = False
+        Sounds.sounds.play("hit1")
+
         return 1    
     
     world.add_collision_handler(CollisionType.GROUND, CollisionType.PLAYER,
