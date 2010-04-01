@@ -3,6 +3,8 @@ from __future__ import division
 
 from math import copysign
 
+import pygame
+
 from pygame import event, image, key
 from pymunk import (
     Body, DampedRotarySpring, PivotJoint, Poly, moment_for_poly, Vec2d,
@@ -58,7 +60,7 @@ class GameRect(object):
 
 
 class CollisionType:
-    GROUND, BOUGH, PLAYER, BRANCH = range(4)
+    GROUND, BOUGH, PLAYER, BRANCH, ORANGE = range(5)
 
 
 
@@ -640,4 +642,31 @@ class Woger(GameRect):
     def jump(self):
         self.body.apply_impulse((0, self.mass*11), (0, 0))
         Sounds.sounds.play("jump1")
+
+
+
+
+
+
+#TODO: I don't really know how to add orange... but here is a start.
+class Owange(GameRect):
+
+    def __init__(self, x, y):
+        GameRect.__init__(self, x, y, 63, 74)
+        self.color = pygame.Color('orange')
+        self.walk_force = 0
+        self.image = [image.load("data/art/right_woger_small.png").convert_alpha(), image.load("data/art/left_woger_small.png").convert_alpha()]
+        self.in_air = True
+        self.allowed_glide = 2
+        self.role = "Woger"
+
+        # woger collides with ground and boughs
+        self.layers = 1
+
+
+    def create_body(self):
+        GameRect.create_body(self)
+        self.shape.layer = 1
+        self.shape.collision_type = CollisionType.ORANGE
+
 
