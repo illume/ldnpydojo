@@ -64,9 +64,11 @@ def populate(world):
         owanges = [s.parent for s in arbiter.shapes 
                       if hasattr(s, 'parent') and isinstance(s.parent, Owange)]
 
-                
+        
         for o in owanges:
+            Sounds.sounds.play("powerup1")
             world.remove_item(o)
+
         return 1
  
     def leave_owange(space, arbiter, woger):
