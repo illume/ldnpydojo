@@ -51,6 +51,14 @@ def populate(world):
 
         return 1    
 
+
+    #TODO: owanges will need to be dropped as the game goes on.
+    #  when colliding with woger points are scored.
+    #  when colliding with the ground, 
+    #      points are lost
+    #      owanges go splat
+    #      owanges dissapear
+
     for i in range(10):
         owange = Owange(i*10, 450) 
         world.add_item(owange)
