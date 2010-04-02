@@ -300,12 +300,12 @@ class Woger(GameRect):
 
 
     def jump(self):
-        vel_of_jump = (0, self.mass*11)
+        vel_of_jump = Vec2d(0, self.mass*11)
 
         if self.in_air:
             Sounds.sounds.play("orange_splat")
             # half as much.
-            vel_of_jump = (vel_of_jump[0]/2, vel_of_jump[1]/2)
+            vel_of_jump = vel_of_jump/2
         else:
             Sounds.sounds.play("jump1")
 
@@ -317,6 +317,7 @@ class Woger(GameRect):
 
 
 
+#TODO: I don't really know how to add owange... but here is a start.
 class Owange(GameRect):
 
     def __init__(self, x, y):
