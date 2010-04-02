@@ -41,6 +41,9 @@ class GameRect(object):
         self.body.position = (self.x, self.y)
         self.shape = Poly(self.body, verts, (0, 0))
         self.shape.layers = self.layers
+        # this is so you can get to it from collision handlers.
+        #     eg. arbiter.shapes[0].parent 
+        self.shape.parent = self
 
 
     def update(self):
