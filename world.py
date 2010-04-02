@@ -74,6 +74,7 @@ def populate(world):
     for i in range(10):
         owange = Owange(i*10, 450) 
         world.add_item(owange)
+        world.remove_item(owange)
 
     
         
@@ -100,6 +101,11 @@ class World(object):
         self.items.append(item)
         item.create_body()
         item.add_to_space(self.space)
+
+    def remove_item(self, item):
+        self.items.remove(item)
+        item.remove_from_space(self.space)
+        #TODO:
 
 
     def update(self):
