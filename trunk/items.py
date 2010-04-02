@@ -51,6 +51,9 @@ class GameRect(object):
         space.add(self.body)
         space.add(self.shape)
 
+    def remove_from_space(self, space):
+        space.remove(self.body)
+        space.remove(self.shape)
 
     @property
     def verts(self):
