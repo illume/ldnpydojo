@@ -10,11 +10,19 @@ class Camera(object):
         self.window = window
 
     def point_to_screen(self, point):
+        """ point_to_screen((x,y)) : (tx,ty) returns transformed points.
+        """
         x, y = point
-        return (x + self.window.width / 2, self.window.height - 100 - y)
+        w, h = self.window.width, self.window.height
+        return (x+w/2, h-100-y) 
 
     def to_screen(self, verts):
-        return [self.point_to_screen(point) for point in verts]
+
+        #return [self.point_to_screen(point) for point in verts]
+        # we avoid the method calls/lookups.
+        w, h = self.window.width, self.window.height
+        return [(x+w/2, h-100-y) for x,y in verts]
+
 
 def angle(Angle):
         if Angle > 0:
@@ -50,29 +58,28 @@ class Render(object):
         #if hasattr(item, 'image'):
                 #self.window.display_surface.blit(
                # item.image, self.camera.point_to_screen(item.body.position))
-                if item.body.velocity[0] < -0.1:
-                       self.window.display_surface.blit(
-                       item.image[0], self.camera.point_to_screen(item.body.position))
-                       self.facing_right = 0
-                elif item.body.velocity[0] > 0.1:
-                       self.window.display_surface.blit(
-                       item.image[1], self.camera.point_to_screen(item.body.position))
-                       self.facing_right = 1
-                else:
-                       self.window.display_surface.blit(
-                       item.image[self.facing_right], self.camera.point_to_screen(item.body.position))
-                       
-
+            if item.body.velocity[0] < -0.1:
+               self.window.display_surface.blit(
+               item.image[0], self.camera.point_to_screen(item.body.position))
+               self.facing_right = 0
+            elif item.body.velocity[0] > 0.1:
+               self.window.display_surface.blit(
+               item.image[1], self.camera.point_to_screen(item.body.position))
+               self.facing_right = 1
+            else:
+               self.window.display_surface.blit(
+               item.image[self.facing_right], self.camera.point_to_screen(item.body.position))
+                   
 
         elif item.role == "Bough":
-                try:
-                    an_image = item.image[angle(item.body.angle)]
-                except IndexError:
-                    # not enough images I guess.
-                    an_image = item.image[0]
+            try:
+                an_image = item.image[angle(item.body.angle)]
+            except IndexError:
+                # not enough images I guess.
+                an_image = item.image[0]
 
-                self.window.display_surface.blit(an_image,
-                       self.camera.point_to_screen(item.body.position))
+            self.window.display_surface.blit(an_image,
+                   self.camera.point_to_screen(item.body.position))
 
         elif item.role == "Owange":
             self.window.display_surface.blit(
