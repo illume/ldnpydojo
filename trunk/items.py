@@ -63,7 +63,7 @@ class GameRect(object):
 
 
 class CollisionType:
-    GROUND, BOUGH, PLAYER, BRANCH, ORANGE = range(5)
+    GROUND, BOUGH, PLAYER, BRANCH, OWANGE = range(5)
 
 
 
@@ -314,7 +314,6 @@ class Woger(GameRect):
 
 
 
-#TODO: I don't really know how to add orange... but here is a start.
 class Owange(GameRect):
 
     def __init__(self, x, y):
@@ -333,6 +332,6 @@ class Owange(GameRect):
     def create_body(self):
         GameRect.create_body(self)
         self.shape.layer = 1
-        self.shape.collision_type = CollisionType.ORANGE
+        self.shape.collision_type = CollisionType.OWANGE
 
 
