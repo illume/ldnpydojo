@@ -64,10 +64,12 @@ def populate(world):
         owanges = [s.parent for s in arbiter.shapes 
                       if hasattr(s, 'parent') and isinstance(s.parent, Owange)]
 
-        
         for o in owanges:
             Sounds.sounds.play("powerup1")
             world.remove_item(o)
+            # add owange from the top again.
+            owange = Owange(i*10, 650) 
+            world.add_item(owange)
 
         return 1
  
@@ -91,7 +93,7 @@ def populate(world):
     #      owanges dissapear
 
     for i in range(10):
-        owange = Owange(i*10, 450) 
+        owange = Owange(i*10, 650) 
         world.add_item(owange)
         #world.remove_item(owange)
 
