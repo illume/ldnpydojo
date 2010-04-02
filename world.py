@@ -47,7 +47,6 @@ def populate(world):
         woger.allowed_glide = 2
         woger.allowed_jump = 1
         return 1
-    
     def off_ground(space, arbiter, woger):
         woger.in_air = False
         Sounds.sounds.play("hit1")
@@ -59,15 +58,15 @@ def populate(world):
         woger.allowed_glide = 2
         woger.allowed_jump = 1
         return 1
-    
-    def leave_leaf(space, arbiter, woger):
+    def off_leaf(space, arbiter, woger):
         woger.in_air = False
         Sounds.sounds.play("hit1")
         return 1    
 
 
     def touch_owange(space, arbiter, woger):
-        # 
+        ''' when woger hits an owange.
+        '''
         owanges = [s.parent for s in arbiter.shapes 
                       if hasattr(s, 'parent') and isinstance(s.parent, Owange)]
 
@@ -79,11 +78,32 @@ def populate(world):
             world.add_item(owange)
 
         return 1
- 
-    def leave_owange(space, arbiter, woger):
+    def off_owange(space, arbiter, woger):
         return 1    
 
+
+
+    def owange_hit_ground(space, arbiter, woger):
+
+        owanges = [s.parent for s in arbiter.shapes 
+                      if hasattr(s, 'parent') and isinstance(s.parent, Owange)]
+
+        for o in owanges:
+            Sounds.sounds.play("orange_splat")
+            world.remove_item(o)
+            # add owange from the top again.
+            owange = Owange(randint(0, bounds), 750) 
+            world.add_item(owange)
+
+
+
+        return 1
+
+    def owange_off_ground(space, arbiter, woger):
+        return 1
    
+
+
 
 
 
@@ -107,10 +127,13 @@ def populate(world):
                                 separate=off_ground, woger=woger)
     world.add_collision_handler(CollisionType.BOUGH, CollisionType.PLAYER,
                                 begin=touch_leaf, 
-                                separate=leave_leaf, woger=woger)
+                                separate=off_leaf, woger=woger)
     world.add_collision_handler(CollisionType.OWANGE, CollisionType.PLAYER,
                                 begin=touch_owange, 
-                                separate=leave_owange, woger=woger)
+                                separate=off_owange, woger=woger)
+    world.add_collision_handler(CollisionType.GROUND, CollisionType.OWANGE,
+                                begin=owange_hit_ground, 
+                                separate=owange_off_ground, woger=woger)
 
 
 class World(object):
