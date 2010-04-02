@@ -4,7 +4,7 @@ from random import randint, uniform
 
 from pymunk import init_pymunk, Space
 
-from items import CollisionType, Ground, Branch, Bough, Woger
+from items import CollisionType, Ground, Branch, Bough, Woger, Owange
 
 from sounds import Sounds
 
@@ -50,7 +50,14 @@ def populate(world):
         Sounds.sounds.play("hit1")
 
         return 1    
+
+    for i in range(10):
+        owange = Owange(i*10, 450) 
+        world.add_item(owange)
+
     
+        
+
     world.add_collision_handler(CollisionType.GROUND, CollisionType.PLAYER,
                                 begin=landed, separate=in_air, woger=woger)
     world.add_collision_handler(CollisionType.BOUGH, CollisionType.PLAYER,

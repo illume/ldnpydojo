@@ -294,12 +294,12 @@ class Owange(GameRect):
 
     def __init__(self, x, y):
         GameRect.__init__(self, x, y, 63, 74)
-        self.color = pygame.Color('orange')
+        #self.color = pygame.Color('orange')
         self.walk_force = 0
-        self.image = [image.load("data/art/right_woger_small.png").convert_alpha(), image.load("data/art/left_woger_small.png").convert_alpha()]
+        self.image = [image.load("data/art/orange/owange.png").convert_alpha()]
         self.in_air = True
         self.allowed_glide = 2
-        self.role = "Woger"
+        self.role = "Owange"
 
         # woger collides with ground and boughs
         self.layers = 1
