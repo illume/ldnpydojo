@@ -49,8 +49,6 @@ class Sounds:
     def __init__(self, sound_list = SOUND_LIST, sound_path = SOUND_PATH):
         """
         """
-        self.mixer = None
-        self.music = None
         self.sounds = {}
         self.chans = {}
 
@@ -195,15 +193,21 @@ class Sounds:
             So if there is one playing, it will be stopped and the new 
              one started.
         """
-        music = self.music
+        music = mixer.music
 
         if not music: return
         if music.get_busy():
             #we really should fade out nicely and
             #wait for the end music event, for now, CUT 
             music.stop()
-        fullname = os.path.join('sounds', musicname)
+
+        fullname = os.path.join('data', 'music', musicname)
+        fullname_ogg = fullname + ".ogg"
+        if os.path.exists(fullname_ogg):
+            fullname = fullname_ogg
+    
         music.load(fullname)
         music.play(-1)
         music.set_volume(1.0)
+
 

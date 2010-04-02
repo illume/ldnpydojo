@@ -31,6 +31,7 @@ def start_game():
     sounds.play("jump1")
     sounds.play("hit1")
     sounds.play("goal1")
+    sounds.play_music("track-one")
 
     world = World()
     populate(world)
