@@ -52,16 +52,29 @@ def populate(world):
         woger.allowed_glide = 2
         woger.allowed_jump = 1
         return 1
+ 
+    def leave_leaf(space, arbiter, woger):
+        woger.in_air = False
+        Sounds.sounds.play("hit1")
+        return 1    
+
+
+    def touch_owange(space, arbiter, woger):
+        # remove orange.
+        print arbiter
+        world.remove_item(arbiter)
+        return 1
+ 
+    def leave_owange(space, arbiter, woger):
+        return 1    
+
 
     def off_ground(space, arbiter, woger):
         woger.in_air = False
         Sounds.sounds.play("hit1")
         return 1
-    
-    def leave_leaf(space, arbiter, woger):
-        woger.in_air = False
-        Sounds.sounds.play("hit1")
-        return 1    
+   
+
 
 
     #TODO: owanges will need to be dropped as the game goes on.
@@ -74,16 +87,20 @@ def populate(world):
     for i in range(10):
         owange = Owange(i*10, 450) 
         world.add_item(owange)
-        world.remove_item(owange)
+        #world.remove_item(owange)
 
     
         
 
     world.add_collision_handler(CollisionType.GROUND, CollisionType.PLAYER,
-                                begin=landed_on_ground, separate=off_ground, woger=woger)
+                                begin=landed_on_ground, 
+                                separate=off_ground, woger=woger)
     world.add_collision_handler(CollisionType.BOUGH, CollisionType.PLAYER,
-                                begin=touch_leaf, separate=leave_leaf, woger=woger)
-    
+                                begin=touch_leaf, 
+                                separate=leave_leaf, woger=woger)
+    world.add_collision_handler(CollisionType.OWANGE, CollisionType.PLAYER,
+                                begin=touch_owange, 
+                                separate=leave_owange, woger=woger)
 
 
 class World(object):
@@ -114,10 +131,17 @@ class World(object):
             item.update()
 
 
-    def add_collision_handler(
-        self, col_typ1, col_typ2, begin=None, pre_solve=None,
-        post_solve=None, separate=None, **kwargs
-    ):
+    def add_collision_handler( self, 
+                               col_typ1, 
+                               col_typ2, 
+                               begin=None, 
+                               pre_solve=None,
+                               post_solve=None, 
+                               separate=None, 
+                               **kwargs
+        ):
+        '''
+        '''
         self.space.add_collision_handler(
             col_typ1, col_typ2,
             begin, pre_solve,
