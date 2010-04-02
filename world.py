@@ -68,7 +68,7 @@ def populate(world):
             Sounds.sounds.play("powerup1")
             world.remove_item(o)
             # add owange from the top again.
-            owange = Owange(i*10, 650) 
+            owange = Owange(randint(0, bounds), 750) 
             world.add_item(owange)
 
         return 1
