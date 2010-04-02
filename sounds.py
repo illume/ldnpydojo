@@ -22,10 +22,12 @@ def get_sound_list(path = SOUND_PATH):
     """ gets a list of sound names without thier path, or extension.
     """
     # load a list of sounds without path at the beginning and .ogg at the end.
-    sound_list = map(lambda x:x[len(path)+1:-4], 
-                     #glob.glob(os.path.join(path,"*.ogg")) 
-                     glob.glob(os.path.join(path,"*.wav")) 
-                    )
+    sound_list = []
+    for ext in ['.wav', '.ogg']:
+        sound_list += map(lambda x:x[len(path)+1:-4], 
+                         #glob.glob(os.path.join(path,"*.ogg")) 
+                         glob.glob(os.path.join(path,"*" + ext)) 
+                        )
 
     return sound_list
        
@@ -84,7 +86,12 @@ class Sounds:
             return
         for name in sound_list:
             if not sounds.has_key(name):
-                fullname = os.path.join(sound_path, name+'.wav')
+
+                for ext in ['.wav', '.ogg']:
+                    fullname = os.path.join(sound_path, name+ext)
+                    if os.path.exists(fullname):
+                        break
+
                 try: 
                     sound = mixer.Sound(fullname)
                 except: 

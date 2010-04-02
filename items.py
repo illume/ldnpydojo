@@ -281,7 +281,10 @@ class Woger(GameRect):
 
     def jump(self):
         self.body.apply_impulse((0, self.mass*11), (0, 0))
-        Sounds.sounds.play("jump1")
+        if self.in_air:
+            Sounds.sounds.play("orange_splat")
+        else:
+            Sounds.sounds.play("jump1")
         self.allowed_jump -= 1
 
 
