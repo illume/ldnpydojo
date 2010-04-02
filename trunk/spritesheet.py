@@ -231,8 +231,62 @@ class Strips(game.Game):
 
 
 def combine_images_into_sprite_sheet(adir, out_fname):
+
+
+    def sorted_copy(alist):
+        """ Returns a sorted copy of alist, sorted numerically as well.
+        """
+        # inspired by Alex Martelli
+        # http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/52234
+        indices = map(_generate_index, alist)
+        decorated = zip(indices, alist)
+        decorated.sort()
+        return [ item for index, item in decorated ]
+    def _generate_index(str):
+        """
+        Splits a string into alpha and numeric elements, which
+        is used as an index for sorting"
+        """
+        #
+        # the index is built progressively
+        # using the _append function
+        #
+        index = []
+        def _append(fragment, alist=index):
+            if fragment.isdigit(): fragment = int(fragment)
+            alist.append(fragment)
+
+        # initialize loop
+        prev_isdigit = str[0].isdigit()
+        current_fragment = ''
+        # group a string into digit and non-digit parts
+        for char in str:
+            curr_isdigit = char.isdigit()
+            if curr_isdigit == prev_isdigit:
+                current_fragment += char
+            else:
+                _append(current_fragment)
+                current_fragment = char
+                prev_isdigit = curr_isdigit
+        _append(current_fragment)
+        return tuple(index)
+
+
+
+
     import glob
     fnames = glob.glob(os.path.join(adir, "*.png"))
+    fnames = sorted_copy(fnames)
+
+
+    if len(fnames) == 360:
+        # get 16 of them.
+        fnames = [fnames[x] for x in range(0, 360, 23)]
+        assert(len(fnames) == 16)
+
+
+    # sort numerically. for file names like:
+    #     leaf1_small_2.png leaf1_small_200.png  
 
     # load them with 8 threads.
     import pygame.threads

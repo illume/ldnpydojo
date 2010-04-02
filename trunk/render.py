@@ -74,11 +74,17 @@ class Render(object):
                    
 
         elif item.role == "Bough":
-            try:
-                an_image = item.image[angle(item.body.angle)]
-            except IndexError:
-                # not enough images I guess.
-                an_image = item.image[0]
+            #an_image = item.image[angle(item.body.angle)]
+            #Only 16 images in there.  So we find the closest image for that angle.
+            #  >>> 360 / 23
+            #  15
+            #  >>> 0 / 23
+            #  0
+            #  >>> 180 / 23
+            #  7
+            assert(len(item.image) == 16)
+            idx_for_angle = int(angle(item.body.angle) /23)
+            an_image = item.image[idx_for_angle]
 
             self.window.display_surface.blit(an_image,
                    self.camera.point_to_screen(item.body.position))
