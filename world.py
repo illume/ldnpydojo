@@ -4,7 +4,7 @@ from random import randint, uniform
 
 from pymunk import init_pymunk, Space
 
-from items import CollisionType, Ground, Branch, Bough, Woger, Owange
+from items import BoundingTrunk, CollisionType, Ground, Branch, Bough, Woger, Owange
 
 from sounds import Sounds
 
@@ -12,6 +12,10 @@ from sounds import Sounds
 def populate(world):
     ground = Ground()
     world.add_item(ground)
+
+    bounds = 500
+    world.add_item(BoundingTrunk(-bounds))
+    world.add_item(BoundingTrunk(+bounds))
 
     def add_branch(parent, angle, thickness, length):
         branch = Branch(parent, angle, thickness, length)
