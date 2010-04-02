@@ -37,18 +37,26 @@ def populate(world):
     world.add_item(woger)
     world.player_character = woger
 
-    def in_air(space, arbiter, woger):
+    def landed_on_ground(space, arbiter, woger):
         woger.in_air = True
         woger.allowed_glide = 2
         woger.allowed_jump = 1
         return 1
 
-    def landed(space, arbiter, woger):
+    def touch_leaf(space, arbiter, woger):
+        woger.in_air = True
+        woger.allowed_glide = 2
+        woger.allowed_jump = 1
+        return 1
+
+    def off_ground(space, arbiter, woger):
         woger.in_air = False
-    #NOTE: this gets called, when woger wumps with the twee weaves too.
-
         Sounds.sounds.play("hit1")
-
+        return 1
+    
+    def leave_leaf(space, arbiter, woger):
+        woger.in_air = False
+        Sounds.sounds.play("hit1")
         return 1    
 
 
@@ -67,9 +75,9 @@ def populate(world):
         
 
     world.add_collision_handler(CollisionType.GROUND, CollisionType.PLAYER,
-                                begin=landed, separate=in_air, woger=woger)
+                                begin=landed_on_ground, separate=off_ground, woger=woger)
     world.add_collision_handler(CollisionType.BOUGH, CollisionType.PLAYER,
-                                begin=landed, separate=in_air, woger=woger)
+                                begin=touch_leaf, separate=leave_leaf, woger=woger)
     
 
 
