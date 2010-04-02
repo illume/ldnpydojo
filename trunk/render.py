@@ -24,13 +24,15 @@ class Camera(object):
         return [(x+w/2, h-100-y) for x,y in verts]
 
 
-def angle(Angle):
-        if Angle > 0:
-            return int(Angle)
-        else:
-            Angle = -int(Angle) 
-            return Angle
-            
+def angle(angle):
+    """ angle(angle) returns a normalised angle to 0..360
+        >>> angle(361)
+        1
+        >>> angle(-100)
+        100
+    """
+    return int( abs(angle) % 360 )
+
 
 
 
