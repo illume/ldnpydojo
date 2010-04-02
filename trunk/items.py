@@ -79,6 +79,20 @@ class Ground(GameRect):
         space.add_static(self.shape)
 
 
+class BoundingTrunk(GameRect):
+
+    def __init__(self, x):
+        GameRect.__init__(self, x, 1000, 50, 2000)
+        self.mass = 1e100
+        self.color = (128, 64, 0)
+        self.layers = 3  # collide with everything
+        self.role = "BoundingTrunk"
+
+    def add_to_space(self, space):
+        # TODO: more interesting collision to allow ninja double jumps
+        self.shape.collision_type = CollisionType.GROUND
+        space.add_static(self.shape)
+
 
 class Branch(GameRect):
     
