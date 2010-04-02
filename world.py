@@ -41,18 +41,25 @@ def populate(world):
     world.add_item(woger)
     world.player_character = woger
 
+
     def landed_on_ground(space, arbiter, woger):
         woger.in_air = True
         woger.allowed_glide = 2
         woger.allowed_jump = 1
         return 1
+    
+    def off_ground(space, arbiter, woger):
+        woger.in_air = False
+        Sounds.sounds.play("hit1")
+        return 1    
+
 
     def touch_leaf(space, arbiter, woger):
         woger.in_air = True
         woger.allowed_glide = 2
         woger.allowed_jump = 1
         return 1
- 
+    
     def leave_leaf(space, arbiter, woger):
         woger.in_air = False
         Sounds.sounds.play("hit1")
@@ -76,11 +83,6 @@ def populate(world):
     def leave_owange(space, arbiter, woger):
         return 1    
 
-
-    def off_ground(space, arbiter, woger):
-        woger.in_air = False
-        Sounds.sounds.play("hit1")
-        return 1
    
 
 
