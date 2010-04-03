@@ -4,7 +4,7 @@ from random import randint, uniform
 
 from pymunk import init_pymunk, Space
 
-from items import BoundingTrunk, CollisionType, Ground, Branch, Bough, Woger, Owange
+from items import BoundingTrunk, CollisionType, Ground, Branch, Bough, Woger, Owange, TopTrunk
 
 from sounds import Sounds
 
@@ -17,9 +17,9 @@ def populate(world, window):
     ground = Ground()
     world.add_item(ground)
 
-    bounds = 500
-    world.add_item(BoundingTrunk(-window.width/2-50))
-    world.add_item(BoundingTrunk(window.width/2))
+    world.add_item(BoundingTrunk(-window.width/2-60))
+    world.add_item(BoundingTrunk(window.width/2-10))
+    world.add_item(TopTrunk(window.height))
 
     def add_branch(parent, angle, thickness, length):
         branch = Branch(parent, angle, thickness, length)
@@ -41,7 +41,7 @@ def populate(world, window):
 
     trunk = add_branch(ground, 0, 50, 250)
 
-    woger = Woger(200, 450)
+    woger = Woger(200, 450, window)
     world.add_item(woger)
     world.player_character = woger
 
@@ -50,6 +50,7 @@ def populate(world, window):
         woger.in_air = False
         woger.allowed_glide = 20
         woger.allowed_jump = 1
+        woger.body.reset_forces()
         return 1
     def off_ground(space, arbiter, woger):
         woger.in_air = False
@@ -67,7 +68,7 @@ def populate(world, window):
         Sounds.sounds.play("hit1")
         return 1    
 
-
+    bounds = window.width
     def touch_owange(space, arbiter, woger):
         ''' when woger hits an owange.
         '''
@@ -78,16 +79,15 @@ def populate(world, window):
             if o.status == "Collided":
                 pass
             else:
-                woger.score += 1
+                woger.score += 10
                 Sounds.sounds.play("powerup1")
                 world.remove_item(o)
                 # add owange from the top again.
-                owange = Owange(randint(0, bounds), 750) 
+                owange = Owange(randint(-bounds, bounds), window.height-200) 
                 world.add_item(owange)
         return 1
     def off_owange(space, arbiter, woger):
         return 1    
-
 
 
     def owange_hit_ground(space, arbiter, woger):
@@ -96,14 +96,14 @@ def populate(world, window):
                       if hasattr(s, 'parent') and isinstance(s.parent, Owange)]
 
         for o in owanges:
+            if o.status != "Collided":
+                woger.score -= 1
             Sounds.sounds.play("orange_splat")
             o.destroy()
             # add owange from the top again.
-            owange = Owange(randint(0, bounds), 750) 
+            owange = Owange(randint(-bounds, bounds), window.height-200) 
             world.add_item(owange)
-
         return 1
-
     def owange_off_ground(space, arbiter, woger):
         return 1
    
@@ -120,7 +120,7 @@ def populate(world, window):
         return 1
 
     for i in range(10):
-        owange = Owange(i*10, 650) 
+        owange = Owange(i*10, window.height-200) 
         world.add_item(owange)
     
 
