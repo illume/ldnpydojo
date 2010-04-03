@@ -99,7 +99,7 @@ def populate(world, window):
             if o.status == "Collided":
                 pass
             else:
-                woger.score += 10
+                woger.score = woger.score + 10*woger.multiplier
                 #Sounds.sounds.play(random.choice(['powerup1', 'goal1']))
                 Sounds.sounds.play(random.choice(['goal1']))
                 world.remove_item(o)
@@ -134,10 +134,14 @@ def populate(world, window):
    
 
     def leaf_hit_ground(space, arbiter, woger):
-       #print "I'll get around to it"
         boughs = [s.parent for s in arbiter.shapes 
                       if hasattr(s, 'parent') and isinstance(s.parent, Bough)]
         print boughs
+        grounds = [s.parent for s in arbiter.shapes 
+                      if hasattr(s, 'parent') and isinstance(s.parent, Ground)]
+        if not grounds:
+            # must have collided with a leaf?
+            return 1
         for leaf in boughs:
             print "Destroying"
             leaf.destroy()
@@ -145,14 +149,12 @@ def populate(world, window):
         return 1
 
     def cherry_hit_ground(space, arbiter, woger):
-       # print "I'll get around to it"
         cherries = [s.parent for s in arbiter.shapes 
                       if hasattr(s, 'parent') and isinstance(s.parent, Cherry)]
         print cherries
         for cherry in cherries:
             print "Destroying"
             cherry.destroy()
-            #print leaf.status
         return 1
 
     #for i in range(NUM_OWANGES):

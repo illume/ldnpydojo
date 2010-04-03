@@ -120,7 +120,7 @@ def handle_events(window, world):
         if e.type == ADDCHERRY:
             print "Adding cherry"
             bounds = window.width
-            world.add_cherry(random.randint(-bounds, bounds), window.height-200)
+            world.add_cherry(random.randint(-bounds+50, bounds-50), window.height-200)
 
         if e.type == ADDOWANGE:
             bounds = window.width
