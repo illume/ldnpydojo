@@ -8,6 +8,8 @@ from items import BoundingTrunk, CollisionType, Ground, Branch, Bough, Woger, Ow
 
 from sounds import Sounds
 
+from pygame import time
+
 
 def populate(world):
     ground = Ground()
@@ -72,7 +74,7 @@ def populate(world):
 
         for o in owanges:
             Sounds.sounds.play("powerup1")
-            world.remove_item(o)
+            #world.remove_item(o)
             # add owange from the top again.
             owange = Owange(randint(0, bounds), 750) 
             world.add_item(owange)
@@ -90,7 +92,9 @@ def populate(world):
 
         for o in owanges:
             Sounds.sounds.play("orange_splat")
-            world.remove_item(o)
+            o.destroy()
+            #o.status = "Collided"
+            #world.remove_item(o)
             # add owange from the top again.
             owange = Owange(randint(0, bounds), 750) 
             world.add_item(owange)
@@ -145,6 +149,7 @@ class World(object):
         self.space.gravity = (0, -0.5)
         self.space.resize_static_hash()
         self.space.resize_active_hash()
+        
 
 
     def add_item(self, item):
@@ -162,6 +167,12 @@ class World(object):
         self.space.step(0.5)
         for item in self.items:
             item.update()
+
+    def remove_collided(self):
+        for item in self.items:
+            if item.status == "Collided":
+                self.remove_item(item)
+            
 
 
     def add_collision_handler( self, 

@@ -90,8 +90,14 @@ class Render(object):
                    self.camera.point_to_screen(item.body.position))
 
         elif item.role == "Owange":
-            self.window.display_surface.blit(
-                       item.image[0], self.camera.point_to_screen(item.body.position))
+            if item.status == "Collided":
+                #print "Collided"
+                for frame_no in range(20):
+                    self.window.display_surface.blit(item.animation, self.camera.point_to_screen(item.body.position), (95*frame_no, 0, 95, 48))
+
+            else:
+                self.window.display_surface.blit(
+                           item.image[0], self.camera.point_to_screen(item.body.position))
         else:
             # note: 80% of program execution time is in this clause
             # particularly retrieving the item.verts
