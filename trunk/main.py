@@ -21,6 +21,7 @@ from sounds import Sounds
 
 CLEANUP = USEREVENT + 1
 TICK_TOCK = USEREVENT + 2
+ADDCHERRY = USEREVENT + 3
 
 def start_game():
 
@@ -46,9 +47,13 @@ def start_game():
     
     CleanUp_Event = pygame.event.Event(CLEANUP, message="Cleaning Up Your shit")
     pygame.time.set_timer(CLEANUP, 1000)
+
     TickTock = pygame.event.Event(TICK_TOCK, message="TickTock goes the Ticking Clock")
     pygame.time.set_timer(TICK_TOCK, 90000/count_leaves())
 
+    AddCherry = pygame.event.Event(ADDCHERRY, message="Ooooo Cherry")
+    pygame.time.set_timer(ADDCHERRY, 90000/5)
+       
     render = Render(window, world)
     runloop(window, world, render)
 
@@ -75,7 +80,11 @@ def handle_events(window, world):
 
         if e.type == TICK_TOCK:
             world.tick()
-            
+
+        if e.type == ADDCHERRY:
+            print "Adding cherry"
+            world.add_cherry()
+
         if e.type == QUIT:
             quit = True
             break

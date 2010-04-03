@@ -13,6 +13,8 @@ from pymunk import (
 from sounds import Sounds
 import spritesheet
 
+import random
+
 
 
 class GameRect(object):
@@ -67,7 +69,7 @@ class GameRect(object):
 
 
 class CollisionType:
-    GROUND, BOUGH, PLAYER, BRANCH, OWANGE = range(5)
+    GROUND, BOUGH, PLAYER, BRANCH, OWANGE, CHERRY = range(6)
 
 
 
@@ -352,7 +354,6 @@ class Woger(GameRect):
         self.body.apply_impulse(vel_of_jump, (0, 0))
         self.allowed_jump -= 1
 
-#TODO: I don't really know how to add owange... but here is a start.
 class Owange(GameRect):
 
     def __init__(self, x, y):
@@ -369,6 +370,7 @@ class Owange(GameRect):
 
         # owange collides with ground and boughs
         self.layers = 1
+        
 
     def destroy(self):
         self.status = "Collided"
@@ -380,4 +382,28 @@ class Owange(GameRect):
         self.shape.layer = 1
         self.shape.collision_type = CollisionType.OWANGE
 
+class Cherry(GameRect):
 
+    def __init__(self, x=63, y=74):
+        #x = random.randint(0,550)
+        #y = random.randint(0,550)
+        GameRect.__init__(self, x, y, 31, 75)
+        self.image = [image.load("data/art/cherry/cherry_small.png").convert_alpha()]
+        #self.animation = image.load("data/art/orange/orange_splat_small.png").convert_alpha() #spritesheet.load_strip('orange_splat.png', 1362, colorkey = None)[0]
+        self.in_air = True
+        self.role = "Cherry"
+        self.status = None
+        self.deadtime = 0
+
+        # cherry collides with ground and boughs
+        self.layers = 1
+
+    def destroy(self):
+        self.status = "Collided"
+        #self.image = [image.load("data/art/orange/orange_splat_small.png").convert_alpha()] #spritesheet.load_strip('orange_splat.png', 1362, colorkey = None)[0]
+        self.body.reset_forces()
+
+    def create_body(self):
+        GameRect.create_body(self)
+        self.shape.layer = 1
+        self.shape.collision_type = CollisionType.CHERRY

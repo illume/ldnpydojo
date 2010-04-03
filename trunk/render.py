@@ -111,6 +111,10 @@ class Render(object):
             else:
                 self.window.display_surface.blit(
                            item.image[0], self.camera.point_to_screen(item.body.position))
+
+        elif item.role == "Cherry":
+            self.window.display_surface.blit(
+               item.image[0], self.camera.point_to_screen(item.body.position))
         else:
             # note: 80% of program execution time is in this clause
             # particularly retrieving the item.verts
