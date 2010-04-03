@@ -136,16 +136,15 @@ def populate(world, window):
     def leaf_hit_ground(space, arbiter, woger):
         boughs = [s.parent for s in arbiter.shapes 
                       if hasattr(s, 'parent') and isinstance(s.parent, Bough)]
-        print boughs
         grounds = [s.parent for s in arbiter.shapes 
                       if hasattr(s, 'parent') and isinstance(s.parent, Ground)]
         if not grounds:
             # must have collided with a leaf?
             return 1
         for leaf in boughs:
-            print "Destroying"
+            #print "Destroying"
             leaf.destroy()
-            print leaf.status
+            #print leaf.status
         return 1
 
     def cherry_hit_ground(space, arbiter, woger):
