@@ -40,7 +40,7 @@ def start_game():
 
     pygame.init()
 
-##    intro_main(window)
+    intro_main(window, handle_events)
 ##    import sys
 ##    sys.exit()
     
@@ -56,6 +56,7 @@ def start_game():
     sounds.music_tracks(['track-one', 'track-two'])
 
     world = World()
+    world.stage = 2
     populate(world, window)
 
     def count_leaves():
@@ -108,7 +109,6 @@ def runloop(window, world, render):
 
 
 def handle_events(window, world):
-    woger = world.player_character
     quit = False
     for e in event.get():
         print e
@@ -117,67 +117,82 @@ def handle_events(window, world):
             #print "Cleaning"
             world.remove_collided()
 
-        if e.type == TICK_TOCK:
+        elif e.type == TICK_TOCK:
             world.tick()
 
-        if e.type == ADDCHERRY:
+        elif e.type == ADDCHERRY:
             print "Adding cherry"
             bounds = window.width
             world.add_cherry(random.randint(-bounds+50, bounds-50), window.height-200)
 
-        if e.type == ADDOWANGE:
+        elif e.type == ADDOWANGE:
             bounds = window.width
             world.add_owange(random.randint(-bounds/2, bounds/2), 
                             random.randint(window.height-300,window.height ))
 
-        if e.type == BIRDY:
+        elif e.type == BIRDY:
             bird_files = glob.glob(os.path.join('data','sounds','birds*.ogg'))
             bsounds = [os.path.basename(b[:-4]) for b in bird_files]
             the_sound = random.choice(bsounds)
             Sounds.sounds.play(the_sound)
 
-        if e.type == QUIT:
+        elif e.type == QUIT:
             quit = True
-            break
+            break     
 
         elif e.type == KEYDOWN:
+            
+            if 1 and e.key == K_s and e.mod & KMOD_SHIFT:
+                pygame.image.save( pygame.display.get_surface() , "screeny.png")
+                
             if e.key == K_ESCAPE:
                 quit = True
                 break
             elif e.key == K_RETURN and e.mod & KMOD_ALT:
                 window.toggle_fullscreen()
-
+        
+            if world.stage == 1:
+                #any key quits the intro
+                quit = True
+                return quit
+        
             # Woger
 ##            elif woger.allowed_glide or not woger.in_air:
-            else:
-                if e.key == K_LEFT:
-                    woger.do_walk(-1)
-                elif e.key == K_RIGHT:
-                    woger.do_walk(1)
-     
-                elif (e.key == K_SPACE or e.key == K_UP) and (woger.allowed_jump or not woger.in_air):
-                    woger.jump()
+            woger = world.player_character
+            if e.key == K_LEFT:
+                woger.do_walk(-1)
+            elif e.key == K_RIGHT:
+                woger.do_walk(1)
+ 
+            elif (e.key == K_SPACE or e.key == K_UP) and (woger.allowed_jump or not woger.in_air):
+                woger.jump()
 
-                elif e.key == K_DOWN and not woger.in_air:
-                    woger.dive()
-
-            if 1 and e.key == K_s and e.mod & KMOD_SHIFT:
-                pygame.image.save( pygame.display.get_surface() , "screeny.png")
-
-
+            elif e.key == K_DOWN and not woger.in_air:
+                woger.dive()
+        
+        elif world.stage == 1:
+            # no key down, but stop here, we're in intro
+            return quit
+            
 ##        elif woger.allowed_glide or not woger.in_air:
-        else:
-            if e.type == KEYUP:
-                if e.key == K_LEFT:
-                    woger.end_walk()
-                elif e.key == K_RIGHT:
-                    woger.end_walk()
+        elif e.type == KEYUP:
+            woger = world.player_character
+            if e.key == K_LEFT:
+                woger.end_walk()
+            elif e.key == K_RIGHT:
+                woger.end_walk()
 
 
+        elif e.type == CLEANUP:
+            #print "Cleaning"
+            world.remove_collided()
 
+        elif e.type == TICK_TOCK:
+            world.tick()
 
-    if woger.walk_force:
-        woger.do_walk()
+        elif e.type == ADDCHERRY:
+            print "Adding cherry"
+            world.add_cherry()                
 
     return quit
 

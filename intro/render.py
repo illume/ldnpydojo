@@ -1,5 +1,5 @@
 
-from pygame import draw
+from pygame import draw, transform
 
 from .items import Platform
 
@@ -12,11 +12,11 @@ class Render(object):
 
 
     def draw_world(self):
-        self.window.display_surface.fill((0, 0, 0))
-        for item in self.world.items:
-            self.draw_platform(item)
-        for spring in self.world.springs:
-            self.draw_spring(spring)
+        self.window.display_surface.fill((0, 64, 128))
+        for word in self.world.words:
+            self.draw_word(word)
+##        for spring in self.world.springs:
+##            self.draw_spring(spring)
         
 
     def draw_spring(self, spring):
@@ -34,5 +34,10 @@ class Render(object):
             item.verts, 0)
 
     def draw_word(self, word):
-        pass
-
+        rot_image = transform.rotate(
+                     word.image,
+                     90 * word.platform.body.angle)
+        print word.offset,  word.platform.body.position
+        self.window.display_surface.blit(
+                    rot_image,
+                    word.platform.body.position - word.offset)

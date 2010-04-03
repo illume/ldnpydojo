@@ -1,21 +1,23 @@
 from __future__ import division
 
-from pygame import display, event
+import os
+from pygame import display, event, font
 from pygame.locals import QUIT, K_ESCAPE
 from pymunk import Vec2d
 
 ##from window import Window
 from .world import World
-from .items import Platform, Spring
+from .items import Platform, Spring, Word
 from render import Render
 
 
         
-def main(window):
+def main(window, handle_events):
 ##    window = Window()
 ##    window.init()
 
     world = World()
+    world.stage = 1
 
     p1 = Platform(600, 300, 400, 50)
     world.add_item(p1)
@@ -45,32 +47,48 @@ def main(window):
                     rest_length, 10*stiffness, damping)
     world.add_spring(spring)
 
-    
-##    p1.body.apply_impulse((0, +5000), (-100, 0))
 
+    font_path = os.path.join("data", "fonts", "vinque", "vinque.ttf")
+    fnt = font.Font(font_path, 48)
+    text = 'Woger the wibbly wobbly wombat'
+    words = [fnt.render(word, True, (255,255,255))
+                     for word in text.split()]
+
+    word_positions = (
+        (200, 50),
+        (500, 50),
+        (175, 250),
+        (350, 250),
+        (550, 250),
+        )
+
+    for surface, position in zip(words, word_positions):
+        word = Word(p1, surface, position)
+        world.add_word(word)
+    
     render = Render(window, world)
 
     while True:
-        quit = handle_events()
+        quit = handle_events(window, world)
         if quit:
             break
 
         world.update()
-        #render.draw_world()
-        #display.flip()
+        render.draw_world()
+        display.flip()
 
 
 
-def handle_events():
-    for e in event.get():
-        if e.type == QUIT or getattr(e, 'key', None) == K_ESCAPE:
-            return True
+##def handle_events():
+##    for e in event.get():
+##        if e.type == QUIT or getattr(e, 'key', None) == K_ESCAPE:
+##            return True
 
 
-if __name__ == '__main__':
-    try:
-        main()
-    finally:
-        pass
-        #display.quit()
+##if __name__ == '__main__':
+##    try:
+##        main()
+##    finally:
+##        pass
+##        #display.quit()
 
