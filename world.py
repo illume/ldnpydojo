@@ -113,16 +113,23 @@ def populate(world):
         return 1
    
 
+    def leaf_hit_ground(space, arbiter, woger):
+        print "I'll get around to it"
+        boughs = [s.parent for s in arbiter.shapes 
+                      if hasattr(s, 'parent') and isinstance(s.parent, Bough)]
+        print boughs
+        for leaf in boughs:
+            print "Destroying"
+            leaf.destroy()
+            print leaf.status
+        return 1
 
 
 
 
-    #TODO: owanges will need to be dropped as the game goes on.
-    #  when colliding with woger points are scored.
-    #  when colliding with the ground, 
+    #TODO: 
+    #  when owanges colliding with the ground, 
     #      points are lost
-    #      owanges go splat
-    #      owanges dissapear
 
     for i in range(10):
         owange = Owange(i*10, 650) 
@@ -146,6 +153,10 @@ def populate(world):
     world.add_collision_handler(CollisionType.GROUND, CollisionType.OWANGE,
                                 begin=owange_hit_ground, 
                                 separate=owange_off_ground, woger=woger)
+
+    world.add_collision_handler(CollisionType.GROUND, CollisionType.BOUGH,
+                                begin=leaf_hit_ground, separate=None, woger=woger)
+
 
 
 class World(object):

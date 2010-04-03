@@ -218,6 +218,7 @@ class Bough(GameRect):
         self.shape.layers =  self.layers
         self.shape.group = self.group
         self.shape.collision_type = CollisionType.BOUGH
+        self.shape.parent = self
 
 
     def add_to_space(self, space):
@@ -230,6 +231,10 @@ class Bough(GameRect):
 
     def remove_from_tree(self, space):
         space.remove(self.pivot)
+
+    def destroy(self):
+        self.status = "Collided"
+        self.body.reset_forces()
 
 
 
