@@ -326,7 +326,7 @@ class Owange(GameRect):
         #self.color = pygame.Color('orange')
         self.walk_force = 0
         self.image = [image.load("data/art/orange/owange.png").convert_alpha()]
-        self.animation = image.load("data/art/orange/animation/orange_splat_small.png").convert_alpha() #spritesheet.load_strip('orange_splat.png', 1362, colorkey = None)[0]
+        self.animation = image.load("data/art/orange/orange_splat_small.png").convert_alpha() #spritesheet.load_strip('orange_splat.png', 1362, colorkey = None)[0]
         self.in_air = True
         self.allowed_glide = 2
         self.role = "Owange"
