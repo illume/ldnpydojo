@@ -111,14 +111,18 @@ def populate(world, window):
 
         owanges = [s.parent for s in arbiter.shapes 
                       if hasattr(s, 'parent') and isinstance(s.parent, Owange)]
-
+        grounds = [s.parent for s in arbiter.shapes 
+                      if hasattr(s, 'parent') and isinstance(s.parent, Ground)]
+        if not grounds:
+            # must have collided with a leaf?
+            return 1
         for o in owanges:
             if o.status != "Collided":
                 woger.score -= 2
                 Sounds.sounds.play("orange_splat2")
                 o.destroy()
                 # add owange from the top again.
-                owange = Owange(randint(-bounds, bounds), window.height-200) 
+                owange = Owange(randint(-bounds, bounds), window.height) 
                 world.add_item(owange)
         return 1
     def owange_off_ground(space, arbiter, woger):
