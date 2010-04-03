@@ -90,9 +90,9 @@ class Ground(GameRect):
 class BoundingTrunk(GameRect):
 
     def __init__(self, x):
-        GameRect.__init__(self, x, 1000, 50, 2000)
         self.mass = 1e100
-        self.color = (128, 64, 0)
+        self.color = (0, 100, 255)#(128, 64, 0)
+        GameRect.__init__(self, x, 1000, 50, 2000)
         self.layers = 3  # collide with everything
         self.role = "BoundingTrunk"
         self.status = None
@@ -174,7 +174,7 @@ class Branch(GameRect):
         spring = DampedRotarySpring(
             self.body, self.parent.body, 0.0, self.mass * 10000, self.mass/10)
         space.add(spring)
-
+        
 
 
 class Bough(GameRect):
@@ -191,7 +191,6 @@ class Bough(GameRect):
         #self.image = [image.load("data/art/leaves/leaf1_small_0.png").convert_alpha()]
         self.image = spritesheet.load_strip('leaves-rotating-88.png', 88, colorkey = None)[0]
         #print self.image
-        #raise 'asdf'
 
         # bough collides with ground and woger
         self.layers = 1
@@ -235,6 +234,8 @@ class Bough(GameRect):
     def destroy(self):
         self.status = "Collided"
         self.body.reset_forces()
+
+      
 
 
 

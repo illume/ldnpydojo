@@ -35,7 +35,7 @@ def start_game():
     sounds.play_music("track-one")
 
     world = World()
-    populate(world)
+    populate(world, window)
 
     def count_leaves():
         no_leaves = 0

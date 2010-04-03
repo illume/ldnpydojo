@@ -13,13 +13,13 @@ from pygame import time
 import random
 
 
-def populate(world):
+def populate(world, window):
     ground = Ground()
     world.add_item(ground)
 
     bounds = 500
-    world.add_item(BoundingTrunk(-bounds))
-    world.add_item(BoundingTrunk(+bounds))
+    world.add_item(BoundingTrunk(-window.width/2-50))
+    world.add_item(BoundingTrunk(window.width/2))
 
     def add_branch(parent, angle, thickness, length):
         branch = Branch(parent, angle, thickness, length)
@@ -48,7 +48,7 @@ def populate(world):
 
     def landed_on_ground(space, arbiter, woger):
         woger.in_air = False
-        woger.allowed_glide = 2
+        woger.allowed_glide = 20
         woger.allowed_jump = 1
         return 1
     def off_ground(space, arbiter, woger):
@@ -59,7 +59,7 @@ def populate(world):
 
     def touch_leaf(space, arbiter, woger):
         woger.in_air = True
-        woger.allowed_glide = 2
+        woger.allowed_glide = 20
         woger.allowed_jump = 1
         return 1
     def off_leaf(space, arbiter, woger):
@@ -84,9 +84,6 @@ def populate(world):
                 # add owange from the top again.
                 owange = Owange(randint(0, bounds), 750) 
                 world.add_item(owange)
-
-                    
-
         return 1
     def off_owange(space, arbiter, woger):
         return 1    
@@ -101,8 +98,6 @@ def populate(world):
         for o in owanges:
             Sounds.sounds.play("orange_splat")
             o.destroy()
-            #o.status = "Collided"
-            #world.remove_item(o)
             # add owange from the top again.
             owange = Owange(randint(0, bounds), 750) 
             world.add_item(owange)
@@ -124,18 +119,9 @@ def populate(world):
             print leaf.status
         return 1
 
-
-
-
-    #TODO: 
-    #  when owanges colliding with the ground, 
-    #      points are lost
-
     for i in range(10):
         owange = Owange(i*10, 650) 
         world.add_item(owange)
-        #world.remove_item(owange)
-
     
 
     world.add_collision_handler(CollisionType.GROUND, CollisionType.PLAYER,
@@ -219,8 +205,6 @@ class World(object):
                                separate=None, 
                                **kwargs
         ):
-        '''
-        '''
         self.space.add_collision_handler(
             col_typ1, col_typ2,
             begin, pre_solve,
