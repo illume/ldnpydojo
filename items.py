@@ -83,7 +83,7 @@ class GameRect(object):
 class Ground(GameRect):
 
     def __init__(self):
-        GameRect.__init__(self, 0, -1000, 2000, 2000)
+        GameRect.__init__(self, 0, -1050, 2000, 2000)
         self.mass = 1e100
         self.color = (0, 255, 0)
         # ground should collide with everything (3 = 1 || 2)
@@ -137,6 +137,7 @@ class Branch(GameRect):
             width = parent.width / 2
         if height == None:
             height = parent.height / 2
+ #       GameRect.__init__(self, 0, 0, width, height)
         GameRect.__init__(self, 0, height / 2, width, height)
         self.color = (128, 64, 0)
         self.role = "Branch"
