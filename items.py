@@ -271,7 +271,8 @@ class Woger(GameRect):
         self.role = "Woger"
         self.status = None
         self.score = 0
-        # yes yes, I know! it's bad!
+        self.multiplier = 1
+        # yes yes, I know! it's bad! ** He's a very naughty boy
         self.window = window
 
         # woger collides with ground and boughs

@@ -68,6 +68,23 @@ def populate(world, window):
         Sounds.sounds.play("hit1")
         return 1    
 
+    def touch_cherry(space, arbiter, woger):
+        ''' when woger hits a cherry.
+        '''
+        cherries = [s.parent for s in arbiter.shapes
+                      if hasattr(s, 'parent') and isinstance(s.parent, Cherry)]
+
+        for cherry in cherries:
+            if cherry.status == "Collided":
+                pass
+            else:
+                woger.multiplier += 1
+                print "Multiplier", woger.multiplier
+                #Sounds.sounds.play("powerup1")
+                world.remove_item(cherry)
+        return 1
+        
+
     bounds = window.width
     def touch_owange(space, arbiter, woger):
         ''' when woger hits an owange.
@@ -156,6 +173,9 @@ def populate(world, window):
 
     world.add_collision_handler(CollisionType.GROUND, CollisionType.CHERRY,
                                 begin=cherry_hit_ground, separate=None, woger=woger)
+
+    world.add_collision_handler(CollisionType.CHERRY, CollisionType.PLAYER,
+                                begin=touch_cherry, separate=None, woger=woger)
 
 class World(object):
 
