@@ -40,7 +40,7 @@ def populate(world, window):
                 add_branch( branch, newangle, newthickness, newlength )
         return branch
 
-    trunk = add_branch(ground, 0, 50, 250)
+    trunk = add_branch(ground, 0, 50, 200)
 
     woger = Woger(200, 100, window)
     world.add_item(woger)
@@ -151,7 +151,12 @@ def populate(world, window):
     def cherry_hit_ground(space, arbiter, woger):
         cherries = [s.parent for s in arbiter.shapes 
                       if hasattr(s, 'parent') and isinstance(s.parent, Cherry)]
-        print cherries
+        grounds = [s.parent for s in arbiter.shapes 
+                      if hasattr(s, 'parent') and isinstance(s.parent, Ground)]
+        if not grounds:
+            # must have collided with a leaf?
+            return 1
+#        print cherries
         for cherry in cherries:
             print "Destroying"
             cherry.destroy()
