@@ -25,7 +25,10 @@ def start_game():
 
     window = Window()
     window.init()
-
+    pygame.init()
+    CLEANUP = USEREVENT + 1
+    CleanUp_Event = pygame.event.Event(CLEANUP)
+    pygame.time.set_timer(CLEANUP, 1000)
     sounds = Sounds()
     sounds.init()
     sounds.play("jump1")
@@ -83,6 +86,10 @@ def handle_events(window, world):
                     woger.end_walk()
                 elif e.key == K_RIGHT:
                     woger.end_walk()
+
+        elif e.type == CLEANUP:
+            print "Cleaning"
+            world.remove_collided()
 
     if woger.walk_force:
         woger.do_walk()

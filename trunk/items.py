@@ -24,6 +24,7 @@ class GameRect(object):
         self.height = height
         self.mass = self.width * self.height / 10000
         self.layers = -1 # collide with everything
+        self.status = None
 
 
     def get_verts(self):
@@ -79,6 +80,7 @@ class Ground(GameRect):
         # ground should collide with everything (3 = 1 || 2)
         self.layers = 3
         self.role = "Ground"
+        self.status = None
 
     def add_to_space(self, space):
         self.shape.collision_type = CollisionType.GROUND
@@ -93,6 +95,7 @@ class BoundingTrunk(GameRect):
         self.color = (128, 64, 0)
         self.layers = 3  # collide with everything
         self.role = "BoundingTrunk"
+        self.status = None
 
     def add_to_space(self, space):
         # TODO: more interesting collision to allow ninja double jumps
@@ -112,6 +115,7 @@ class Branch(GameRect):
         GameRect.__init__(self, 0, height / 2, width, height)
         self.color = (128, 64, 0)
         self.role = "Branch"
+        self.status = None
 
         # branches should only collide with ground
         self.layers = 2
@@ -183,6 +187,7 @@ class Bough(GameRect):
         GameRect.__init__(self, x, y, width, height)
         self.color = (0, 255, 0)
         self.role = "Bough"
+        self.status = None
         #self.image = [image.load("data/art/leaves/leaf1_small_0.png").convert_alpha()]
         self.image = spritesheet.load_strip('leaves-rotating-88.png', 88, colorkey = None)[0]
         #print self.image
@@ -228,13 +233,14 @@ class Woger(GameRect):
 
     def __init__(self, x, y):
         GameRect.__init__(self, x, y, 63, 74)
-        self.color = (255, 127, 0)
+        #self.color = (255, 127, 0)
         self.walk_force = 0
         self.image = [image.load("data/art/left_woger_small.png").convert_alpha(), image.load("data/art/right_woger_small.png").convert_alpha()]
         self.in_air = True
         self.allowed_glide = 2
         self.allowed_jump = 1
         self.role = "Woger"
+        self.status = None
 
         # woger collides with ground and boughs
         self.layers = 1
@@ -312,11 +318,6 @@ class Woger(GameRect):
         self.body.apply_impulse(vel_of_jump, (0, 0))
         self.allowed_jump -= 1
 
-
-
-
-
-
 #TODO: I don't really know how to add owange... but here is a start.
 class Owange(GameRect):
 
@@ -325,13 +326,21 @@ class Owange(GameRect):
         #self.color = pygame.Color('orange')
         self.walk_force = 0
         self.image = [image.load("data/art/orange/owange.png").convert_alpha()]
+        self.animation = image.load("data/art/orange/animation/orange_splat_small.png").convert_alpha() #spritesheet.load_strip('orange_splat.png', 1362, colorkey = None)[0]
         self.in_air = True
         self.allowed_glide = 2
         self.role = "Owange"
+        self.status = None
+        self.deadtime = 0
 
         # woger collides with ground and boughs
         self.layers = 1
 
+    def destroy(self):
+        self.status = "Collided"
+        self.image = image.load("data/art/orange/orange_splat_small.png").convert_alpha() #spritesheet.load_strip('orange_splat.png', 1362, colorkey = None)[0]
+        self.body.reset_forces()
+        self.deadtime = 0
 
     def create_body(self):
         GameRect.create_body(self)
