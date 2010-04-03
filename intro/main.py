@@ -47,16 +47,23 @@ def main(window, handle_events):
                     rest_length, 10*stiffness, damping)
     world.add_spring(spring)
 
-
+    
     font_path = os.path.join("data", "fonts", "vinque", "vinque.ttf")
+
+    fnt = font.Font(font_path, 36)
+    surface = fnt.render('The adventures of...', True, (255,255,255))
+    word = Word(p2, surface, (200, 50))
+    world.add_word(word)
+
+
     fnt = font.Font(font_path, 48)
     text = 'Woger the wibbly wobbly wombat'
     words = [fnt.render(word, True, (255,255,255))
                      for word in text.split()]
 
     word_positions = (
-        (200, 50),
-        (500, 50),
+        (200, 75),
+        (500, 75),
         (175, 250),
         (350, 250),
         (550, 250),
@@ -65,6 +72,11 @@ def main(window, handle_events):
     for surface, position in zip(words, word_positions):
         word = Word(p1, surface, position)
         world.add_word(word)
+
+    fnt = font.Font(font_path, 24)
+    surface = fnt.render('space to continue, use arrow keys in game...', True, (0,0,0))
+    word = Word(p2, surface, (200, 550))
+    world.add_word(word)
     
     render = Render(window, world)
 
