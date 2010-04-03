@@ -1,8 +1,9 @@
 
 from __future__ import division
 
-import sys
+import sys,os
 import subprocess
+import glob
 
 import pygame
 from pygame.locals import *
@@ -27,6 +28,7 @@ CLEANUP = USEREVENT + 1
 TICK_TOCK = USEREVENT + 2
 ADDCHERRY = USEREVENT + 3
 ADDOWANGE = USEREVENT + 4
+BIRDY = USEREVENT + 5
 
 def start_game():
 
@@ -75,6 +77,7 @@ def start_game():
     AddOwange = pygame.event.Event(ADDOWANGE, message="Ooooo owange")
     pygame.time.set_timer(ADDOWANGE, 1000 * 5)
        
+    pygame.time.set_timer(BIRDY, 1000 * 7)
 
 
 
@@ -127,6 +130,11 @@ def handle_events(window, world):
             world.add_owange(random.randint(-bounds/2, bounds/2), 
                             random.randint(window.height-300,window.height ))
 
+        if e.type == BIRDY:
+            bird_files = glob.glob(os.path.join('data','sounds','birds*.ogg'))
+            bsounds = [os.path.basename(b[:-4]) for b in bird_files]
+            the_sound = random.choice(bsounds)
+            Sounds.sounds.play(the_sound)
 
         if e.type == QUIT:
             quit = True
