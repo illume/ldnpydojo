@@ -37,7 +37,7 @@ def populate(world):
                 add_branch( branch, newangle, newthickness, newlength )
         return branch
 
-    trunk = add_branch(ground, 0, 50, 270)
+    trunk = add_branch(ground, 0, 50, 250)
 
     woger = Woger(200, 450)
     world.add_item(woger)
