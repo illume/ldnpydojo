@@ -1,4 +1,6 @@
 
+import pygame
+from pygame.locals import *
 from pygame import draw, font
 from items import Branch
 import os
@@ -61,11 +63,23 @@ class Render(object):
     def draw_score(self):
         woger = self.world.player_character
         text = '%d' %woger.score
-        self.window.display_surface.blit(
-            self.font.render(text, True, (255,255,255)),
-            #self.camera.point_to_screen()
-            (50, 50)
-            )
+        screen = self.window.display_surface
+        screen.blit( self.font.render(text, True, (255,255,255)),
+                    (50, 50))
+
+
+        if 'surfaces with the word on each one':
+            font_path = os.path.join("data","fonts", "vinque", "vinque.ttf")
+            font = pygame.font.Font(font_path,48)
+            text = 'Woger the wibbly wobbly wombat'
+            words = [font.render(word, True, (255,255,255)) 
+                         for word in text.split()]
+
+            x,y = 30, 300
+            for i,w in enumerate(words):
+                screen.blit(w, (x,y + i*48))
+
+
 
     def draw_item(self, item):
         if item.role == "Woger":
