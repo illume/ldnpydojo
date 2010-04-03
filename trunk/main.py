@@ -37,7 +37,7 @@ def start_game():
     populate(world)
 
     
-    CleanUp_Event = pygame.event.Event(CLEANUP)
+    CleanUp_Event = pygame.event.Event(CLEANUP, messag="Cleaning Up Your shit")
     pygame.time.set_timer(CLEANUP, 1000)
 
 
@@ -58,9 +58,16 @@ def handle_events(window, world):
     woger = world.player_character
     quit = False
     for e in event.get():
+        print e
+
+        if e.type == CLEANUP:
+            print "Cleaning"
+            world.remove_collided()
+
         if e.type == QUIT:
             quit = True
             break
+
         elif e.type == KEYDOWN:
             if e.key == K_ESCAPE:
                 quit = True
@@ -89,9 +96,7 @@ def handle_events(window, world):
                 elif e.key == K_RIGHT:
                     woger.end_walk()
 
-        elif e.type == CLEANUP:
-            print "Cleaning"
-            world.remove_collided()
+
 
     if woger.walk_force:
         woger.do_walk()
