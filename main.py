@@ -27,9 +27,15 @@ def start_game():
 
     window = Window()
     window.init()
+
+    #needs to be called before pygame.init
+    pygame.mixer.pre_init(22050, -16, 2, 1024)
     pygame.init()
     sounds = Sounds()
     sounds.init()
+
+    # so we can mix more channels at once.  pygame defaults to 8.
+    pygame.mixer.set_num_channels(32)
     sounds.play("jump1")
     sounds.play("hit1")
     sounds.play("goal1")
