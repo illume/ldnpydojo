@@ -354,7 +354,7 @@ class Woger(GameRect):
 
     def dive(self):
         vel_of_dive = Vec2d(0, -self.mass*11)
-        Sounds.sounds.play("jump1")
+        Sounds.sounds.play("dive1")
         self.body.apply_impulse(vel_of_dive, (0, 0))
 
 class Owange(GameRect):
