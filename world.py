@@ -1,10 +1,10 @@
-
 from math import pi
 from random import randint, uniform
 
 from pymunk import init_pymunk, Space
 
-from items import BoundingTrunk, CollisionType, Ground, Branch, Bough, Woger, Owange, TopTrunk
+from items import BoundingTrunk, CollisionType, Ground, Branch, Bough, Woger, Owange, TopTrunk, Cherry
+
 
 from sounds import Sounds
 
@@ -109,7 +109,7 @@ def populate(world, window):
    
 
     def leaf_hit_ground(space, arbiter, woger):
-        print "I'll get around to it"
+       #print "I'll get around to it"
         boughs = [s.parent for s in arbiter.shapes 
                       if hasattr(s, 'parent') and isinstance(s.parent, Bough)]
         print boughs
@@ -117,6 +117,17 @@ def populate(world, window):
             print "Destroying"
             leaf.destroy()
             print leaf.status
+        return 1
+
+    def cherry_hit_ground(space, arbiter, woger):
+       # print "I'll get around to it"
+        cherries = [s.parent for s in arbiter.shapes 
+                      if hasattr(s, 'parent') and isinstance(s.parent, Cherry)]
+        print cherries
+        for cherry in cherries:
+            print "Destroying"
+            cherry.destroy()
+            #print leaf.status
         return 1
 
     for i in range(10):
@@ -143,7 +154,8 @@ def populate(world, window):
     world.add_collision_handler(CollisionType.GROUND, CollisionType.BOUGH,
                                 begin=leaf_hit_ground, separate=None, woger=woger)
 
-
+    world.add_collision_handler(CollisionType.GROUND, CollisionType.CHERRY,
+                                begin=cherry_hit_ground, separate=None, woger=woger)
 
 class World(object):
 
@@ -156,7 +168,6 @@ class World(object):
         self.space.resize_active_hash()
         self.leaves = []
         
-
 
     def add_item(self, item):
         if isinstance(item, Bough):
@@ -196,6 +207,10 @@ class World(object):
             print leaf
             leaf.remove_from_tree(self.space)
 
+    def add_cherry(self):
+        cherry = Cherry()
+        self.add_item(cherry)
+
     def add_collision_handler( self, 
                                col_typ1, 
                                col_typ2, 
@@ -210,4 +225,3 @@ class World(object):
             begin, pre_solve,
             post_solve, separate,
             **kwargs)
-
