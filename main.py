@@ -19,6 +19,8 @@ from world import World, populate
 from render import Render
 from sounds import Sounds
 
+from intro import main as intro_main
+
 CLEANUP = USEREVENT + 1
 TICK_TOCK = USEREVENT + 2
 ADDCHERRY = USEREVENT + 3
@@ -32,6 +34,11 @@ def start_game():
     window.init()
 
     pygame.init()
+
+##    intro_main(window)
+##    import sys
+##    sys.exit()
+    
     sounds = Sounds()
     sounds.init()
 
@@ -117,20 +124,25 @@ def handle_events(window, world):
                 window.toggle_fullscreen()
 
             # Woger
-            elif woger.allowed_glide or not woger.in_air:
+##            elif woger.allowed_glide or not woger.in_air:
+            else:
                 if e.key == K_LEFT:
                     woger.do_walk(-1)
                 elif e.key == K_RIGHT:
                     woger.do_walk(1)
      
-                elif e.key == K_SPACE and (woger.allowed_jump or not woger.in_air):
+                elif (e.key == K_SPACE or e.key == K_UP) and (woger.allowed_jump or not woger.in_air):
                     woger.jump()
+
+                elif e.key == K_DOWN and not woger.in_air:
+                    woger.dive()
 
             if 1 and e.key == K_s and e.mod & KMOD_SHIFT:
                 pygame.image.save( pygame.display.get_surface() , "screeny.png")
 
 
-        elif woger.allowed_glide or not woger.in_air:   
+##        elif woger.allowed_glide or not woger.in_air:
+        else:
             if e.type == KEYUP:
                 if e.key == K_LEFT:
                     woger.end_walk()

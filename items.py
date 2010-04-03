@@ -350,7 +350,6 @@ class Woger(GameRect):
 
     def jump(self):
         vel_of_jump = Vec2d(0, self.mass*11)
-
         if self.in_air:
             Sounds.sounds.play("orange_splat")
             # half as much.
@@ -360,6 +359,11 @@ class Woger(GameRect):
 
         self.body.apply_impulse(vel_of_jump, (0, 0))
         self.allowed_jump -= 1
+
+    def dive(self):
+        vel_of_dive = Vec2d(0, -self.mass*11)
+        Sounds.sounds.play("jump1")
+        self.body.apply_impulse(vel_of_dive, (0, 0))
 
 class Owange(GameRect):
 
