@@ -21,7 +21,7 @@ def populate(world, window):
     world.add_item(BoundingTrunk(-window.width/2-60))
     world.add_item(BoundingTrunk(window.width/2-10))
     world.add_item(TopTrunk(window.height))
-
+    first = True
     def add_branch(parent, angle, thickness, length, y = None):
         if y is None:
             branch = Branch(parent, angle, thickness, length)
@@ -41,7 +41,7 @@ def populate(world, window):
                 newangle = angle + delta_angle
                 newlength = length * (1 - abs(delta_angle) / 2.8)
                 newthickness = thickness * 0.75
-                add_branch( branch, newangle, newthickness, newlength , y)
+                add_branch( branch, newangle, newthickness, newlength)
         return branch
 
     trunk = add_branch(ground, 0, 50, 220, y = 20)
