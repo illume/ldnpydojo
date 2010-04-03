@@ -331,7 +331,7 @@ class Woger(GameRect):
         self.last_direction = direction
 
     def end_walk(self):
-        self.body.apply_impulse((-self.walk_force, 0), (0, 0))
+        #self.body.apply_impulse((-self.walk_force*self.last_direction, 0), (0, 0))
         self.walk_force = 0
 
 
