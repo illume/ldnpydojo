@@ -2,6 +2,7 @@ from __future__ import division
 
 from pymunk import Body, DampedSpring, Poly, moment_for_poly, Vec2d
 from pygame.locals import *
+from pygame import image
 
 class Spring(DampedSpring):
 
@@ -37,6 +38,7 @@ class Platform(object):
         self.body = Body(
             self.mass, moment_for_poly(self.mass, verts))
         self.body.position = (x, y)
+        self.start_pos = Vec2d(x, y)
         self.shape = Poly(self.body, verts, (0, 0))
 
 
@@ -51,15 +53,9 @@ class Platform(object):
 
 class Word(object):
 
-    def __init__(self, platform, fn, x, y):
-        self.image = image.load(fn).convert_alpha()
-        self.rect = Rect(self.image.get_rect())
+    def __init__(self, platform, surface, start_pos):
+        self.platform = platform
+        self.image = surface
+        self.offset = platform.start_pos - Vec2d(start_pos)
 
-    @property
-    def verts(self):
-        return self.platform.verts
-
-    @property
-    def centre(self):
-        verts = self.verts
-        return (verts[0] + verts[2]) / 2    
+    

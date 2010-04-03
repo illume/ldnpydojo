@@ -310,9 +310,11 @@ class Woger(GameRect):
             self.do_walk()
 
 
-##    def update(self):
+    def update(self):
 ##        if self.body.position[1] >= self.window.height - 100:
 ##            self.body.reset_forces()
+        if self.walk_force:
+            self.do_walk()
 
 
     def do_walk(self, direction=None):        
