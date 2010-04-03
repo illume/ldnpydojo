@@ -22,8 +22,12 @@ def populate(world, window):
     world.add_item(BoundingTrunk(window.width/2-10))
     world.add_item(TopTrunk(window.height))
 
-    def add_branch(parent, angle, thickness, length):
-        branch = Branch(parent, angle, thickness, length)
+    def add_branch(parent, angle, thickness, length, y = None):
+        if y is None:
+            branch = Branch(parent, angle, thickness, length)
+        else:
+            branch = Branch(parent, angle, thickness, length, y = y)
+
         world.add_item(branch)
 
         if thickness < 25:
@@ -35,12 +39,12 @@ def populate(world, window):
             for i in xrange(branches):
                 delta_angle = spread * (branches - 1) / 2 - spread * i
                 newangle = angle + delta_angle
-                newlength = length * (1 - abs(delta_angle) / 2.5)
+                newlength = length * (1 - abs(delta_angle) / 2.8)
                 newthickness = thickness * 0.75
-                add_branch( branch, newangle, newthickness, newlength )
+                add_branch( branch, newangle, newthickness, newlength , y)
         return branch
 
-    trunk = add_branch(ground, 0, 50, 200)
+    trunk = add_branch(ground, 0, 50, 220, y = 20)
 
     woger = Woger(0, 25, window)
     world.add_item(woger)
