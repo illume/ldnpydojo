@@ -83,7 +83,7 @@ def populate(world, window):
                 #Sounds.sounds.play("powerup1")
                 world.remove_item(cherry)
         return 1
-        
+       
 
     bounds = window.width
     def touch_owange(space, arbiter, woger):
@@ -227,8 +227,8 @@ class World(object):
             print leaf
             leaf.remove_from_tree(self.space)
 
-    def add_cherry(self):
-        cherry = Cherry()
+    def add_cherry(self, x, y):
+        cherry = Cherry(x, y)
         self.add_item(cherry)
 
     def add_collision_handler( self, 

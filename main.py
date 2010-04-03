@@ -9,6 +9,8 @@ from pygame.locals import *
 
 from pygame import display, event
 
+import random
+
 ##from pygame.locals import (
 ##    QUIT, KEYDOWN, KEYUP, K_ESCAPE, K_RETURN, KMOD_ALT,
 ##    K_LEFT, K_RIGHT, K_SPACE,
@@ -110,8 +112,8 @@ def handle_events(window, world):
 
         if e.type == ADDCHERRY:
             print "Adding cherry"
-            world.add_cherry()
-
+            bounds = window.width
+            world.add_cherry(random.randint(-bounds, bounds), window.height-200)
         if e.type == QUIT:
             quit = True
             break
