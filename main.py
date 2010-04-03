@@ -40,19 +40,19 @@ def start_game():
 
     pygame.init()
 
+    sounds = Sounds()
+    sounds.init()
+    pygame.mixer.set_num_channels(32)
+    sounds.play_music("intro")
     intro_main(window, handle_events)
 ##    import sys
 ##    sys.exit()
     
-    sounds = Sounds()
-    sounds.init()
 
     # so we can mix more channels at once.  pygame defaults to 8.
-    pygame.mixer.set_num_channels(32)
     #sounds.play("jump1")
     #sounds.play("hit1")
     #sounds.play("goal1")
-    #sounds.play_music("track-one")
     sounds.music_tracks(['track-one', 'track-two'])
 
     world = World()
