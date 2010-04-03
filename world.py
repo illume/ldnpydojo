@@ -1,5 +1,6 @@
 from math import pi
 from random import randint, uniform
+import random
 
 from pymunk import init_pymunk, Space
 
@@ -80,7 +81,7 @@ def populate(world, window):
             else:
                 woger.multiplier += 1
                 print "Multiplier", woger.multiplier
-                #Sounds.sounds.play("powerup1")
+                Sounds.sounds.play("powerup1")
                 world.remove_item(cherry)
         return 1
        
@@ -97,7 +98,8 @@ def populate(world, window):
                 pass
             else:
                 woger.score += 10
-                Sounds.sounds.play("powerup1")
+                #Sounds.sounds.play(random.choice(['powerup1', 'goal1']))
+                Sounds.sounds.play(random.choice(['goal1']))
                 world.remove_item(o)
                 # add owange from the top again.
                 owange = Owange(randint(-bounds/2, bounds/2), window.height-200) 
