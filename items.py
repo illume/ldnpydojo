@@ -241,6 +241,7 @@ class Woger(GameRect):
         self.allowed_jump = 1
         self.role = "Woger"
         self.status = None
+        self.score = 0
 
         # woger collides with ground and boughs
         self.layers = 1
