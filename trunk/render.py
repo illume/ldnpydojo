@@ -97,7 +97,10 @@ class Render(object):
             idx_for_angle = int(angle(item.body.angle) /23)
             an_image = item.image[idx_for_angle]
 
+##            verts = item.shape.get_points()
+##            x,y = sum(v[0] for v in verts)/3, sum(v[1] for v in verts)/3
             self.window.display_surface.blit(an_image,
+##                   self.camera.point_to_screen((x,y)))
                    self.camera.point_to_screen(item.body.position))
 
         elif item.role == "Owange":
