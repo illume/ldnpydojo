@@ -60,12 +60,24 @@ def start_game():
  
 
 def runloop(window, world, render):
+
+
+    clock = pygame.time.Clock()
+    clock.tick()
+    FPS = 30
+    
     while True:
+        clock.tick(FPS)
+        #TODO: hacky hack.  This is not very accurate, will do for now.
+        elapsed_time = 1./FPS
+
         if handle_events(window, world):
             break
+        Sounds.sounds.update(elapsed_time)
         world.update()
         render.draw_world()
         display.flip()
+
 
 
 def handle_events(window, world):
@@ -116,6 +128,7 @@ def handle_events(window, world):
                     woger.end_walk()
                 elif e.key == K_RIGHT:
                     woger.end_walk()
+
 
 
 
