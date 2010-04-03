@@ -40,7 +40,8 @@ def start_game():
     sounds.play("jump1")
     sounds.play("hit1")
     sounds.play("goal1")
-    sounds.play_music("track-one")
+    #sounds.play_music("track-one")
+    sounds.music_tracks(['track-one', 'track-two'])
 
     world = World()
     populate(world, window)

@@ -14,6 +14,8 @@ from pygame import mixer
 import os
 import glob
 
+from cyclic_list import cyclic_list
+
 
 SOUND_PATH = os.path.join("data", "sounds")
 
@@ -71,7 +73,7 @@ class Sounds:
 
 
     def init(self):
-        mixer.pre_init(22050, -16, 2, 1024)
+        #mixer.pre_init(22050, -16, 2, 1024)
         mixer.init()
         self.load()
 
@@ -196,8 +198,23 @@ class Sounds:
         for snd_info in old_queued:
             self.play(*snd_info)
 
+        self.update_music(elapsed_time)
 
-    def play_music(self, musicname):
+    def music_tracks(self, music_tracks):
+        ''' music_tracks([]) loops over the given music tracks.
+        '''
+        self.music_tracks = cyclic_list(music_tracks)
+
+    def update_music(self, elapsed_time):
+        if hasattr(self, 'music_tracks'):
+            if not mixer.music.get_busy():
+                # get next track.
+                musicname = self.music_tracks.cur()
+                self.play_music(musicname, loop=0)
+                self.music_tracks.next()
+
+
+    def play_music(self, musicname, loop=-1):
         """ plays a music track.  Only one can be played at a time.
             So if there is one playing, it will be stopped and the new 
              one started.
@@ -216,7 +233,7 @@ class Sounds:
             fullname = fullname_ogg
     
         music.load(fullname)
-        music.play(-1)
+        music.play(loop)
         music.set_volume(1.0)
 
 
