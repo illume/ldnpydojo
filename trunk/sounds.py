@@ -79,10 +79,12 @@ class Sounds:
     def load(self, sound_list = [], sound_path = SOUND_PATH):
         """loads sounds."""
         sounds = self.sounds
-
+        class NoneSound:
+            def play(self): pass
+            
         if not mixer:
             for name in sound_list:
-                sounds[name] = None
+                sounds[name] = NoneSound()
             return
         for name in sound_list:
             if not sounds.has_key(name):
