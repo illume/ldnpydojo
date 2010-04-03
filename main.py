@@ -9,10 +9,10 @@ from pygame.locals import *
 
 from pygame import display, event
 
-from pygame.locals import (
-    QUIT, KEYDOWN, KEYUP, K_ESCAPE, K_RETURN, KMOD_ALT,
-    K_LEFT, K_RIGHT, K_SPACE,
-)
+##from pygame.locals import (
+##    QUIT, KEYDOWN, KEYUP, K_ESCAPE, K_RETURN, KMOD_ALT,
+##    K_LEFT, K_RIGHT, K_SPACE,
+##)
 
 from window import Window
 from world import World, populate
@@ -26,9 +26,6 @@ def start_game():
     window = Window()
     window.init()
     pygame.init()
-    CLEANUP = USEREVENT + 1
-    CleanUp_Event = pygame.event.Event(CLEANUP)
-    pygame.time.set_timer(CLEANUP, 1000)
     sounds = Sounds()
     sounds.init()
     sounds.play("jump1")
@@ -38,6 +35,13 @@ def start_game():
 
     world = World()
     populate(world)
+
+    
+    CLEANUP = USEREVENT + 1
+    CleanUp_Event = pygame.event.Event(CLEANUP)
+    pygame.time.set_timer(CLEANUP, 1000)
+    world.CLEANUP = CLEANUP
+
 
     render = Render(window, world)
     runloop(window, world, render)
@@ -87,7 +91,7 @@ def handle_events(window, world):
                 elif e.key == K_RIGHT:
                     woger.end_walk()
 
-        elif e.type == CLEANUP:
+        elif e.type == world.CLEANUP:
             print "Cleaning"
             world.remove_collided()
 

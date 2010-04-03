@@ -37,7 +37,7 @@ def populate(world):
                 add_branch( branch, newangle, newthickness, newlength )
         return branch
 
-    trunk = add_branch(ground, 0, 50, 300)
+    trunk = add_branch(ground, 0, 50, 270)
 
     woger = Woger(200, 450)
     world.add_item(woger)
@@ -45,7 +45,7 @@ def populate(world):
 
 
     def landed_on_ground(space, arbiter, woger):
-        woger.in_air = True
+        woger.in_air = False
         woger.allowed_glide = 2
         woger.allowed_jump = 1
         return 1
@@ -61,7 +61,7 @@ def populate(world):
         woger.allowed_jump = 1
         return 1
     def off_leaf(space, arbiter, woger):
-        woger.in_air = False
+        woger.in_air = True
         Sounds.sounds.play("hit1")
         return 1    
 
@@ -74,7 +74,7 @@ def populate(world):
 
         for o in owanges:
             Sounds.sounds.play("powerup1")
-            #world.remove_item(o)
+            world.remove_item(o)
             # add owange from the top again.
             owange = Owange(randint(0, bounds), 750) 
             world.add_item(owange)
@@ -129,12 +129,15 @@ def populate(world):
     world.add_collision_handler(CollisionType.GROUND, CollisionType.PLAYER,
                                 begin=landed_on_ground, 
                                 separate=off_ground, woger=woger)
+    
     world.add_collision_handler(CollisionType.BOUGH, CollisionType.PLAYER,
                                 begin=touch_leaf, 
                                 separate=off_leaf, woger=woger)
+    
     world.add_collision_handler(CollisionType.OWANGE, CollisionType.PLAYER,
                                 begin=touch_owange, 
                                 separate=off_owange, woger=woger)
+    
     world.add_collision_handler(CollisionType.GROUND, CollisionType.OWANGE,
                                 begin=owange_hit_ground, 
                                 separate=owange_off_ground, woger=woger)
