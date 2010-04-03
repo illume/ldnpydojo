@@ -12,7 +12,7 @@ from sounds import Sounds
 from pygame import time
 
 import random
-
+NUM_OWANGES = 6
 
 def populate(world, window):
     ground = Ground()
@@ -51,7 +51,9 @@ def populate(world, window):
         woger.in_air = False
         woger.allowed_glide = 20
         woger.allowed_jump = 1
-        #woger.body.reset_forces()
+        #woger.end_walk()
+        woger.body.reset_forces()
+
         return 1
     def off_ground(space, arbiter, woger):
         woger.in_air = False
@@ -102,8 +104,7 @@ def populate(world, window):
                 Sounds.sounds.play(random.choice(['goal1']))
                 world.remove_item(o)
                 # add owange from the top again.
-                owange = Owange(randint(-bounds/2, bounds/2), window.height-200) 
-                world.add_item(owange)
+                world.add_owange( randint(-bounds/2, bounds/2), window.height-200) 
         return 1
     def off_owange(space, arbiter, woger):
         return 1    
@@ -124,8 +125,9 @@ def populate(world, window):
                 Sounds.sounds.play("orange_splat2")
                 o.destroy()
                 # add owange from the top again.
-                owange = Owange(randint(-bounds, bounds), window.height) 
-                world.add_item(owange)
+                #world.add_owange( randint(-bounds/2, bounds/2), window.height-200) 
+
+
         return 1
     def owange_off_ground(space, arbiter, woger):
         return 1
@@ -153,9 +155,9 @@ def populate(world, window):
             #print leaf.status
         return 1
 
-    for i in range(10):
-        owange = Owange(i*10, window.height) 
-        world.add_item(owange)
+    #for i in range(NUM_OWANGES):
+    #    world.add_owange( randint(-bounds/2, bounds/2), window.height-200) 
+
     
 
     world.add_collision_handler(CollisionType.GROUND, CollisionType.PLAYER,
@@ -236,6 +238,12 @@ class World(object):
     def add_cherry(self, x, y):
         cherry = Cherry(x, y)
         self.add_item(cherry)
+
+    def add_owange(self, x, y):
+        owange = Owange(x, y)
+        self.add_item(owange)
+
+
 
     def add_collision_handler( self, 
                                col_typ1, 
