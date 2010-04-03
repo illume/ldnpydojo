@@ -1,5 +1,5 @@
 
-from pygame import draw
+from pygame import draw, font
 from items import Branch
 
 
@@ -43,17 +43,28 @@ class Render(object):
         self.world = world
         self.camera = Camera(window)
         self.facing_right = 0
+        self.font = font.SysFont(None, 48)
 
 
     def draw_world(self):
         self.window.display_surface.fill((0, 100, 255))
+        # draw all branches first
         for item in self.world.items:
             if isinstance(item, Branch):
                 self.draw_item(item)
         for item in self.world.items:
             if not isinstance(item, Branch):
                 self.draw_item(item)
-
+        self.draw_score()
+        
+    def draw_score(self):
+        woger = self.world.player_character
+        text = '%d' %woger.score
+        self.window.display_surface.blit(
+            self.font.render(text, True, (255,255,255)),
+            #self.camera.point_to_screen()
+            (50, 50)
+            )
 
     def draw_item(self, item):
         if item.role == "Woger":
