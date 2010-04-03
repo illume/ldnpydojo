@@ -10,6 +10,8 @@ from sounds import Sounds
 
 from pygame import time
 
+import random
+
 
 def populate(world):
     ground = Ground()
@@ -155,10 +157,13 @@ class World(object):
         self.space.gravity = (0, -0.5)
         self.space.resize_static_hash()
         self.space.resize_active_hash()
+        self.leaves = []
         
 
 
     def add_item(self, item):
+        if isinstance(item, Bough):
+            self.leaves.append(item)
         self.items.append(item)
         item.create_body()
         item.add_to_space(self.space)
@@ -166,7 +171,6 @@ class World(object):
     def remove_item(self, item):
         self.items.remove(item)
         item.remove_from_space(self.space)
-        #TODO:
 
 
     def update(self):
@@ -179,7 +183,21 @@ class World(object):
             if item.status == "Collided":
                 self.remove_item(item)
             
+    def tick(self):
+        print "Off comes a leaf"
+        max_limit = len(self.leaves) - 1
+        if len(self.leaves) == 0:
+                max_limit = 0 
+                print "End Level"
+                pass
 
+        else:
+            print max_limit
+            randno = random.randint(0, max_limit)
+            print randno
+            leaf = self.leaves.pop(randno)
+            print leaf
+            leaf.remove_from_tree(self.space)
 
     def add_collision_handler( self, 
                                col_typ1, 

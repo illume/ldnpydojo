@@ -224,8 +224,12 @@ class Bough(GameRect):
         space.add(self.body)
         space.add(self.shape)
         
-        pivot = PivotJoint(self.body, self.branch.body, self.branch.tip())
-        space.add(pivot)
+        
+        self.pivot = PivotJoint(self.body, self.branch.body, self.branch.tip())
+        space.add(self.pivot)
+
+    def remove_from_tree(self, space):
+        space.remove(self.pivot)
 
 
 
@@ -334,7 +338,7 @@ class Owange(GameRect):
         self.status = None
         self.deadtime = 0
 
-        # woger collides with ground and boughs
+        # owange collides with ground and boughs
         self.layers = 1
 
     def destroy(self):
