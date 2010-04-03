@@ -43,7 +43,7 @@ def start_game():
     sounds = Sounds()
     sounds.init()
     pygame.mixer.set_num_channels(32)
-    sounds.play_music("intro")
+    sounds.play_music("intro", loop=1)
     intro_main(window, handle_events)
 ##    import sys
 ##    sys.exit()
