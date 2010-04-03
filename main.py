@@ -61,7 +61,7 @@ def handle_events(window, world):
         print e
 
         if e.type == CLEANUP:
-            print "Cleaning"
+            #print "Cleaning"
             world.remove_collided()
 
         if e.type == QUIT:
