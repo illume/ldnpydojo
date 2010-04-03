@@ -26,6 +26,7 @@ from intro import main as intro_main
 CLEANUP = USEREVENT + 1
 TICK_TOCK = USEREVENT + 2
 ADDCHERRY = USEREVENT + 3
+ADDOWANGE = USEREVENT + 4
 
 def start_game():
 
@@ -71,6 +72,12 @@ def start_game():
     AddCherry = pygame.event.Event(ADDCHERRY, message="Ooooo Cherry")
     pygame.time.set_timer(ADDCHERRY, 90000/5)
        
+    AddOwange = pygame.event.Event(ADDOWANGE, message="Ooooo owange")
+    pygame.time.set_timer(ADDOWANGE, 1000 * 5)
+       
+
+
+
     render = Render(window, world)
     runloop(window, world, render)
 
@@ -114,6 +121,12 @@ def handle_events(window, world):
             print "Adding cherry"
             bounds = window.width
             world.add_cherry(random.randint(-bounds, bounds), window.height-200)
+
+        if e.type == ADDOWANGE:
+            bounds = window.width
+            world.add_owange(random.randint(-bounds/2, bounds/2), window.height)
+
+
         if e.type == QUIT:
             quit = True
             break
