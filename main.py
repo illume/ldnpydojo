@@ -20,6 +20,7 @@ from render import Render
 from sounds import Sounds
 
 CLEANUP = USEREVENT + 1
+TICK_TOCK = USEREVENT + 2
 
 def start_game():
 
@@ -36,14 +37,22 @@ def start_game():
     world = World()
     populate(world)
 
+    def count_leaves():
+        no_leaves = 0
+        for item in world.items:
+            if item.role == "Bough":
+                no_leaves = no_leaves + 1
+        return no_leaves
     
-    CleanUp_Event = pygame.event.Event(CLEANUP, messag="Cleaning Up Your shit")
-    pygame.time.set_timer(CLEANUP, 1000)
-
+    CleanUp_Event = pygame.event.Event(CLEANUP, message="Cleaning Up Your shit")
+    pygame.time.set_timer(CLEANUP, 1000)
+    TickTock = pygame.event.Event(TICK_TOCK, message="TickTock goes the Ticking Clock")
+    pygame.time.set_timer(TICK_TOCK, 90000/count_leaves())
 
     render = Render(window, world)
     runloop(window, world, render)
 
+ 
 
 def runloop(window, world, render):
     while True:
@@ -64,6 +73,9 @@ def handle_events(window, world):
             #print "Cleaning"
             world.remove_collided()
 
+        if e.type == TICK_TOCK:
+            world.tick()
+            
         if e.type == QUIT:
             quit = True
             break
