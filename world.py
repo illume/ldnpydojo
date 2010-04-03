@@ -41,7 +41,7 @@ def populate(world, window):
 
     trunk = add_branch(ground, 0, 50, 250)
 
-    woger = Woger(200, 450, window)
+    woger = Woger(200, 100, window)
     world.add_item(woger)
     world.player_character = woger
 
@@ -50,12 +50,12 @@ def populate(world, window):
         woger.in_air = False
         woger.allowed_glide = 20
         woger.allowed_jump = 1
-        woger.body.reset_forces()
+        #woger.body.reset_forces()
         return 1
     def off_ground(space, arbiter, woger):
         woger.in_air = False
         Sounds.sounds.play("hit1")
-        return 1    
+        return 1
 
 
     def touch_leaf(space, arbiter, woger):
@@ -152,7 +152,7 @@ def populate(world, window):
         return 1
 
     for i in range(10):
-        owange = Owange(i*10, window.height-200) 
+        owange = Owange(i*10, window.height) 
         world.add_item(owange)
     
 
