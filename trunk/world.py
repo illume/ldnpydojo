@@ -40,9 +40,9 @@ def populate(world, window):
                 add_branch( branch, newangle, newthickness, newlength )
         return branch
 
-    trunk = add_branch(ground, 0, 50, 250)
+    trunk = add_branch(ground, 0, 50, 200)
 
-    woger = Woger(200, 100, window)
+    woger = Woger(0, 25, window)
     world.add_item(woger)
     world.player_character = woger
 
