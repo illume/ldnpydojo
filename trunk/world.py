@@ -76,11 +76,14 @@ def populate(world):
             if o.status == "Collided":
                 pass
             else:
+                woger.score += 1
                 Sounds.sounds.play("powerup1")
                 world.remove_item(o)
                 # add owange from the top again.
                 owange = Owange(randint(0, bounds), 750) 
                 world.add_item(owange)
+
+                    
 
         return 1
     def off_owange(space, arbiter, woger):
@@ -101,8 +104,6 @@ def populate(world):
             # add owange from the top again.
             owange = Owange(randint(0, bounds), 750) 
             world.add_item(owange)
-
-
 
         return 1
 
@@ -127,7 +128,6 @@ def populate(world):
         #world.remove_item(owange)
 
     
-        
 
     world.add_collision_handler(CollisionType.GROUND, CollisionType.PLAYER,
                                 begin=landed_on_ground, 
