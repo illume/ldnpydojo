@@ -73,11 +73,14 @@ def populate(world):
                       if hasattr(s, 'parent') and isinstance(s.parent, Owange)]
 
         for o in owanges:
-            Sounds.sounds.play("powerup1")
-            world.remove_item(o)
-            # add owange from the top again.
-            owange = Owange(randint(0, bounds), 750) 
-            world.add_item(owange)
+            if o.status == "Collided":
+                pass
+            else:
+                Sounds.sounds.play("powerup1")
+                world.remove_item(o)
+                # add owange from the top again.
+                owange = Owange(randint(0, bounds), 750) 
+                world.add_item(owange)
 
         return 1
     def off_owange(space, arbiter, woger):
