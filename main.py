@@ -19,7 +19,7 @@ from world import World, populate
 from render import Render
 from sounds import Sounds
 
-
+CLEANUP = USEREVENT + 1
 
 def start_game():
 
@@ -37,10 +37,8 @@ def start_game():
     populate(world)
 
     
-    CLEANUP = USEREVENT + 1
     CleanUp_Event = pygame.event.Event(CLEANUP)
-    pygame.time.set_timer(CLEANUP, 1000)
-    world.CLEANUP = CLEANUP
+    pygame.time.set_timer(CLEANUP, 1000)
 
 
     render = Render(window, world)
@@ -91,7 +89,7 @@ def handle_events(window, world):
                 elif e.key == K_RIGHT:
                     woger.end_walk()
 
-        elif e.type == world.CLEANUP:
+        elif e.type == CLEANUP:
             print "Cleaning"
             world.remove_collided()
 
