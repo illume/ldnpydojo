@@ -1,7 +1,7 @@
 
 from pygame import draw, font
 from items import Branch
-
+import os
 
 
 class Camera(object):
@@ -43,8 +43,9 @@ class Render(object):
         self.world = world
         self.camera = Camera(window)
         self.facing_right = 0
-        self.font = font.SysFont(None, 48)
-
+        #self.font = font.SysFont(None, 48)
+        font_path = os.path.join("data","fonts", "vinque", "vinque.ttf")
+        self.font = font.Font(font_path,48)
 
     def draw_world(self):
         self.window.display_surface.fill((0, 100, 255))
