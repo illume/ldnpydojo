@@ -90,10 +90,10 @@ class Ground(GameRect):
 class BoundingTrunk(GameRect):
 
     def __init__(self, x):
-        self.mass = 1e100
-        self.color = (0, 100, 255)#(128, 64, 0)
+        self.color = (0, 100, 255)
         GameRect.__init__(self, x, 1000, 50, 2000)
-        self.layers = 3  # collide with everything
+        self.mass = 1e100
+        self.layers = 11  # collide with everything
         self.role = "BoundingTrunk"
         self.status = None
 
@@ -102,6 +102,23 @@ class BoundingTrunk(GameRect):
         self.shape.collision_type = CollisionType.GROUND
         space.add_static(self.shape)
 
+class TopTrunk(GameRect):
+
+    def __init__(self, y):
+        self.color = (100, 100, 255)
+        GameRect.__init__(self, 0, y, 2000, 50)
+        self.mass = 1e100
+##        self.layers = 3  # collide with everything
+        self.role = "BoundingTrunk"
+        self.status = None
+        self.layers = 1
+        self.group = 10
+
+    def add_to_space(self, space):
+        # TODO: more interesting collision to allow ninja double jumps
+        self.shape.collision_type = CollisionType.GROUND
+        space.add_static(self.shape)
+        # bough collides with ground and woger
 
 class Branch(GameRect):
     
@@ -241,7 +258,7 @@ class Bough(GameRect):
 
 class Woger(GameRect):
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, window):
         GameRect.__init__(self, x, y, 63, 74)
         #self.color = (255, 127, 0)
         self.walk_force = 0
@@ -252,6 +269,8 @@ class Woger(GameRect):
         self.role = "Woger"
         self.status = None
         self.score = 0
+        # yes yes, I know! it's bad!
+        self.window = window
 
         # woger collides with ground and boughs
         self.layers = 1
@@ -278,6 +297,10 @@ class Woger(GameRect):
         if self.walk_force:
             self.do_walk()
 
+
+    def update(self):
+        if self.body.position[1] >= self.window.height - 100:
+            self.body.reset_forces()
 
     def _left(self):
         """not finished, please leave - Jonathan"""
