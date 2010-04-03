@@ -25,11 +25,12 @@ ADDCHERRY = USEREVENT + 3
 
 def start_game():
 
+    #needs to be called before pygame.init
+    pygame.mixer.pre_init(22050, -16, 2, 1024)
+
     window = Window()
     window.init()
 
-    #needs to be called before pygame.init
-    pygame.mixer.pre_init(22050, -16, 2, 1024)
     pygame.init()
     sounds = Sounds()
     sounds.init()
