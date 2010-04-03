@@ -123,7 +123,8 @@ def handle_events(window, world):
         elif e.type == ADDCHERRY:
             print "Adding cherry"
             bounds = window.width
-            world.add_cherry(random.randint(-bounds+50, bounds-50), window.height-200)
+            world.add_cherry(random.randint(-bounds/2, bounds/2), 
+                            random.randint(window.height-300,window.height ))
 
         elif e.type == ADDOWANGE:
             bounds = window.width
