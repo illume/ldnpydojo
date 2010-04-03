@@ -285,6 +285,8 @@ class Woger(GameRect):
         self.layers = LayerType.PLAYER
 
 
+        self.last_direction = 1
+
     def create_body(self):
         GameRect.create_body(self)
         self.shape.layer = self.layers
@@ -311,37 +313,22 @@ class Woger(GameRect):
 ##        if self.body.position[1] >= self.window.height - 100:
 ##            self.body.reset_forces()
 
-    def _left(self):
-        """not finished, please leave - Jonathan"""
-        if self.allowed_glide or not self.in_air:
-            self.do_walk(-1)
-
-
-    def _right(self):
-        """not finished, please leave - Jonathan"""
-        if self.allowed_glide or not self.in_air:
-            self.do_walk(+1)
-
-
-    def _jump(self):
-        """not finished, please leave - Jonathan"""
-        if not self.in_air:
-            self.body.apply_impulse((0, self.mass*11), (0, 0))
-            Sounds.sounds.play("jump1")
-
 
     def do_walk(self, direction=None):        
+
         key_down = direction is not None
         if key_down:
             self.allowed_glide = max(0, self.allowed_glide-1)
         else:
             direction = copysign(1, self.walk_force)
         force = direction * self.mass
+
         self.body.apply_impulse((force, 0), (0, 0))
         self.walk_force += force
         if self.in_air and key_down and not self.allowed_glide:
             self.end_walk()
 
+        self.last_direction = direction
 
     def end_walk(self):
         self.body.apply_impulse((-self.walk_force, 0), (0, 0))
