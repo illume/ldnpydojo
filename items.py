@@ -16,6 +16,15 @@ import spritesheet
 import random
 
 
+class CollisionType:
+    GROUND, BOUGH, PLAYER, BRANCH, OWANGE, CHERRY = range(6)
+
+class GroupType:
+    GROUND, BOUGH, PLAYER, BRANCH, OWANGE = range(5)
+
+class LayerType:
+    PLAYER, ITEMS, BACKGROUND = 1,2,4
+    EVERYTHING = -1
 
 class GameRect(object):
 
@@ -25,7 +34,7 @@ class GameRect(object):
         self.width = width
         self.height = height
         self.mass = self.width * self.height / 10000
-        self.layers = -1 # collide with everything
+        self.layers = LayerType.EVERYTHING # collide with everything
         self.status = None
 
 
@@ -68,10 +77,8 @@ class GameRect(object):
 
 
 
-class CollisionType:
-    GROUND, BOUGH, PLAYER, BRANCH, OWANGE, CHERRY = range(6)
 
-
+    
 
 class Ground(GameRect):
 
@@ -80,7 +87,7 @@ class Ground(GameRect):
         self.mass = 1e100
         self.color = (0, 255, 0)
         # ground should collide with everything (3 = 1 || 2)
-        self.layers = 3
+        self.layers = LayerType.EVERYTHING
         self.role = "Ground"
         self.status = None
 
@@ -95,7 +102,7 @@ class BoundingTrunk(GameRect):
         self.color = (0, 100, 255)
         GameRect.__init__(self, x, 1000, 50, 2000)
         self.mass = 1e100
-        self.layers = 11  # collide with everything
+        self.layers = LayerType.PLAYER
         self.role = "BoundingTrunk"
         self.status = None
 
@@ -110,11 +117,10 @@ class TopTrunk(GameRect):
         self.color = (100, 100, 255)
         GameRect.__init__(self, 0, y, 2000, 50)
         self.mass = 1e100
-##        self.layers = 3  # collide with everything
         self.role = "BoundingTrunk"
         self.status = None
-        self.layers = 1
-        self.group = 10
+        self.layers = LayerType.PLAYER
+        self.group = GroupType.BRANCH
 
     def add_to_space(self, space):
         # TODO: more interesting collision to allow ninja double jumps
@@ -137,7 +143,7 @@ class Branch(GameRect):
         self.status = None
 
         # branches should only collide with ground
-        self.layers = 2
+        self.layers = LayerType.BACKGROUND
 
 
     def rotate_verts_about(self, verts, angle, pivot):
@@ -176,10 +182,10 @@ class Branch(GameRect):
 
         # branch should not collide with other branches, which will
         # overlap slightly at the joints
-        self.shape.group = 1
+        self.shape.group = GroupType.BRANCH
 
         # branches should collide only with ground
-        self.shape.layers = 2
+        self.shape.layers = LayerType.BACKGROUND
         self.collision_type = CollisionType.BRANCH
 
 
@@ -212,8 +218,8 @@ class Bough(GameRect):
         #print self.image
 
         # bough collides with ground and woger
-        self.layers = 1
-        self.group = 2
+        self.layers = LayerType.ITEMS | LayerType.PLAYER
+        self.group = GroupType.BOUGH
 
 
     def get_verts(self):
@@ -276,12 +282,12 @@ class Woger(GameRect):
         self.window = window
 
         # woger collides with ground and boughs
-        self.layers = 1
+        self.layers = LayerType.PLAYER
 
 
     def create_body(self):
         GameRect.create_body(self)
-        self.shape.layer = 1
+        self.shape.layer = self.layers
         self.shape.collision_type = CollisionType.PLAYER
 
 
@@ -301,9 +307,9 @@ class Woger(GameRect):
             self.do_walk()
 
 
-    def update(self):
-        if self.body.position[1] >= self.window.height - 100:
-            self.body.reset_forces()
+##    def update(self):
+##        if self.body.position[1] >= self.window.height - 100:
+##            self.body.reset_forces()
 
     def _left(self):
         """not finished, please leave - Jonathan"""
@@ -370,8 +376,8 @@ class Owange(GameRect):
         self.deadtime = 0
 
         # owange collides with ground and boughs
+        self.layers = LayerType.PLAYER | LayerType.ITEMS
         self.layers = 1
-        
 
     def destroy(self):
         self.status = "Collided"
@@ -380,7 +386,7 @@ class Owange(GameRect):
 
     def create_body(self):
         GameRect.create_body(self)
-        self.shape.layer = 1
+        self.shape.layer = self.layers
         self.shape.collision_type = CollisionType.OWANGE
 
 class Cherry(GameRect):

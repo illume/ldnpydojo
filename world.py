@@ -114,12 +114,12 @@ def populate(world, window):
 
         for o in owanges:
             if o.status != "Collided":
-                woger.score -= 1
-            Sounds.sounds.play("orange_splat")
-            o.destroy()
-            # add owange from the top again.
-            owange = Owange(randint(-bounds, bounds), window.height-200) 
-            world.add_item(owange)
+                woger.score -= 2
+                Sounds.sounds.play("orange_splat")
+                o.destroy()
+                # add owange from the top again.
+                owange = Owange(randint(-bounds, bounds), window.height-200) 
+                world.add_item(owange)
         return 1
     def owange_off_ground(space, arbiter, woger):
         return 1
