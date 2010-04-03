@@ -47,9 +47,9 @@ def start_game():
 
     # so we can mix more channels at once.  pygame defaults to 8.
     pygame.mixer.set_num_channels(32)
-    sounds.play("jump1")
-    sounds.play("hit1")
-    sounds.play("goal1")
+    #sounds.play("jump1")
+    #sounds.play("hit1")
+    #sounds.play("goal1")
     #sounds.play_music("track-one")
     sounds.music_tracks(['track-one', 'track-two'])
 
@@ -124,7 +124,8 @@ def handle_events(window, world):
 
         if e.type == ADDOWANGE:
             bounds = window.width
-            world.add_owange(random.randint(-bounds/2, bounds/2), window.height)
+            world.add_owange(random.randint(-bounds/2, bounds/2), 
+                            random.randint(window.height-300,window.height ))
 
 
         if e.type == QUIT:
