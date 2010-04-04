@@ -56,7 +56,7 @@ def start_game():
         #sounds.play("jump1")
         #sounds.play("hit1")
         #sounds.play("goal1")
-        sounds.music_tracks(['track-one', 'track-two'])
+        sounds.set_music_tracks(['track-one', 'track-two'])
 
         world = World()
         world.stage = 2
@@ -80,6 +80,9 @@ def start_game():
            
         AddOwange = pygame.event.Event(ADDOWANGE, message="Ooooo owange")
         pygame.time.set_timer(ADDOWANGE, 1000 * 5)
+
+        for i in range(3):
+            event.post(AddOwange)        
            
         pygame.time.set_timer(BIRDY, 1000 * 7)
 
@@ -106,8 +109,9 @@ def runloop(window, world, render):
         elapsed_time = 1./FPS
 
         if handle_events(window, world):
-##            break
-            return True
+            # show score outro
+            break
+##            return True
         Sounds.sounds.update(elapsed_time)
         world.update()
         render.draw_world()

@@ -12,7 +12,7 @@ class Render(object):
 
 
     def draw_world(self):
-        self.window.display_surface.fill((0, 64, 128))
+        self.window.display_surface.fill((0, 255, 128))
         for word in self.world.words:
             self.draw_word(word)
 ##        for spring in self.world.springs:

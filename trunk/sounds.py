@@ -201,7 +201,7 @@ class Sounds:
 
         self.update_music(elapsed_time)
 
-    def music_tracks(self, music_tracks):
+    def set_music_tracks(self, music_tracks):
         ''' music_tracks([]) loops over the given music tracks.
         '''
         if not hasattr(self, 'music_tracks'):
