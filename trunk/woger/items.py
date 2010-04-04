@@ -1,7 +1,7 @@
-
 from __future__ import division
 
 from math import copysign
+import os
 
 import pygame
 
@@ -12,7 +12,7 @@ from pymunk import (
 
 from sounds import Sounds
 import spritesheet
-
+from data import data_dir
 import random
 
 
@@ -272,7 +272,9 @@ class Woger(GameRect):
         GameRect.__init__(self, x, y, 63, 74)
         #self.color = (255, 127, 0)
         self.walk_force = 0
-        self.image = [image.load("data/art/left_woger_small.png").convert_alpha(), image.load("data/art/right_woger_small.png").convert_alpha()]
+        #self.image = [image.load("data/art/left_woger_small.png").convert_alpha(), image.load("data/art/right_woger_small.png").convert_alpha()]
+        self.image = map(spritesheet.load_image, 
+                         ['left_woger_small.png', 'right_woger_small.png'])
         self.in_air = True
         self.allowed_glide = 2
         self.role = "Woger"
@@ -360,8 +362,8 @@ class Owange(GameRect):
         GameRect.__init__(self, x, y, 63, 74)
         #self.color = pygame.Color('orange')
         self.walk_force = 0
-        self.image = [image.load("data/art/orange/owange.png").convert_alpha()]
-        self.animation = image.load("data/art/orange/orange_splat_small.png").convert_alpha() #spritesheet.load_strip('orange_splat.png', 1362, colorkey = None)[0]
+        self.image = [image.load(os.path.join(data_dir(), 'art', 'orange', 'owange.png')).convert_alpha()]
+        self.animation = image.load(os.path.join(data_dir(), 'art', 'orange', 'orange_splat_small.png')).convert_alpha() #spritesheet.load_strip('orange_splat.png', 1362, colorkey = None)[0]
         self.in_air = True
         self.allowed_glide = 2
         self.role = "Owange"
@@ -388,7 +390,7 @@ class Cherry(GameRect):
         #x = random.randint(0,550)
         #y = random.randint(0,550)
         GameRect.__init__(self, x, y, 31, 75)
-        self.image = [image.load("data/art/cherry/cherry_small.png").convert_alpha()]
+        self.image = [image.load(os.path.join(data_dir(), 'art', 'cherry', 'cherry_small.png')).convert_alpha()]
         #self.animation = image.load("data/art/orange/orange_splat_small.png").convert_alpha() #spritesheet.load_strip('orange_splat.png', 1362, colorkey = None)[0]
         self.in_air = True
         self.role = "Cherry"

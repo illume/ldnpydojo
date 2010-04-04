@@ -24,6 +24,7 @@ from sounds import Sounds
 
 from intro import main as intro_main
 from outro import main as outro_main
+from data import data_dir
 
 CLEANUP = USEREVENT + 1
 TICK_TOCK = USEREVENT + 2
@@ -202,7 +203,7 @@ def handle_events(window, world):
                             random.randint(window.height-300,window.height ))
 
         elif e.type == BIRDY:
-            bird_files = glob.glob(os.path.join('data','sounds','birds*.ogg'))
+            bird_files = glob.glob(os.path.join(data_dir(),'sounds','birds*.ogg'))
             bsounds = [os.path.basename(b[:-4]) for b in bird_files]
             the_sound = random.choice(bsounds)
             Sounds.sounds.play(the_sound)            

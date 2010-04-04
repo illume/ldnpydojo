@@ -13,6 +13,7 @@ import game
 
 #the as alias allows re-imports
 from cyclic_list import cyclic_list as cyclic_list_func
+from data import data_dir
 
 #vec2d = tuple
 import pymunk 
@@ -29,7 +30,7 @@ def load_image(filename, colorkey=None):
         if os.path.exists(filename):
             fname = filename
         else:
-            fname = os.path.join("data", "art", filename)
+            fname = os.path.join(data_dir(), "art", filename)
         img = pygame.image.load(fname)
 
         if colorkey is not None:
@@ -318,8 +319,8 @@ def combine_images_into_sprite_sheet(adir, out_fname):
 if __name__ == "__main__":
 
     if 1:
-        combine_images_into_sprite_sheet(os.path.join('data', 'art', 'leaves'), 
-            os.path.join('data', 'art', 'leaves-rotating-88.png'))
+        combine_images_into_sprite_sheet(os.path.join(data_dir(), 'art', 'leaves'), 
+            os.path.join(data_dir(), 'art', 'leaves-rotating-88.png'))
     else:
 
         pygame.init()

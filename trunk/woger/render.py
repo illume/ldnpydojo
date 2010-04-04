@@ -4,7 +4,7 @@ from pygame.locals import *
 from pygame import draw, font
 from items import Branch
 import os
-
+from data import data_dir
 
 class Camera(object):
 
@@ -46,7 +46,7 @@ class Render(object):
         self.camera = Camera(window)
         self.facing_right = 0
         #self.font = font.SysFont(None, 48)
-        font_path = os.path.join("data","fonts", "vinque", "vinque.ttf")
+        font_path = os.path.join(data_dir(),"fonts", "vinque", "vinque.ttf")
         self.font = font.Font(font_path,48)
 
     def draw_world(self):
