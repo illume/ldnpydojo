@@ -9,7 +9,7 @@ from items import BoundingTrunk, CollisionType, Ground, Branch, Bough, Woger, Ow
 
 from sounds import Sounds
 
-from pygame import time
+from pygame import time, event
 
 import random
 NUM_OWANGES = 6
@@ -160,8 +160,6 @@ def populate(world, window):
             cherry.destroy()
         return 1
 
-    #for i in range(NUM_OWANGES):
-    #    world.add_owange( randint(-bounds/2, bounds/2), window.height-200) 
 
     
 

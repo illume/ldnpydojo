@@ -71,8 +71,8 @@ def main(window, handle_events, score):
         world.add_word(word)
 
     fnt = font.Font(font_path, 96)
-    surface = fnt.render('%d' %score, True, (255,255,255))
-    word = Word(p2, surface, (200, 200))
+    surface = fnt.render('% 2d' %score, True, (255,255,255))
+    word = Word(p2, surface, (230, 200))
     world.add_word(word)
 
     fnt = font.Font(font_path, 24)
