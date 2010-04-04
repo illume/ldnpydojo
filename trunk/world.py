@@ -54,8 +54,6 @@ def populate(world, window):
     def landed_on_ground(space, arbiter, woger):
         woger.in_air = False
         woger.allowed_glide = 20
-        woger.allowed_jump = 1
-        #woger.end_walk()
         woger.body.reset_forces()
 
         return 1
@@ -68,7 +66,6 @@ def populate(world, window):
     def touch_leaf(space, arbiter, woger):
         woger.in_air = True
         woger.allowed_glide = 20
-        woger.allowed_jump = 1
         return 1
     def off_leaf(space, arbiter, woger):
         woger.in_air = True
@@ -86,7 +83,6 @@ def populate(world, window):
                 pass
             else:
                 woger.multiplier += 1
-                print "Multiplier", woger.multiplier
                 Sounds.sounds.play("powerup1")
                 world.remove_item(cherry)
         return 1
@@ -103,7 +99,7 @@ def populate(world, window):
             if o.status == "Collided":
                 pass
             else:
-                woger.score = woger.score + 10*woger.multiplier
+                woger.score += 10*woger.multiplier
                 #Sounds.sounds.play(random.choice(['powerup1', 'goal1']))
                 Sounds.sounds.play(random.choice(['goal1']))
                 world.remove_item(o)
@@ -161,7 +157,6 @@ def populate(world, window):
             return 1
 #        print cherries
         for cherry in cherries:
-            print "Destroying"
             cherry.destroy()
         return 1
 
@@ -205,6 +200,7 @@ class World(object):
         self.space.resize_static_hash()
         self.space.resize_active_hash()
         self.leaves = []
+        self.end_game = False
         
 
     def add_item(self, item):
@@ -230,19 +226,18 @@ class World(object):
                 self.remove_item(item)
             
     def tick(self):
-        print "Off comes a leaf"
         max_limit = len(self.leaves) - 1
         if len(self.leaves) == 0:
                 max_limit = 0 
                 print "End Level"
-                pass
+                self.end_game = True
 
         else:
-            print max_limit
+##            print max_limit
             randno = random.randint(0, max_limit)
-            print randno
+##            print randno
             leaf = self.leaves.pop(randno)
-            print leaf
+##            print leaf
             leaf.remove_from_tree(self.space)
 
     def add_cherry(self, x, y):

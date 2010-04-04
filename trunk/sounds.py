@@ -14,7 +14,8 @@ from pygame import mixer
 import os
 import glob
 
-from cyclic_list import cyclic_list
+#the as alias allows re-imports
+from cyclic_list import cyclic_list as cyclic_list_func
 
 
 SOUND_PATH = os.path.join("data", "sounds")
@@ -203,7 +204,8 @@ class Sounds:
     def music_tracks(self, music_tracks):
         ''' music_tracks([]) loops over the given music tracks.
         '''
-        self.music_tracks = cyclic_list(music_tracks)
+        if not hasattr(self, 'music_tracks'):
+            self.music_tracks = cyclic_list_func(music_tracks)
 
     def update_music(self, elapsed_time):
         if hasattr(self, 'music_tracks'):
