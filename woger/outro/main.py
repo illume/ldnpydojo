@@ -9,7 +9,11 @@ from pymunk import Vec2d
 from .world import World
 from .items import Platform, Spring, Word
 from render import Render
-from ..data import data_dir
+
+try:
+    from ..data import data_dir
+except:
+    from data import data_dir
 
         
 def main(window, handle_events, score):
