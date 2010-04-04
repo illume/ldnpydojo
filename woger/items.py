@@ -376,7 +376,8 @@ class Owange(GameRect):
 
     def destroy(self):
         self.status = "Collided"
-        self.image = [image.load("data/art/orange/orange_splat_small.png").convert_alpha()] #spritesheet.load_strip('orange_splat.png', 1362, colorkey = None)[0]
+        #self.image = [image.load("data/art/orange/orange_splat_small.png").convert_alpha()] #spritesheet.load_strip('orange_splat.png', 1362, colorkey = None)[0]
+        self.image = [image.load(os.path.join(data_dir(), 'art', 'orange', 'orange_splat_small.png')).convert_alpha()]
         self.body.reset_forces()
 
     def create_body(self):
