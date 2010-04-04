@@ -67,21 +67,6 @@ class Render(object):
         screen.blit( self.font.render(text, True, (255,255,255)),
                     (50, 50))
 
-##        self.draw_title()
-##
-##    def draw_title(self):
-##        font_path = os.path.join("data", "fonts", "vinque", "vinque.ttf")
-##        font = pygame.font.Font(font_path,48)
-##        text = 'Woger the wibbly wobbly wombat'
-##        words = [font.render(word, True, (255,255,255)) 
-##                     for word in text.split()]
-##
-##        x,y = 30, 300
-##        screen = self.window.display_surface
-##        for i,w in enumerate(words):
-##            screen.blit(w, (x,y + i*48))
-
-
 
     def draw_item(self, item):
         if item.role == "Woger":
@@ -122,7 +107,6 @@ class Render(object):
 
         elif item.role == "Owange":
             if item.status == "Collided":
-                #print "Collided"
                self.window.display_surface.blit(
                            item.image[0], self.camera.point_to_screen(item.body.position))
             else:

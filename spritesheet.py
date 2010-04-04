@@ -10,7 +10,9 @@ from pygame.locals import *
 import glob
 
 import game
-from cyclic_list import cyclic_list
+
+#the as alias allows re-imports
+from cyclic_list import cyclic_list as cyclic_list_func
 
 #vec2d = tuple
 import pymunk 
@@ -152,7 +154,7 @@ class Strips(game.Game):
     def __init__(self, fnames, pos):
         game.Game.__init__(self)
 
-        strips = cyclic_list([])
+        strips = cyclic_list_func([])
         y = 0
         for i, fname in enumerate(fnames):
             if "colorkey" in fname:
@@ -183,7 +185,7 @@ class Strips(game.Game):
         self.strip.pos = pos
         self.pos = pos
         self.strips.idx = idx
-        print "changed to:", self.strip.filename
+##        print "changed to:", self.strip.filename
 
     def next_strip(self):
         """go to the next strip in the list.
@@ -294,14 +296,14 @@ def combine_images_into_sprite_sheet(adir, out_fname):
     surfs = pygame.threads.tmap(pygame.image.load, fnames)
 
     total_width = sum([s.get_width() for s in surfs])
-    print ("total_width was:%s:" % total_width)
+##    print ("total_width was:%s:" % total_width)
 
     if total_width > 16000:
         surfs = surfs[:int(len(surfs)//2)]
         total_width = sum([s.get_width() for s in surfs])
-        print ("too many images!!!!!  Only using half of them")
+##        print ("too many images!!!!!  Only using half of them")
 
-    print ("total_width is:%s:" % total_width)
+##    print ("total_width is:%s:" % total_width)
     big_surf = pygame.Surface((total_width, surfs[0].get_height()), SRCALPHA, 32)
 
     x = 0
@@ -328,7 +330,7 @@ if __name__ == "__main__":
         #  sub surfaces reference the big image, but act just like normal surfaces.
         sub_surfaces = load_strip('leaf-movement-88.png', 88, colorkey = None)
 
-        print len(sub_surfaces)
+##        print len(sub_surfaces)
         assert(len(sub_surfaces) == 2)
 
 

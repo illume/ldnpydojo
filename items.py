@@ -219,7 +219,6 @@ class Bough(GameRect):
         self.status = None
         #self.image = [image.load("data/art/leaves/leaf1_small_0.png").convert_alpha()]
         self.image = spritesheet.load_strip('leaves-rotating-88.png', 88, colorkey = None)[0]
-        #print self.image
 
         # bough collides with ground and woger
         self.layers = LayerType.ITEMS | LayerType.PLAYER
@@ -277,7 +276,6 @@ class Woger(GameRect):
         self.image = [image.load("data/art/left_woger_small.png").convert_alpha(), image.load("data/art/right_woger_small.png").convert_alpha()]
         self.in_air = True
         self.allowed_glide = 2
-        self.allowed_jump = 1
         self.role = "Woger"
         self.status = None
         self.score = 0
@@ -351,7 +349,6 @@ class Woger(GameRect):
             Sounds.sounds.play("jump1")
 
         self.body.apply_impulse(vel_of_jump, (0, 0))
-        self.allowed_jump -= 1
 
     def dive(self):
         vel_of_dive = Vec2d(0, -self.mass*11)

@@ -47,17 +47,17 @@ class cyclic_list(UserList.UserList):
 
 if __name__ == "__main__":
     c = cyclic_list([1,2,3,4])
-    print c.idx
+##    print c.idx
     c.next()
-    print c.idx
+##    print c.idx
     c.next()
-    print c.idx
+##    print c.idx
     c.next()
-    print c.idx
+##    print c.idx
     c.next()
-    print c.idx
+##    print c.idx
 
     for x in range(5):
         c.prev()
-        print c.idx
+##        print c.idx
 
