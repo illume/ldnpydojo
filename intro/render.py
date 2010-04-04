@@ -37,7 +37,6 @@ class Render(object):
         rot_image = transform.rotate(
                      word.image,
                      90 * word.platform.body.angle)
-        print word.offset,  word.platform.body.position
         self.window.display_surface.blit(
                     rot_image,
                     word.platform.body.position - word.offset)

@@ -73,13 +73,13 @@ def start_game():
         pygame.time.set_timer(CLEANUP, 1000)
 
         TickTock = pygame.event.Event(TICK_TOCK, message="TickTock goes the Ticking Clock")
-        pygame.time.set_timer(TICK_TOCK, 90000/count_leaves())
+        pygame.time.set_timer(TICK_TOCK, int(90000/count_leaves()))
 
         AddCherry = pygame.event.Event(ADDCHERRY, message="Ooooo Cherry")
-        pygame.time.set_timer(ADDCHERRY, 90000/5)
+        pygame.time.set_timer(ADDCHERRY, int(90000/5))
            
         AddOwange = pygame.event.Event(ADDOWANGE, message="Ooooo owange")
-        pygame.time.set_timer(ADDOWANGE, 1000 * 5)
+        pygame.time.set_timer(ADDOWANGE, int(1000 * 5))
 
         for i in range(3):
             event.post(AddOwange)        
@@ -166,10 +166,10 @@ def handle_events(window, world):
             elif e.key == K_RIGHT:
                 woger.do_walk(1)
  
-            elif (e.key == K_SPACE or e.key == K_UP) and not woger.in_air:
+            elif e.key == K_SPACE or e.key == K_UP:
                 woger.jump()
 
-            elif e.key == K_DOWN and not woger.in_air:
+            elif e.key == K_DOWN:
                 woger.dive()
         
         elif world.stage in (1, 3):

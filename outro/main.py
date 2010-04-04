@@ -62,8 +62,8 @@ def main(window, handle_events, score):
                      for word in text.split()]
 
     word_positions = (
-        (150, 75),
-        (550, 75),
+        (150, 60),
+        (550, 60),
         )
 
     for surface, position in zip(words, word_positions):
@@ -72,7 +72,7 @@ def main(window, handle_events, score):
 
     fnt = font.Font(font_path, 96)
     surface = fnt.render('% 2d' %score, True, (255,255,255))
-    word = Word(p2, surface, (230, 200))
+    word = Word(p2, surface, (230, 350))
     world.add_word(word)
 
     fnt = font.Font(font_path, 24)

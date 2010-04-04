@@ -74,8 +74,8 @@ def main(window, handle_events):
         world.add_word(word)
 
     fnt = font.Font(font_path, 24)
-    surface = fnt.render('space to continue, use arrow keys in game...', True, (0,0,0))
-    word = Word(p2, surface, (200, 550))
+    surface = fnt.render('space to continue, use awwow keys in game to weach owanges', True, (0,0,0))
+    word = Word(p2, surface, (40, 550))
     world.add_word(word)
     
     render = Render(window, world)

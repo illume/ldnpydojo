@@ -67,7 +67,7 @@ class Render(object):
         screen.blit( self.font.render(text, True, (255,255,255)),
                     (40, 40))
         if woger.multiplier > 1:
-            text = '%d' %woger.multiplier
+            text = 'x%d' %woger.multiplier
             screen.blit( self.font.render(text, True, (255,64,64)),
                         (40, 120))
 
