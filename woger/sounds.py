@@ -16,9 +16,9 @@ import glob
 
 #the as alias allows re-imports
 from cyclic_list import cyclic_list as cyclic_list_func
+from data import data_dir
 
-
-SOUND_PATH = os.path.join("data", "sounds")
+SOUND_PATH = os.path.join(data_dir(), "sounds")
 
 
 def get_sound_list(path = SOUND_PATH):
@@ -229,7 +229,7 @@ class Sounds:
             #wait for the end music event, for now, CUT 
             music.stop()
 
-        fullname = os.path.join('data', 'music', musicname)
+        fullname = os.path.join(data_dir(), 'music', musicname)
         fullname_ogg = fullname + ".ogg"
         if os.path.exists(fullname_ogg):
             fullname = fullname_ogg

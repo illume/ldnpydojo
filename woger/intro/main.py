@@ -9,7 +9,7 @@ from pymunk import Vec2d
 from .world import World
 from .items import Platform, Spring, Word
 from render import Render
-
+from ..data import data_dir
 
         
 def main(window, handle_events):
@@ -48,7 +48,7 @@ def main(window, handle_events):
     world.add_spring(spring)
 
     
-    font_path = os.path.join("data", "fonts", "vinque", "vinque.ttf")
+    font_path = os.path.join(data_dir(), "fonts", "vinque", "vinque.ttf")
 
     fnt = font.Font(font_path, 36)
     surface = fnt.render('The adventures of...', True, (255,255,255))
