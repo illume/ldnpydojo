@@ -140,7 +140,6 @@ class Branch(GameRect):
  #       GameRect.__init__(self, 0, height/2, width, height)
         if y is None:
             y = height/2
-        print "HEIGHT ", y
         GameRect.__init__(self, 0, y, width, height)
         self.color = (128, 64, 0)
         self.role = "Branch"

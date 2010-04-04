@@ -227,7 +227,7 @@ class World(object):
         max_limit = len(self.leaves) - 1
         if len(self.leaves) == 0:
                 max_limit = 0 
-                print "End Level"
+##                print "End Level"
                 self.end_game = True
 
         else:
