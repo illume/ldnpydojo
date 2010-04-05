@@ -88,6 +88,9 @@ src = []
 add_files(src,os.walk('woger'))
 src.extend(glob.glob('*.py'))
 
+
+
+
 # build the sdist target
 if cmd == 'sdist':
     f = open("MANIFEST.in","w")
@@ -106,6 +109,13 @@ if cmd == 'sdist':
 
 # build the py2exe target
 if cmd in ('py2exe',):
+
+
+    import pymunk
+    pymunk_dir = os.path.dirname(pymunk.__file__)
+    data_files = [os.path.join(pymunk_dir, 'chipmunk.dll')]
+
+
     dist_dir = os.path.join('dist',cfg['py2exe.target'])
     data_dir = dist_dir
     
@@ -119,8 +129,12 @@ if cmd in ('py2exe',):
             'dll_excludes':['_dotblas.pyd','_numpy.pyd', 'numpy.linalg.lapack_lite.pyd', 'numpy.core._dotblas.pyd'] + files_to_remove,
             'excludes':['matplotlib', 'tcl', 'OpenGL'],
             'ignores':['matplotlib', 'tcl', 'OpenGL'],
+
+             "includes":["pygame.mixer", 'pygame.mixer_music'],
             'bundle_files':1,
             }},
+       data_files= data_files,
+
 #        windows=[{
        console=[{
             'script':dest,
@@ -172,6 +186,7 @@ if cmd in ('py2exe','cx_freeze','py2app'):
     dest = data_dir
     for fname in data:
         dname = os.path.join(dest,os.path.dirname(fname))
+        print dname
         make_dirs(dname)
         if not os.path.isdir(fname):
             shutil.copy(fname,dname)
