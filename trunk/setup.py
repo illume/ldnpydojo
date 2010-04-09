@@ -80,7 +80,7 @@ def add_files(dest,generator):
 
 # define what is our data
 data = []
-add_files(data,os.walk(os.path.join('woger','data')))
+add_files(data,os.walk(os.path.join('data')))
 
 data.extend(glob.glob('*.txt'))
 # define what is our source
@@ -111,9 +111,17 @@ if cmd == 'sdist':
 if cmd in ('py2exe',):
 
 
+    # copy in some required dlls.
+
     import pymunk
     pymunk_dir = os.path.dirname(pymunk.__file__)
     data_files = [os.path.join(pymunk_dir, 'chipmunk.dll')]
+
+    import pygame
+    pygame_dir = os.path.dirname(pygame.__file__)
+    data_files.extend( glob.glob(os.path.join(pygame_dir, '*.pyd')) )
+    data_files.extend( glob.glob(os.path.join(pygame_dir, '*.dll')) )
+
 
 
     dist_dir = os.path.join('dist',cfg['py2exe.target'])
@@ -132,6 +140,7 @@ if cmd in ('py2exe',):
 
              "includes":["pygame.mixer", 'pygame.mixer_music'],
             'bundle_files':1,
+            #'compressed':True,
             }},
        data_files= data_files,
 
